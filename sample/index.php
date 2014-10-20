@@ -13,7 +13,6 @@ $env = new nkm\RedsysVirtualPos\Environment\LiveEnvironment();
 $env->setSecret('ab12cd3e4fg56h7ijk89');
 
 $webRequest = new WebRequest($env);
-
 $webRequest->setParams([
     'amount'             => '24995',
     'currency'           => Currency::EUR,
@@ -32,11 +31,7 @@ $submitBtn = "<input type='submit' name='submit' value='Submit'>";
 var_dump($webRequest->getIsValid());
 var_dump($webRequest->getValidationErrors());
 
-$env = new nkm\RedsysVirtualPos\Environment\LiveEnvironment();
-$env->setSecret('ab12cd3e4fg56h7ijk89');
-
 $webResponse = new WebResponse($env);
-
 $webResponse->setParams([
     'transactionType'   => '0',
     'cardCountry'       => '280',
