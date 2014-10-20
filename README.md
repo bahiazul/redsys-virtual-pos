@@ -47,7 +47,7 @@ Initial (stealth) release
 Authors
 -------
 
-- [Javier Zapata](http://javi.io) ([Twitter](http://twitter.com/jzf82))
+- [Javier Zapata](http://javi.io) ([Twitter](https://twitter.com/jzf82))
 
 License
 -------
