@@ -1,0 +1,113 @@
+<?php
+/**
+ * Redsys Virtual POS
+ *
+ * Copyright (c) 2014, Javier Zapata <javierzapata82@gmail.com>.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in
+ *     the documentation and/or other materials provided with the
+ *     distribution.
+ *
+ *   * Neither the name of Javier Zapata nor the names of his
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @package    Redsys Virtual POS
+ * @author     Javier Zapata <javierzapata82@gmail.com>
+ * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://github.com/nkm/redsys-virtual-pos
+ */
+
+namespace nkm\RedsysVirtualPos\Field;
+
+/**
+ * Holds the value of a request/response parameter
+ *
+ * @package    Redsys Virtual POS
+ * @author     Javier Zapata <javierzapata82@gmail.com>
+ * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       http://github.com/nkm/redsys-virtual-pos
+ */
+class Currency extends AbstractField implements FieldInterface
+{
+    use ValidableTrait;
+
+    protected $name         = 'Currency';
+    protected $requestName  = 'Ds_Merchant_Currency';
+    protected $responseName = 'Ds_Currency';
+
+    const EUR = '978';
+    const USD = '840';
+    const GBP = '826';
+    const JPY = '392';
+    const ARS = '32';
+    const CAD = '124';
+    const CLP = '152';
+    const COP = '170';
+    const INR = '356';
+    const MXN = '484';
+    const PEN = '604';
+    const CHF = '756';
+    const BRL = '986';
+    const VEF = '937';
+    const TRL = '949';
+
+    protected static $availableValues = [
+        self::EUR => 'Euro',
+        self::USD => 'Dólar',
+        self::GBP => 'Libra Esterlina',
+        self::JPY => 'Yen',
+        self::ARS => 'Peso Argentino',
+        self::CAD => 'Dólar Canadiense',
+        self::CLP => 'Peso Chileno',
+        self::COP => 'Peso Colombiano',
+        self::INR => 'Rupia India',
+        self::MXN => 'Nuevo Peso Mejicano',
+        self::PEN => 'Nuevos Soles',
+        self::CHF => 'Franco Suizo',
+        self::BRL => 'Real Brasileño',
+        self::VEF => 'Bolívar Venezolano',
+        self::TRL => 'Lira Turca',
+    ];
+
+    /**
+     * @param mixed $value
+     */
+    public function __construct($value = null)
+    {
+        parent::__construct($value);
+
+        $this->defaultValue = self::EUR;
+
+        $keys = serialize(array_keys(self::getAvailableValues()));
+
+        $this->validationRules = [
+            'required',
+            "in_array({$keys})",
+        ];
+    }
+}

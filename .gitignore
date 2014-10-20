@@ -1,0 +1,10 @@
+*.sublime-project
+*.sublime-workspace
+/build/
+/cache/
+/tmp/
+vendor/
+report
+composer.lock
+composer.phar
+phpunit.xml
