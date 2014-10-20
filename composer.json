@@ -1,7 +1,7 @@
 {
     "name": "nkm/redsys-virtual-pos",
     "type": "library",
-    "description": "",
+    "description": "Redsys Virtual POS is an unofficial standalone PHP library to handle payments through the spanish payment service Redsys.",
     "keywords": ["pos", "tpv", "pasarela", "virtual", "payment", "refund", "pago", "devolucion", "redsys", "sermepa", "lacaixa", "sabadell", "web", "html", "xml"],
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
