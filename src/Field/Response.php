@@ -57,11 +57,11 @@ class Response extends AbstractField implements FieldInterface
     protected $name         = 'Response';
     protected $responseName = 'Ds_Response';
 
-    const TYPE_APPROVED         = '0';
-    const TYPE_REJECTED         = '1';
-    const TYPE_CANCEL_OR_REFUND = '2';
-    const TYPE_RECON_OR_PREAUTH = '3';
-    const TYPE_ERROR            = '4';
+    const TYPE_APPROVED         = 'approved';
+    const TYPE_REJECTED         = 'rejected';
+    const TYPE_CANCEL_OR_REFUND = 'cancel_or_refund';
+    const TYPE_RECON_OR_PREAUTH = 'recon_or_preauth';
+    const TYPE_ERROR            = 'error';
 
     /**
      * Holds every type of response
