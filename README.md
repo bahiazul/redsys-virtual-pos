@@ -15,11 +15,7 @@ Prerequisites
 Installation
 ------------
 
-You can install nkm/redsys-virtual-pos through Composer:
-
-```shell
-$ composer require nkm/redsys-virtual-pos:@stable
-```
+TBF
 
 Sample
 ------
@@ -38,6 +34,13 @@ TBF
 
 Authors
 -------
+
+### Version 0.1.3 (TBD)
+
+- Translate response type descriptions to Spanish for consistency
+- Improve naming of response types
+- `Response::getType()` now returns the type name instead of its description
+- Other minor fixes
 
 ### Version 0.1.2 (21 October 2014)
 
