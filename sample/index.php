@@ -33,20 +33,20 @@ var_dump($webRequest->getValidationErrors());
 
 $webResponse = new WebResponse($env);
 $webResponse->setParams([
-    'transactionType'   => '0',
-    'cardCountry'       => '280',
-    'date'              => '20/10/2014',
-    'securePayment'     => '1',
-    'signature'         => 'B3BA068B98FFFE4F2D717DA35E8855D10BDE4798',
-    'order'             => '141020090000',
-    'hour'              => '09:00',
-    'response'          => '0000',
-    'authorisationCode' => '123456',
-    'currency'          => '978',
-    'consumerLanguage'  => '5',
-    'merchantCode'      => '345678901',
-    'amount'            => '24995',
-    'terminal'          => '001',
+    'Ds_TransactionType'   => '0',
+    'Ds_Card_Country'      => '280',
+    'Ds_Date'              => '20/10/2014',
+    'Ds_SecurePayment'     => '1',
+    'Ds_Signature'         => 'B3BA068B98FFFE4F2D717DA35E8855D10BDE4798',
+    'Ds_Order'             => '141020090000',
+    'Ds_Hour'              => '09:00',
+    'Ds_Response'          => '0000',
+    'Ds_AuthorisationCode' => '123456',
+    'Ds_Currency'          => '978',
+    'Ds_ConsumerLanguage'  => '5',
+    'Ds_MerchantCode'      => '345678901',
+    'Ds_Amount'            => '24995',
+    'Ds_Terminal'          => '001',
 ]);
 
 var_dump($webResponse->getIsValid());

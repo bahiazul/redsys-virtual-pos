@@ -39,6 +39,10 @@ TBF
 Authors
 -------
 
+### Version 0.1.2 (21 October 2014)
+
+Rename the response fields to match Redsys's Online Response ones
+
 ### Version 0.1.0 (20 October 2014)
 
 Initial (stealth) release

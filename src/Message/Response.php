@@ -59,22 +59,22 @@ class Response extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $fields = [
-        'date'              => 'Date',
-        'hour'              => 'Hour',
-        'amount'            => 'Amount',
-        'currency'          => 'Currency',
-        'order'             => 'Order',
-        'merchantCode'      => 'MerchantCode',
-        'terminal'          => 'Terminal',
-        'signature'         => 'Signature',
-        'response'          => 'Response',
-        'transactionType'   => 'TransactionType',
-        'securePayment'     => 'SecurePayment',
-        'merchantData'      => 'MerchantData',
-        'cardCountry'       => 'CardCountry',
-        'authorisationCode' => 'AuthorisationCode',
-        'consumerLanguage'  => 'ConsumerLanguage',
-        'cardType'          => 'CardType',
+        'Ds_Date'              => 'Date',
+        'Ds_Hour'              => 'Hour',
+        'Ds_Amount'            => 'Amount',
+        'Ds_Currency'          => 'Currency',
+        'Ds_Order'             => 'Order',
+        'Ds_MerchantCode'      => 'MerchantCode',
+        'Ds_Terminal'          => 'Terminal',
+        'Ds_Signature'         => 'Signature',
+        'Ds_Response'          => 'Response',
+        'Ds_TransactionType'   => 'TransactionType',
+        'Ds_SecurePayment'     => 'SecurePayment',
+        'Ds_MerchantData'      => 'MerchantData',
+        'Ds_Card_Country'      => 'CardCountry',
+        'Ds_AuthorisationCode' => 'AuthorisationCode',
+        'Ds_ConsumerLanguage'  => 'ConsumerLanguage',
+        'Ds_Card_Type'         => 'CardType',
     ];
 
     /**
@@ -82,11 +82,11 @@ class Response extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $signatureFields = [
-        'amount',
-        'order',
-        'merchantCode',
-        'currency',
-        'response',
+        'Ds_Amount',
+        'Ds_Order',
+        'Ds_MerchantCode',
+        'Ds_Currency',
+        'Ds_Response',
     ];
 
     /**
@@ -98,7 +98,7 @@ class Response extends AbstractMessage implements MessageInterface
         $isValid = true;
         $validationErrors = [];
 
-        $responseSignature = $this->getParam('signature');
+        $responseSignature = $this->getParam('Ds_Signature');
         $checkSignature    = $this->generateSignature();
 
         if ($responseSignature->getValue() !== $checkSignature) {
