@@ -75,6 +75,7 @@ class Response extends AbstractMessage implements MessageInterface
         'Ds_AuthorisationCode' => 'AuthorisationCode',
         'Ds_ConsumerLanguage'  => 'ConsumerLanguage',
         'Ds_Card_Type'         => 'CardType',
+        'Ds_ErrorCode'         => 'ErrorCode',
     ];
 
     /**
