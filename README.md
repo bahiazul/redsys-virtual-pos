@@ -41,7 +41,9 @@ Authors
 
 ### Version 0.1.2 (21 October 2014)
 
-Rename the response fields to match Redsys's Online Response ones
+- Rename the response fields to match Redsys's Online Response ones
+- Add Error Code field to the Response
+- Add source implementation docs
 
 ### Version 0.1.0 (20 October 2014)
 
