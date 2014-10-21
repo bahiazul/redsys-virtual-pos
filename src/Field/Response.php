@@ -580,10 +580,7 @@ class Response extends AbstractField implements FieldInterface
         $this->ensureValidResponse($this->value);
         $responses = self::getResponses();
 
-        $typeKey = $responses[$this->responseKey]['type'];
-        $types   = self::getTypes();
-
-        return $types[$typeKey];
+        return $responses[$this->responseKey]['type'];
     }
 
     /**
