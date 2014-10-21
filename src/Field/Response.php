@@ -68,11 +68,11 @@ class Response extends AbstractField implements FieldInterface
      * @var array
      */
     private static $types = [
-        self::TYPE_APPROVED         => 'Approved transaction',
-        self::TYPE_REJECTED         => 'Rejected transaction. Either by generic reasons or by possible fraud.',
-        self::TYPE_CANCEL_OR_REFUND => 'Cancellation or refund',
-        self::TYPE_RECON_OR_PREAUTH => 'Reconciliation of Pre-authorisation or pre-authentication',
-        self::TYPE_ERROR            => 'Error sent by payment gateway of bank',
+        self::TYPE_APPROVED         => 'Transacción aprobada',
+        self::TYPE_REJECTED         => 'Transacción denegada. Bien por motivos genéricos o por indicios de fraude',
+        self::TYPE_CANCEL_OR_REFUND => 'Anulación o devolución',
+        self::TYPE_RECON_OR_PREAUTH => 'Conciliación de pre-autorización o pre-autenticación',
+        self::TYPE_ERROR            => 'Error enviado por la propia plataforma de pagos del banco',
     ];
 
     /**
