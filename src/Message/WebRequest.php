@@ -107,7 +107,7 @@ class WebRequest extends Request implements MessageInterface
         foreach ($params as $name => $param) {
             $value       = $param->getValue();
 
-            if (empty($value)) {
+            if ($value === '') {
                 continue;
             }
 
