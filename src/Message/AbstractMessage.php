@@ -43,6 +43,8 @@
 
 namespace nkm\RedsysVirtualPos\Message;
 
+use \nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+
 /**
  * Part of a communication for a monetary operation (a request or a reponse)
  *
@@ -93,7 +95,7 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @param EnvironmentInterface  $environment    The environment to set
      */
-    public function __construct(\nkm\RedsysVirtualPos\Environment\EnvironmentInterface $environment)
+    public function __construct(EnvironmentInterface $environment)
     {
         $this->environment = $environment;
     }

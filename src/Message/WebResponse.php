@@ -43,6 +43,8 @@
 
 namespace nkm\RedsysVirtualPos\Message;
 
+use \nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+
 /**
  * Request for a monetary operation through a HTML form
  *
@@ -57,7 +59,7 @@ class WebResponse extends Response implements MessageInterface
     /**
      * @param EnvironmentInterface  $environment    The environment to set
      */
-    public function __construct(\nkm\RedsysVirtualPos\Environment\EnvironmentInterface $environment)
+    public function __construct(EnvironmentInterface $environment)
     {
         parent::__construct($environment);
 
