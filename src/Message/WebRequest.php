@@ -42,10 +42,10 @@ class WebRequest extends Request implements MessageInterface
             'merchantData'       => 'MerchantData',
             'merchantName'       => 'MerchantName',
             'titular'            => 'Titular',
-            'merchantUrl'        => 'MerchantURL',
+            'merchantUrl'        => 'MerchantUrl',
             'productDescription' => 'ProductDescription',
-            'urlKo'              => 'UrlOK',
-            'urlOk'              => 'UrlKO',
+            'urlKo'              => 'UrlOk',
+            'urlOk'              => 'UrlKo',
             'transactionType'    => 'WebTransactionType',
         ]);
     }
