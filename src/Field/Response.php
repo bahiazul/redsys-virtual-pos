@@ -533,6 +533,22 @@ class Response extends AbstractField implements FieldInterface
     }
 
     /**
+     * @param  string $type
+     * @return string The description of the response type
+     * @throws FieldException If the type doesn't exists
+     */
+    public static function getTypeDescription($type)
+    {
+        $types = self::getTypes();
+
+        if (!isset($types[$type])) {
+            throw new FieldException("The specified Response Type doesn't exists.");
+        }
+
+        return $types[$type];
+    }
+
+    /**
      * @return array
      */
     public static function getTypes()
