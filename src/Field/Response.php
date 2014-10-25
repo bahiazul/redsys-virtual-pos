@@ -503,7 +503,7 @@ class Response extends AbstractField implements FieldInterface
     /**
      * @return array
      */
-    private static function getResponses()
+    public static function getResponses()
     {
         return (array) self::$responses;
     }
@@ -512,7 +512,7 @@ class Response extends AbstractField implements FieldInterface
      * @param  string  $code The response code
      * @return boolean
      */
-    private static function hasResponse($code)
+    public static function hasResponse($code)
     {
         return (bool) self::getResponseKey($code);
     }
@@ -521,7 +521,7 @@ class Response extends AbstractField implements FieldInterface
      * @param  string $code
      * @return array|null The response info or null if not found
      */
-    private static function getResponse($code)
+    public static function getResponse($code)
     {
         if (self::hasResponse($code)) {
             $responses = self::getResponses();
@@ -535,7 +535,7 @@ class Response extends AbstractField implements FieldInterface
     /**
      * @return array
      */
-    private static function getTypes()
+    public static function getTypes()
     {
         return (array) self::$types;
     }

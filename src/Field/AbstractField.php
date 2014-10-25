@@ -122,7 +122,7 @@ abstract class AbstractField implements FieldInterface
     /**
      * @return boolean
      */
-    private static function hasAvailableValues()
+    public static function hasAvailableValues()
     {
         return is_array(static::$availableValues) && !empty(static::$availableValues);
     }
@@ -131,7 +131,7 @@ abstract class AbstractField implements FieldInterface
      * @param   string      $key    The key of the value to get
      * @return  string|null
      */
-    private static function getAvailableValue($key)
+    public static function getAvailableValue($key)
     {
         if (!self::hasAvailableValue($key)) {
             return null;
@@ -144,7 +144,7 @@ abstract class AbstractField implements FieldInterface
      * @param  string $key The key of the value to check
      * @return boolean
      */
-    private static function hasAvailableValue($key)
+    public static function hasAvailableValue($key)
     {
         if (!self::hasAvailableValues()) {
             return false;

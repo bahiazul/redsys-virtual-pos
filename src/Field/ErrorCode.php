@@ -573,7 +573,7 @@ class ErrorCode extends AbstractField implements FieldInterface
     /**
      * @return array
      */
-    private static function getErrors()
+    public static function getErrors()
     {
         return (array) self::$errors;
     }
@@ -582,7 +582,7 @@ class ErrorCode extends AbstractField implements FieldInterface
      * @param  string  $code The error code
      * @return boolean
      */
-    private static function hasError($code)
+    public static function hasError($code)
     {
         $errors = self::getErrors();
 
@@ -593,7 +593,7 @@ class ErrorCode extends AbstractField implements FieldInterface
      * @param  string $code
      * @return array|null The error info or null if not found
      */
-    private static function getError($code)
+    public static function getError($code)
     {
         if (self::hasError($code)) {
             $errors = self::getErrors();
@@ -607,7 +607,7 @@ class ErrorCode extends AbstractField implements FieldInterface
     /**
      * @return array
      */
-    private static function getMessages()
+    public static function getMessages()
     {
         return (array) self::$messages;
     }
