@@ -74,7 +74,7 @@ class Request extends AbstractMessage implements MessageInterface
         // If the field is also part of the signature
         // we also generate it
         if (in_array($fieldName, $this->getSignatureFields())) {
-            $fieldClass = $this->getFieldClassName('signature');
+            $fieldClass = $this->resolveFieldClassName('signature');
             $rc = new \ReflectionClass($fieldClass);
             $this->params['signature'] = $rc->newInstanceArgs([$this->generateSignature()]);
         }

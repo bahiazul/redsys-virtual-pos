@@ -121,7 +121,7 @@ abstract class AbstractMessage implements MessageInterface
         $this->isValid = null;
         $this->validationErrors = null;
 
-        $fieldClass = $this->getFieldClassName($fieldName);
+        $fieldClass = $this->resolveFieldClassName($fieldName);
 
         try {
             $rc = new \ReflectionClass($fieldClass);
@@ -139,7 +139,7 @@ abstract class AbstractMessage implements MessageInterface
      */
     protected function getParam($fieldName)
     {
-        $fieldClass = $this->getFieldClassName($fieldName);
+        $fieldClass = $this->resolveFieldClassName($fieldName);
 
         if (!isset($this->params[$fieldName]) || !is_object($this->params[$fieldName])) {
             $rc = new \ReflectionClass($fieldClass);
@@ -214,7 +214,7 @@ abstract class AbstractMessage implements MessageInterface
      * @param  string $fieldName The field name
      * @return string            The field class name
      */
-    protected function getFieldClassName($fieldName)
+    protected function resolveFieldClassName($fieldName)
     {
         $fields = array_merge($this->getFields(), ['signature' => 'Signature']);
 
