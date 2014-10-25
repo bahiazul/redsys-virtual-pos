@@ -24,6 +24,11 @@ class Response extends AbstractMessage implements MessageInterface
 {
     /**
      * All the fields that can go in a response
+     *
+     * The array's keys should be underscore strings
+     * and its values be names of classes extending
+     * from AbstractField
+     *
      * @var array
      */
     protected $fields = [
