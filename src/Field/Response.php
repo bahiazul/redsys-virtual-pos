@@ -545,7 +545,7 @@ class Response extends AbstractField implements FieldInterface
      */
     public function getType()
     {
-        self::ensureValidResponse($this->value);
+        $this->ensureValidResponse($this->value);
         $responses = self::getResponses();
 
         return $responses[$this->responseKey]['type'];
@@ -556,7 +556,7 @@ class Response extends AbstractField implements FieldInterface
      */
     public function getTitle()
     {
-        self::ensureValidResponse($this->value);
+        $this->ensureValidResponse($this->value);
         $responses = self::getResponses();
 
         return $responses[$this->responseKey]['title'];
@@ -567,7 +567,7 @@ class Response extends AbstractField implements FieldInterface
      */
     public function getDescription()
     {
-        self::ensureValidResponse($this->value);
+        $this->ensureValidResponse($this->value);
         $responses = self::getResponses();
 
         return $responses[$this->responseKey]['description'];
