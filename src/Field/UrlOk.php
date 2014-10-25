@@ -24,8 +24,8 @@ class UrlOk extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'UrlKO';
-    protected $requestName  = 'Ds_Merchant_UrlKO';
+    protected $name         = 'UrlOK';
+    protected $requestName  = 'Ds_Merchant_UrlOK';
 
     /**
      * @param mixed $value
