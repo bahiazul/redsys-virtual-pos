@@ -42,6 +42,7 @@ Authors
 - `Response::getType()` now returns the type name instead of its description
 - Rename `AbstractMessage::getFieldClassName()` to `AbstractMessage::resolveFieldClassName()`
 - Lowercase field key names in order to ease integration with databases
+- Add method `Field\Response::getTypeDescription()`
 - Other minor fixes and improvements
 
 ### Version 0.1.2 (21 October 2014)
