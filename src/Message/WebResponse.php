@@ -32,7 +32,7 @@ class WebResponse extends Response implements MessageInterface
         parent::__construct($environment);
 
         $this->fields = array_merge($this->fields, [
-            'Ds_TransactionType' => 'WebTransactionType',
+            'ds_transactiontype' => 'WebTransactionType',
         ]);
     }
 }

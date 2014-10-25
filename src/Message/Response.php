@@ -32,23 +32,23 @@ class Response extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $fields = [
-        'Ds_Date'              => 'Date',
-        'Ds_Hour'              => 'Hour',
-        'Ds_Amount'            => 'Amount',
-        'Ds_Currency'          => 'Currency',
-        'Ds_Order'             => 'Order',
-        'Ds_MerchantCode'      => 'MerchantCode',
-        'Ds_Terminal'          => 'Terminal',
-        'Ds_Signature'         => 'Signature',
-        'Ds_Response'          => 'Response',
-        'Ds_TransactionType'   => 'TransactionType',
-        'Ds_SecurePayment'     => 'SecurePayment',
-        'Ds_MerchantData'      => 'MerchantData',
-        'Ds_Card_Country'      => 'CardCountry',
-        'Ds_AuthorisationCode' => 'AuthorisationCode',
-        'Ds_ConsumerLanguage'  => 'ConsumerLanguage',
-        'Ds_Card_Type'         => 'CardType',
-        'Ds_ErrorCode'         => 'ErrorCode',
+        'ds_date'              => 'Date',
+        'ds_hour'              => 'Hour',
+        'ds_amount'            => 'Amount',
+        'ds_currency'          => 'Currency',
+        'ds_order'             => 'Order',
+        'ds_merchantcode'      => 'MerchantCode',
+        'ds_terminal'          => 'Terminal',
+        'ds_signature'         => 'Signature',
+        'ds_response'          => 'Response',
+        'ds_transactiontype'   => 'TransactionType',
+        'ds_securepayment'     => 'SecurePayment',
+        'ds_merchantdata'      => 'MerchantData',
+        'ds_card_country'      => 'CardCountry',
+        'ds_authorisationcode' => 'AuthorisationCode',
+        'ds_consumerlanguage'  => 'ConsumerLanguage',
+        'ds_card_type'         => 'CardType',
+        'ds_errorcode'         => 'ErrorCode',
     ];
 
     /**
@@ -56,11 +56,11 @@ class Response extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $signatureFields = [
-        'Ds_Amount',
-        'Ds_Order',
-        'Ds_MerchantCode',
-        'Ds_Currency',
-        'Ds_Response',
+        'ds_amount',
+        'ds_order',
+        'ds_merchantcode',
+        'ds_currency',
+        'ds_response',
     ];
 
     /**
@@ -72,7 +72,7 @@ class Response extends AbstractMessage implements MessageInterface
         $isValid = true;
         $validationErrors = [];
 
-        $responseSignature = $this->getParam('Ds_Signature');
+        $responseSignature = $this->getParam('ds_signature');
         $checkSignature    = $this->generateSignature();
 
         if ($responseSignature->getValue() !== $checkSignature) {

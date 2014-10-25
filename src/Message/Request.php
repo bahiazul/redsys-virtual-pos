@@ -37,11 +37,11 @@ class Request extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $fields = [
-        'amount'       => 'Amount',
-        'currency'     => 'Currency',
-        'merchantCode' => 'MerchantCode',
-        'order'        => 'Order',
-        'terminal'     => 'Terminal',
+        'amount'        => 'Amount',
+        'currency'      => 'Currency',
+        'merchant_code' => 'MerchantCode',
+        'order'         => 'Order',
+        'terminal'      => 'Terminal',
     ];
 
     /**
@@ -51,10 +51,10 @@ class Request extends AbstractMessage implements MessageInterface
     protected $signatureFields = [
         'amount',
         'order',
-        'merchantCode',
+        'merchant_code',
         'currency',
-        'transactionType',
-        'merchantUrl',
+        'transaction_type',
+        'merchant_url',
     ];
 
     /**

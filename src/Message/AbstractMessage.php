@@ -126,6 +126,7 @@ abstract class AbstractMessage implements MessageInterface
         $this->isValid = null;
         $this->validationErrors = null;
 
+        $fieldName  = strtolower($fieldName);
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
         try {

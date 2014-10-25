@@ -37,16 +37,16 @@ class WebRequest extends Request implements MessageInterface
         parent::__construct($environment);
 
         $this->fields = array_merge($this->fields, [
-            'authorisationCode'  => 'AuthorisationCode',
-            'consumerLanguage'   => 'ConsumerLanguage',
-            'merchantData'       => 'MerchantData',
-            'merchantName'       => 'MerchantName',
-            'titular'            => 'Titular',
-            'merchantUrl'        => 'MerchantUrl',
-            'productDescription' => 'ProductDescription',
-            'urlKo'              => 'UrlOk',
-            'urlOk'              => 'UrlKo',
-            'transactionType'    => 'WebTransactionType',
+            'authorisation_code'  => 'AuthorisationCode',
+            'consumer_language'   => 'ConsumerLanguage',
+            'merchant_data'       => 'MerchantData',
+            'merchant_name'       => 'MerchantName',
+            'titular'             => 'Titular',
+            'merchant_url'        => 'MerchantUrl',
+            'product_description' => 'ProductDescription',
+            'url_ko'              => 'UrlOk',
+            'url_ok'              => 'UrlKo',
+            'transaction_type'    => 'WebTransactionType',
         ]);
     }
 
