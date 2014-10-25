@@ -40,7 +40,9 @@ Authors
 - Translate response type descriptions to Spanish for consistency
 - Improve naming of response types
 - `Response::getType()` now returns the type name instead of its description
-- Other minor fixes
+- Rename `AbstractMessage::getFieldClassName()` to `AbstractMessage::resolveFieldClassName()`
+- Lowercase field key names in order to ease integration with databases
+- Other minor fixes and improvements
 
 ### Version 0.1.2 (21 October 2014)
 
