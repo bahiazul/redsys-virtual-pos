@@ -41,15 +41,15 @@ class ErrorCode extends AbstractField implements FieldInterface
      * @var array
      */
     private static $messages = [
-        self::MSG_SYSTEM_BUSY                      => 'System occupied, try later',
-        self::MSG_ORDER_NUMBER_REPEATED            => 'Repeated order number',
-        self::MSG_CARD_PIN_NOT_REGISTERED          => 'Card Pin not registered on FINANET',
-        self::MSG_SYSTEM_NOT_READY                 => 'System launching, try again in a few moments',
-        self::MSG_AUTH_ERROR                       => 'Authentication Error',
-        self::MSG_CARD_NO_PAYMENT_METHOD_AVAILABLE => 'No valid payment method exists for your card',
-        self::MSG_CARD_NOT_ON_SERVICE              => 'Non-SERVICE CARD',
-        self::MSG_DATA_MISSING                     => 'Data missing, please check your browser accepts cookies',
-        self::MSG_DATA_SENT_ERROR                  => 'Error in data sent. Contact your merchant',
+        self::MSG_SYSTEM_BUSY                      => 'El sistema está ocupado, inténtelo más tarde',
+        self::MSG_ORDER_NUMBER_REPEATED            => 'Número de pedido repetido',
+        self::MSG_CARD_PIN_NOT_REGISTERED          => 'El BIN de la tarjeta no está dado de alta en FINANET',
+        self::MSG_SYSTEM_NOT_READY                 => 'El sistema está arrancando, inténtelo en unos momentos',
+        self::MSG_AUTH_ERROR                       => 'Error de Autenticación',
+        self::MSG_CARD_NO_PAYMENT_METHOD_AVAILABLE => 'No existe método de pago válido para su tarjeta',
+        self::MSG_CARD_NOT_ON_SERVICE              => 'Tarjeta ajena al servicio',
+        self::MSG_DATA_MISSING                     => 'Faltan datos, por favor compruebe que su navegador acepta cookies',
+        self::MSG_DATA_SENT_ERROR                  => 'Error en datos enviados. Contacte con su comercio',
     ];
 
     /**
@@ -57,515 +57,515 @@ class ErrorCode extends AbstractField implements FieldInterface
      */
     private static $errors = [
         'SIS0007' => [
-            'reason'  => "Error disassembling input XML",
+            'reason'  => "Error al desmontar XML de entrada",
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0008' => [
             'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Field missing',
+            'reason'  => 'Falta el campo',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0009' => [
             'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0010' => [
             'field'   => 'Ds_Merchant_Terminal',
-            'reason'  => 'Field missing',
+            'reason'  => 'Falta el campo',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0011' => [
             'field'   => 'Ds_Merchant_Terminal',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0014' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0015' => [
             'field'   => 'Ds_Merchant_Currency',
-            'reason'  => 'Field missing',
+            'reason'  => 'Falta el campo',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0016' => [
             'field'   => 'Ds_Merchant_Currency',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0018' => [
             'field'   => 'Ds_Merchant_Amount',
-            'reason'  => 'Field missing',
+            'reason'  => 'Falta el campo',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0019' => [
             'field'   => 'Ds_Merchant_Amount',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0020' => [
             'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Field missing',
+            'reason'  => 'Falta el campo',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0021' => [
             'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Field empty',
+            'reason'  => 'Campo sin datos',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0022' => [
             'field'   => 'Ds_TransactionType',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0023' => [
             'field'   => 'Ds_TransactionType',
-            'reason'  => 'Unknown value',
+            'reason'  => 'Valor desconocido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0024' => [
             'field'   => 'Ds_ConsumerLanguage',
-            'reason'  => 'Value exceeds 3 positions',
+            'reason'  => 'Valor excede de 3 posiciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0025' => [
             'field'   => 'Ds_ConsumerLanguage',
-            'reason'  => 'Format error',
+            'reason'  => 'Error de formato',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0026' => [
             'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Error Merchant inexistent / Terminal sent',
+            'reason'  => 'Error No existe el comercio / Terminal enviado',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0027' => [
             'field'   => 'Ds_Merchant_Currency',
-            'reason'  => 'Error currency does not match that assigned for that Terminal.',
+            'reason'  => 'Error moneda no coincide con asignada para ese Terminal.',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0028' => [
             'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Error Merchant/Terminal is de-registered',
+            'reason'  => 'Error Comercio/Terminal está dado de baja',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0030' => [
             'field'   => 'Ds_TransactionType',
-            'reason'  => 'In card payment a type of operation has arrived which is not payment nor pre-authorisation',
+            'reason'  => 'En un pago con tarjeta ha llegado un tipo de operación que no es ni pago ni preautoritzación',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0031' => [
             'field'   => 'Ds_Merchant_TransactionType',
-            'reason'  => 'Method of payment not defined',
+            'reason'  => 'Método de pago no definido',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0034' => [
-            'reason'  => 'Error accessing database',
+            'reason'  => 'Error en acceso a la Base de datos',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0038' => [
-            'reason'  => 'Error in JAVA',
+            'reason'  => 'Error en JAVA',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0040' => [
-            'reason'  => 'The merchant / Terminal has not assigned method of payment',
+            'reason'  => 'El comercio / Terminal no tiene ningún método de pago asignado',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0041' => [
             'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Error calculating HASH algorithm',
+            'reason'  => 'Error en el cálculo del algoritmo HASH',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0042' => [
             'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Error calculating HASH algorithm',
+            'reason'  => 'Error en el cálculo del algoritmo HASH',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0043' => [
-            'reason'  => 'Error making online notification',
+            'reason'  => 'Error al realizar la notificación online',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0046' => [
-            'reason'  => 'Card BIN (the first four digits of the card number) not registered',
+            'reason'  => 'El BIN (6 primeros dígitos de la tarjeta) no está dado de alta',
             'message' => self::MSG_CARD_PIN_NOT_REGISTERED,
         ],
 
         'SIS0051' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Repeated order number',
+            'reason'  => 'Número de pedido repetido',
             'message' => self::MSG_ORDER_NUMBER_REPEATED,
         ],
 
         'SIS0054' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'No operation to make refund',
+            'reason'  => 'No existe operación sobre la que realizar la devolución',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0055' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Operation to be refunded is not valid',
+            'reason'  => 'La operación sobre la que se desea realizar la devolución no es una operación válida',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0056' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Operation to be refunded is not authorised',
+            'reason'  => 'La operación sobre la que se desea realizar la devolución no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0057' => [
             'field'   => 'Ds_Merchant_Amount',
-            'reason'  => 'Amount to be refunded exceeds limit',
+            'reason'  => 'El importe a devolver supera el permitido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0058' => [
-            'reason'  => 'Inconsistent data in validation of confirmation',
+            'reason'  => 'Inconsistencia de datos, en la validación de una confirmación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0059' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Error, operation for confirmation does not exist',
+            'reason'  => 'Error, no existe la operación sobre la que realizar la confirmación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0060' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Confirmation for this pre-authorisation already exists',
+            'reason'  => 'Ya existe confirmación asociada a la preautorización',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0061' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'The pre-authorisation to be confirmed is not authorised',
+            'reason'  => 'La preautorización sobre la que se desea confirmar no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0062' => [
             'field'   => 'Ds_Merchant_Amount',
-            'reason'  => 'Amount to be confirmed exceeds limit',
+            'reason'  => 'El importe a confirmar supera el permitido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0063' => [
-            'reason'  => 'Error in card number',
+            'reason'  => 'Error en número de tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0064' => [
-            'reason'  => 'Error in card number',
+            'reason'  => 'Error en número de tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0065' => [
-            'reason'  => 'Error in card number',
+            'reason'  => 'Error en número de tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0066' => [
-            'reason'  => 'Error in card expiry date',
+            'reason'  => 'Error en caducidad tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0067' => [
-            'reason'  => 'Error in card expiry date',
+            'reason'  => 'Error en caducidad tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0068' => [
-            'reason'  => 'Error in card expiry date',
+            'reason'  => 'Error en caducidad tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0069' => [
-            'reason'  => 'Error in card expiry date',
+            'reason'  => 'Error en caducidad tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0070' => [
-            'reason'  => 'Error in card expiry date',
+            'reason'  => 'Error en caducidad tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0071' => [
-            'reason'  => 'Expired CARD',
+            'reason'  => 'Tarjeta caducada',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0072' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Operation cannot be cancelled',
+            'reason'  => 'Operación no anulable',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0074' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Field missing',
+            'reason'  => 'Falta el campo',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0075' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Value has fewer than 4 positions or more than 12',
+            'reason'  => 'El valor tiene menos de 4 posiciones o más de 12',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0076' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Value is not numerical',
+            'reason'  => 'El valor no es numérico',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0078' => [
             'field'   => 'Ds_TransactionType',
-            'reason'  => 'Unknown value',
+            'reason'  => 'Valor desconocido',
             'message' => self::MSG_CARD_NO_PAYMENT_METHOD_AVAILABLE,
         ],
 
         'SIS0093' => [
-            'reason'  => 'Card not found within table of ranges',
+            'reason'  => 'Tarjeta no encontrada en tabla de rangos',
             'message' => self::MSG_CARD_NOT_ON_SERVICE,
         ],
 
         'SIS0094' => [
-            'reason'  => 'Card not authenticated as 3D Secure',
+            'reason'  => 'La tarjeta no fue autenticada como 3D Secure',
             'message' => self::MSG_AUTH_ERROR,
         ],
 
         'SIS0112' => [
             'field'   => 'Ds_TransactionType',
-            'reason'  => 'Value not allowed',
+            'reason'  => 'Valor no permitido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0114' => [
-            'reason'  => 'A GET has been called instead of a POST',
+            'reason'  => 'Se ha llamado con un GET en lugar de un POST',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0115' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'No operation to make instalment payment',
+            'reason'  => 'No existe operación sobre la que realizar el pago de la cuota',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0116' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Operation for instalment payment is not valid.',
+            'reason'  => 'La operación sobre la que se desea pagar una cuota no es válida.',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0117' => [
             'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Operation for instalment payment is not authorised.',
+            'reason'  => 'La operación sobre la que se desea pagar una cuota no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0132' => [
-            'reason'  => 'The Confirmation of Authorisation date cannot exceed pre-authorisation date by more than 7 days',
+            'reason'  => 'La fecha de Confirmación de Autorización no puede superar en más de 7 días a la preautorización',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0133' => [
-            'reason'  => 'The confirmation of Authentication date cannot exceed prior authentication by more than 45 days',
+            'reason'  => 'La fecha de confirmación de Autenticación no puede superar en más de 45 días la autenticación previa',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0139' => [
-            'reason'  => 'Initial recurrent payment is duplicated',
+            'reason'  => 'El pago recurrente inicial está duplicado',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0142' => [
-            'reason'  => 'Time exceeded for payment',
+            'reason'  => 'Tiempo excedido para el pago',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0198' => [
-            'reason'  => 'Amount exceeds limit allowed for merchant',
+            'reason'  => 'Importe supera límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0199' => [
-            'reason'  => 'The number of operations exceeds limit allowed for merchant',
+            'reason'  => 'El número de operaciones supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0200' => [
-            'reason'  => 'Amount accumulated exceeds limit allowed for merchant',
+            'reason'  => 'El importe acumulado supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0214' => [
-            'reason'  => 'Merchant does not accept refunds',
+            'reason'  => 'El comercio no admite devoluciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0216' => [
-            'reason'  => 'The CVV2 has more than three positions',
+            'reason'  => 'El CVV2 tiene más de tres posiciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0217' => [
-            'reason'  => 'Format error in CVV2',
+            'reason'  => 'Error de formato en CVV2',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0218' => [
-            'reason'  => '“Operations” input does not allow secure payments',
+            'reason'  => 'La entrada “Operaciones” no permite pagos seguros',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0219' => [
-            'reason'  => 'The number of card operations exceeds limit allowed for merchant',
+            'reason'  => 'El número de operaciones de la tarjeta supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0220' => [
-            'reason'  => 'Accumulated amount of card exceeds limit allowed for merchant',
+            'reason'  => 'El importe acumulado de la tarjeta supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0221' => [
-            'reason'  => 'Error. The CVV2 is required:',
+            'reason'  => 'Error. El CVV2 es obligatorio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0222' => [
-            'reason'  => 'Cancellation for this pre-authorisation already exists',
+            'reason'  => 'Ya existe anulación asociada a la preautorización',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0223' => [
-            'reason'  => 'The pre-authorisation to be cancelled is not authorised',
+            'reason'  => 'La preautorización que se desea anular no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0224' => [
-            'reason'  => 'Merchant does not allow cancellations due to lack of extended signature',
+            'reason'  => 'El comercio no permite anulaciones por no tener firma ampliada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0225' => [
-            'reason'  => 'No operation to make cancellation',
+            'reason'  => 'No existe operación sobre la que realizar la anulación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0226' => [
-            'reason'  => 'Inconsistent data in validation of a cancellation',
+            'reason'  => 'Inconsistencia de datos en la validación de una anulación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0227' => [
             'field'   => 'Ds_Merchant_TransactionDate',
-            'reason'  => 'Invalid value',
+            'reason'  => 'Valor no válido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0229' => [
-            'reason'  => 'No deferred payment code requested',
+            'reason'  => 'No existe el código de pago aplazado solicitado',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0252' => [
-            'reason'  => 'Merchant does not allow card to be sent',
+            'reason'  => 'El comercio no permite el envío de tarjeta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0253' => [
-            'reason'  => 'Card does not comply with check-digit',
+            'reason'  => 'La tarjeta no cumple el check-digit',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0254' => [
-            'reason'  => 'The number of operations per IP exceeds limit allowed for merchant',
+            'reason'  => 'El número de operaciones por IP supera el máximo permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0255' => [
-            'reason'  => 'Amount accumulated per IP exceeds limit allowed for merchant',
+            'reason'  => 'El importe acumulado por IP supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0256' => [
-            'reason'  => 'Merchant cannot perform pre-authorisations.',
+            'reason'  => 'El comercio no puede realizar preautorizaciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0257' => [
-            'reason'  => 'Card does not allow pre-authorisations',
+            'reason'  => 'La tarjeta no permite preautorizaciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0258' => [
-            'reason'  => 'Inconsistent confirmation data',
+            'reason'  => 'Inconsistencia en datos de confirmación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0261' => [
-            'reason'  => 'Operation exceeds an operating limit defined by Banco Sabadell',
+            'reason'  => 'Operación supera alguna limitación de operatoria definida por Banco Sabadell',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0270' => [
             'field'   => 'Ds_Merchant_TransactionType',
-            'reason'  => 'Type of operation not activated for this merchant',
+            'reason'  => 'Tipo de operación no activado para este comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0274' => [
             'field'   => 'Ds_Merchant_TransactionType',
-            'reason'  => 'Type of operation unknown or not allowed for this input to the SIS.',
+            'reason'  => 'Tipo de operación desconocida o no permitida para esta entrada al TPV Virtual.',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0281' => [
-            'reason'  => 'Operation exceeds an operating limit defined by Banco Sabadell',
+            'reason'  => 'Operación supera alguna limitación de operatoria definida por Banco Sabadell.',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0296' => [
-            'reason'  => 'Error validating initial operation data “Card on File (Subscriptions P./Express P)”.',
+            'reason'  => 'Error al validar los datos de la operación “Tarjeta en Archivo (P.Suscripciones/P.Exprés)” inicial.',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0297' => [
-            'reason'  => 'Maximum number of operations exceeded (99 oper. or 1 year) for successive transactions in “Card on File (Subscriptions P. /Express P.)”. A new “Initial File Card” operation is necessary to start the cycle.',
+            'reason'  => 'Superado el número máximo de operaciones (99 oper. o 1 año) para realizar transacciones sucesivas de “Tarjeta en Archivo (P.Suscripciones/P.Exprés)”. Se requiere realizar una nueva operación de “Tarjeta en Archivo Inicial” para iniciar el ciclo..',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0298' => [
-            'reason'  => 'Merchant not configured to make “Card on File (Subscriptions/Express P.)”',
+            'reason'  => 'El comercio no está configurado para realizar “Tarjeta en Archivo (P.Suscripciones/P.Exprés)”',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
     ];
