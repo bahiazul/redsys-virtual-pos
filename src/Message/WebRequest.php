@@ -44,8 +44,8 @@ class WebRequest extends Request implements MessageInterface
             'titular'            => 'Titular',
             'merchanturl'        => 'MerchantUrl',
             'productdescription' => 'ProductDescription',
-            'urlko'              => 'UrlOk',
-            'urlok'              => 'UrlKo',
+            'urlko'              => 'UrlKo',
+            'urlok'              => 'UrlOk',
             'transactiontype'    => 'WebTransactionType',
         ]);
     }
