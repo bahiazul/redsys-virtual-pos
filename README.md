@@ -35,9 +35,9 @@ TBF
 Authors
 -------
 
-### Version 0.1.3 (TBD)
+### Version 0.1.3 (27 October 2014)
 
-- Translate response type descriptions to Spanish for consistency
+- Translate response type descriptions and error messages to Spanish for consistency
 - Improve naming of response types
 - `Response::getType()` now returns the type name instead of its description
 - Rename `AbstractMessage::getFieldClassName()` to `AbstractMessage::resolveFieldClassName()`
