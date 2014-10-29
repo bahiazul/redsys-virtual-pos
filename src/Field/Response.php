@@ -22,31 +22,42 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class Response extends AbstractField implements FieldInterface
 {
+    const ERROR_UNKNOWN_CODE = 'Código de respuesta desconocido';
+    const ERROR_UNKNOWN_TYPE = 'Tipo de respuesta desconocido';
+
     protected $name         = 'Response';
     protected $responseName = 'Ds_Response';
 
-    const TYPE_APPROVED         = 'approved';
-    const TYPE_REJECTED         = 'rejected';
-    const TYPE_CANCEL_OR_REFUND = 'cancel_or_refund';
-    const TYPE_RECON_OR_PREAUTH = 'recon_or_preauth';
-    const TYPE_ERROR            = 'error';
+    const TYPE_APPROVED         = 'APPROVED';
+    const TYPE_REJECTED         = 'REJECTED';
+    const TYPE_CANCEL_OR_REFUND = 'CANCEL_OR_REFUND';
+    const TYPE_RECON_OR_PREAUTH = 'RECON_OR_PREAUTH';
+    const TYPE_ERROR            = 'ERROR';
+    const TYPE_UNKNOWN          = 'UNKNOWN';
 
     /**
      * Holds every type of response
      * @var array
      */
-    private static $types = [
+    private static $typeDescriptions = [
         self::TYPE_APPROVED         => 'Transacción aprobada',
         self::TYPE_REJECTED         => 'Transacción denegada. Bien por motivos genéricos o por indicios de fraude',
         self::TYPE_CANCEL_OR_REFUND => 'Anulación o devolución',
         self::TYPE_RECON_OR_PREAUTH => 'Conciliación de pre-autorización o pre-autenticación',
         self::TYPE_ERROR            => 'Error enviado por la propia plataforma de pagos del banco',
+        self::TYPE_UNKNOWN          => self::ERROR_UNKNOWN_TYPE,
     ];
 
     /**
      * @var array
      */
     private static $responses = [
+        'UNKNOWN' => [
+            'type'        => self::TYPE_UNKNOWN,
+            'title'       => self::ERROR_UNKNOWN_CODE,
+            'description' => self::ERROR_UNKNOWN_CODE,
+        ],
+
         '0000' => [
             'type'        => self::TYPE_APPROVED,
             'title'       => "TRANSACCION APROBADA",
@@ -514,7 +525,7 @@ class Response extends AbstractField implements FieldInterface
      */
     public static function hasResponse($code)
     {
-        return (bool) self::getResponseKey($code);
+        return self::getResponseKey($code) !== 'UNKNOWN';
     }
 
     /**
@@ -523,37 +534,45 @@ class Response extends AbstractField implements FieldInterface
      */
     public static function getResponse($code)
     {
-        if (self::hasResponse($code)) {
-            $responses = self::getResponses();
-
-            return $responses[$code];
+        $responses = self::getResponses();
+        if (!self::hasResponse($code)) {
+            return $responses['UNKNOWN'];
         }
 
-        return null;
-    }
-
-    /**
-     * @param  string $type
-     * @return string The description of the response type
-     * @throws FieldException If the type doesn't exists
-     */
-    public static function getTypeDescription($type)
-    {
-        $types = self::getTypes();
-
-        if (!isset($types[$type])) {
-            throw new FieldException("The specified Response Type doesn't exists.");
-        }
-
-        return $types[$type];
+        return $responses[$code];
     }
 
     /**
      * @return array
      */
-    public static function getTypes()
+    public static function getTypeDescriptions()
     {
-        return (array) self::$types;
+        return (array) self::$typeDescriptions;
+    }
+
+    /**
+     * @param  string  $type The type code
+     * @return boolean
+     */
+    public static function hasTypeDescription($type)
+    {
+        $typeDescriptions = self::getTypeDescriptions();
+
+        return array_key_exists($type, $typeDescriptions);
+    }
+
+    /**
+     * @param  string $type
+     * @return string The description of the response type
+     */
+    public static function getTypeDescription($type)
+    {
+        $typeDescriptions = self::getTypeDescriptions();
+        if (!self::hasTypeDescription($type)) {
+            return $typeDescriptions[self::TYPE_UNKNOWN];
+        }
+
+        return $typeDescriptions[$type];
     }
 
     /**
@@ -561,10 +580,13 @@ class Response extends AbstractField implements FieldInterface
      */
     public function getType()
     {
-        $this->ensureValidResponse($this->value);
-        $responses = self::getResponses();
+        $response = self::getResponse($this->responseKey);
 
-        return $responses[$this->responseKey]['type'];
+        if (!isset($response['type'])) {
+            return null;
+        }
+
+        return $response['type'];
     }
 
     /**
@@ -572,10 +594,13 @@ class Response extends AbstractField implements FieldInterface
      */
     public function getTitle()
     {
-        $this->ensureValidResponse($this->value);
-        $responses = self::getResponses();
+        $response = self::getResponse($this->responseKey);
 
-        return $responses[$this->responseKey]['title'];
+        if (!isset($response['title'])) {
+            return null;
+        }
+
+        return $response['title'];
     }
 
     /**
@@ -583,10 +608,13 @@ class Response extends AbstractField implements FieldInterface
      */
     public function getDescription()
     {
-        $this->ensureValidResponse($this->value);
-        $responses = self::getResponses();
+        $response = self::getResponse($this->responseKey);
 
-        return $responses[$this->responseKey]['description'];
+        if (!isset($response['description'])) {
+            return null;
+        }
+
+        return $response['description'];
     }
 
     /**
@@ -595,6 +623,10 @@ class Response extends AbstractField implements FieldInterface
     public function getIsApproved()
     {
         $response = self::getResponse($this->responseKey);
+
+        if (!isset($response['type'])) {
+            return null;
+        }
 
         return $response['type'] === self::TYPE_APPROVED;
     }
@@ -606,6 +638,10 @@ class Response extends AbstractField implements FieldInterface
     {
         $response = self::getResponse($this->responseKey);
 
+        if (!isset($response['type'])) {
+            return null;
+        }
+
         return $response['type'] === self::TYPE_REJECTED;
     }
 
@@ -615,6 +651,10 @@ class Response extends AbstractField implements FieldInterface
     public function getIsCancelOrRefund()
     {
         $response = self::getResponse($this->responseKey);
+
+        if (!isset($response['type'])) {
+            return null;
+        }
 
         return $response['type'] === self::TYPE_CANCEL_OR_REFUND;
     }
@@ -626,6 +666,10 @@ class Response extends AbstractField implements FieldInterface
     {
         $response = self::getResponse($this->responseKey);
 
+        if (!isset($response['type'])) {
+            return null;
+        }
+
         return $response['type'] === self::TYPE_RECON_OR_PREAUTH;
     }
 
@@ -636,22 +680,11 @@ class Response extends AbstractField implements FieldInterface
     {
         $response = self::getResponse($this->responseKey);
 
+        if (!isset($response['type'])) {
+            return null;
+        }
+
         return $response['type'] === self::TYPE_ERROR;
-    }
-
-    /**
-     * @param  string $code The response code
-     * @throws Exception If the code is not valid
-     */
-    private static function ensureValidResponse($code)
-    {
-        if (is_null($code)) {
-            throw new FieldException("Response code is not defined.");
-        }
-
-        if (is_null(self::getResponseKey($code))) {
-            throw new FieldException("Invalid Response code.");
-        }
     }
 
     /**
@@ -661,6 +694,10 @@ class Response extends AbstractField implements FieldInterface
      */
     private static function getResponseKey($code)
     {
+        if (is_null($code) || $code === '' || preg_match('/^[\d]+$/', $code) !== 1) {
+            return 'UNKNOWN';
+        }
+
         $codeInt      = intval($code);
         $codePad      = self::pad($code);
         $responseKeys = array_keys(self::getResponses());
@@ -700,6 +737,12 @@ class Response extends AbstractField implements FieldInterface
      */
     private static function pad($str)
     {
-        return str_pad(intval($str), 4, '0', STR_PAD_LEFT);
+        if (!is_numeric($str)) {
+            return $str;
+        }
+
+        $str = intval($str);
+
+        return str_pad($str, 4, '0', STR_PAD_LEFT);
     }
 }
