@@ -22,6 +22,8 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class ErrorCode extends AbstractField implements FieldInterface
 {
+    const ERROR_UNKNOWN_CODE    = 'Código de error desconocido';
+    const ERROR_UNKNOWN_MESSAGE = 'Mensaje mostrado al cliente desconocido';
 
     protected $name         = 'ErrorCode';
     protected $responseName = 'Ds_ErrorCode';
@@ -35,12 +37,13 @@ class ErrorCode extends AbstractField implements FieldInterface
     const MSG_CARD_NOT_ON_SERVICE              = 'MSG0006';
     const MSG_DATA_MISSING                     = 'MSG0007';
     const MSG_DATA_SENT_ERROR                  = 'MSG0008';
+    const MSG_UNKNOWN                          = 'UNKNOWN';
 
     /**
      * Holds every kind of error
      * @var array
      */
-    private static $messages = [
+    private static $messageDescriptions = [
         self::MSG_SYSTEM_BUSY                      => 'El sistema está ocupado, inténtelo más tarde',
         self::MSG_ORDER_NUMBER_REPEATED            => 'Número de pedido repetido',
         self::MSG_CARD_PIN_NOT_REGISTERED          => 'El BIN de la tarjeta no está dado de alta en FINANET',
@@ -50,12 +53,19 @@ class ErrorCode extends AbstractField implements FieldInterface
         self::MSG_CARD_NOT_ON_SERVICE              => 'Tarjeta ajena al servicio',
         self::MSG_DATA_MISSING                     => 'Faltan datos, por favor compruebe que su navegador acepta cookies',
         self::MSG_DATA_SENT_ERROR                  => 'Error en datos enviados. Contacte con su comercio',
+        self::MSG_UNKNOWN                          => self::ERROR_UNKNOWN_MESSAGE,
     ];
 
     /**
      * @var array
      */
     private static $errors = [
+        'UNKNOWN' => [
+            'field'   => self::ERROR_UNKNOWN_CODE,
+            'reason'  => self::ERROR_UNKNOWN_CODE,
+            'message' => self::MSG_UNKNOWN,
+        ],
+
         'SIS0007' => [
             'reason'  => "Error al desmontar XML de entrada",
             'message' => self::MSG_DATA_SENT_ERROR,
@@ -595,21 +605,45 @@ class ErrorCode extends AbstractField implements FieldInterface
      */
     public static function getError($code)
     {
-        if (self::hasError($code)) {
-            $errors = self::getErrors();
-
-            return $errors[$code];
+        $errors = self::getErrors();
+        if (!self::hasError($code)) {
+            return $errors['UNKNOWN'];
         }
 
-        return null;
+        return $errors[$code];
     }
 
     /**
      * @return array
      */
-    public static function getMessages()
+    public static function getMessageDescriptions()
     {
-        return (array) self::$messages;
+        return (array) self::$messageDescriptions;
+    }
+
+    /**
+     * @param  string  $message The message code
+     * @return boolean
+     */
+    public static function hasMessageDescription($message)
+    {
+        $messageDescriptions = self::getMessageDescriptions();
+
+        return array_key_exists($message, $messageDescriptions);
+    }
+
+    /**
+     * @param  string $message
+     * @return string The description of the message type
+     */
+    public static function getMessageDescription($message)
+    {
+        $messageDescriptions = self::getMessageDescriptions();
+        if (!self::hasMessageDescription($message)) {
+            return $messageDescriptions[self::MSG_UNKNOWN];
+        }
+
+        return $messageDescriptions[$message];
     }
 
     /**
@@ -617,14 +651,13 @@ class ErrorCode extends AbstractField implements FieldInterface
      */
     public function getField()
     {
-        $this->ensureValidCode($this->value);
-        $errors = self::getErrors();
+        $error = self::getError($this->value);
 
-        if (isset($errors[$this->value]['field'])) {
-            return $errors[$this->value]['field'];
+        if (!isset($error['field'])) {
+            return null;
         }
 
-        return null;
+        return $error['field'];
     }
 
     /**
@@ -632,10 +665,13 @@ class ErrorCode extends AbstractField implements FieldInterface
      */
     public function getReason()
     {
-        $this->ensureValidCode($this->value);
-        $errors = self::getErrors();
+        $error = self::getError($this->value);
 
-        return $errors[$this->value]['reason'];
+        if (!isset($error['reason'])) {
+            return null;
+        }
+
+        return $error['reason'];
     }
 
     /**
@@ -643,27 +679,12 @@ class ErrorCode extends AbstractField implements FieldInterface
      */
     public function getMessage()
     {
-        $this->ensureValidCode($this->value);
-        $errors = self::getErrors();
+        $error = self::getError($this->value);
 
-        $messageKey = $errors[$this->value]['message'];
-        $messages   = self::getMessages();
-
-        return $messages[$messageKey];
-    }
-
-    /**
-     * @param  string $code The error code
-     * @throws Exception If the code is not valid
-     */
-    private static function ensureValidCode($code)
-    {
-        if (is_null($code)) {
-            throw new FieldException("Error code is not defined.");
+        if (!isset($error['message'])) {
+            return null;
         }
 
-        if (is_null(self::getError($code))) {
-            throw new FieldException("Invalid Error code.");
-        }
+        return $error['message'];
     }
 }
