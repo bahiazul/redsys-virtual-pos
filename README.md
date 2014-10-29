@@ -35,6 +35,10 @@ TBF
 Authors
 -------
 
+### Version 0.2.0 (29 October 2014)
+
+- Handle unknown or empty Error and Response codes gracefully
+
 ### Version 0.1.3 (27 October 2014)
 
 - Translate response type descriptions and error messages to Spanish for consistency
