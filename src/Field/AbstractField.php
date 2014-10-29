@@ -129,7 +129,7 @@ abstract class AbstractField implements FieldInterface
 
     /**
      * @param   string      $key    The key of the value to get
-     * @return  string|null
+     * @return  string
      */
     public static function getAvailableValue($key)
     {

@@ -591,7 +591,7 @@ class ErrorCode extends AbstractField implements FieldInterface
 
     /**
      * @param  string $code
-     * @return array|null The error info or null if not found
+     * @return array The error info or null if not found
      */
     public static function getError($code)
     {

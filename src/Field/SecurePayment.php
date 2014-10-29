@@ -36,7 +36,7 @@ class SecurePayment extends AbstractField implements FieldInterface
     ];
 
     /**
-     * @return boolean|null
+     * @return boolean
      */
     public function getIsSecure()
     {

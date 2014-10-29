@@ -28,17 +28,17 @@ interface FieldInterface
     public function __construct($value = null);
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getName();
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getRequestName();
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getResponseName();
 

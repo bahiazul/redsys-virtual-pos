@@ -519,7 +519,7 @@ class Response extends AbstractField implements FieldInterface
 
     /**
      * @param  string $code
-     * @return array|null The response info or null if not found
+     * @return array The response info or null if not found
      */
     public static function getResponse($code)
     {
@@ -657,7 +657,7 @@ class Response extends AbstractField implements FieldInterface
     /**
      * Get the corresponding key of the set of responses from a given response code
      * @param  string $code
-     * @return string|null The key of the responses array or null if not found
+     * @return string The key of the responses array or null if not found
      */
     private static function getResponseKey($code)
     {
