@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\TestEnvironment
+ * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\IntegrationEnvironment
  */
-class TestEnvironmentTest extends PHPUnit_Framework_TestCase
+class IntegrationEnvironmentTest extends PHPUnit_Framework_TestCase
 {
-    private $className          = '\nkm\RedsysVirtualPos\Environment\TestEnvironment';
+    private $className          = '\nkm\RedsysVirtualPos\Environment\IntegrationEnvironment';
     private $exceptionClassName = '\nkm\RedsysVirtualPos\Environment\EnvironmentException';
 
     private $environment;
@@ -81,10 +81,10 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
     public function getEndpointProvider()
     {
         return [
-            [true,  '/whatevs',                'https://sis-t.redsys.es:25443/whatevs'],
-            [true,  '/Oh-My-Glob',             'https://sis-t.redsys.es:25443/Oh-My-Glob'],
-            [true,  'this-is-wrong-but-valid', 'https://sis-t.redsys.es:25443this-is-wrong-but-valid'],
-            [false, 'this-is-not-valid',       'https://sis-t.redsys.es:25443/this-is-not-valid'],
+            [true,  '/whatevs',                'https://sis-i.redsys.es:25443/whatevs'],
+            [true,  '/Oh-My-Glob',             'https://sis-i.redsys.es:25443/Oh-My-Glob'],
+            [true,  'this-is-wrong-but-valid', 'https://sis-i.redsys.es:25443this-is-wrong-but-valid'],
+            [false, 'this-is-not-valid',       'https://sis-i.redsys.es:25443/this-is-not-valid'],
             [false, 'this-is-not-valid',       ''],
         ];
     }

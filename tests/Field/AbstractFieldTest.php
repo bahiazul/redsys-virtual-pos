@@ -18,9 +18,39 @@ class ConcreteField extends \nkm\RedsysVirtualPos\Field\AbstractField
 {
 }
 
+/**
+ * @coversDefaultClass \nkm\RedsysVirtualPos\Field\AbstractField
+ */
+class ConcreteRequestField extends \nkm\RedsysVirtualPos\Field\AbstractField
+{
+    protected $inRequest = true;
+}
+
+/**
+ * @coversDefaultClass \nkm\RedsysVirtualPos\Field\AbstractField
+ */
+class ConcreteResponseField extends \nkm\RedsysVirtualPos\Field\AbstractField
+{
+    protected $inResponse = true;
+}
+
 class AbstractFieldTest extends PHPUnit_Framework_TestCase
 {
     private $className = '\nkm\RedsysVirtualPos\Field\AbstractField';
+
+    private $field;
+
+    public function setUp()
+    {
+        $this->field = $this->getMockForAbstractClass(
+            $this->className,
+            [],
+            '',
+            false,
+            true,
+            true
+        );
+    }
 
     /**
      * @covers ::__construct
@@ -58,7 +88,7 @@ class AbstractFieldTest extends PHPUnit_Framework_TestCase
     {
         $concreteField = new ConcreteField();
 
-        $this->assertSame('', $concreteField->getName());
+        $this->assertSame('ConcreteField', $concreteField->getName());
     }
 
     /**
@@ -66,9 +96,9 @@ class AbstractFieldTest extends PHPUnit_Framework_TestCase
      */
     public function testgetRequestNameDefault()
     {
-        $concreteField = new ConcreteField();
+        $concreteField = new ConcreteRequestField();
 
-        $this->assertSame('', $concreteField->getRequestName());
+        $this->assertSame('Ds_Merchant_ConcreteRequestField', $concreteField->getRequestName());
     }
 
     /**
@@ -76,77 +106,9 @@ class AbstractFieldTest extends PHPUnit_Framework_TestCase
      */
     public function testgetResponseNameDefault()
     {
-        $concreteField = new ConcreteField();
+        $concreteField = new ConcreteResponseField();
 
-        $this->assertSame('', $concreteField->getResponseName());
-    }
-
-    public function getNameProvider()
-    {
-        return [
-            ['',           ''],
-            [0,            '0'],
-            [0.0,          '0'],
-            ['0',          '0'],
-            [null,         ''],
-            [[],           ''],
-            [new stdClass, ''],
-            ['whatevs',    'whatevs'],
-        ];
-    }
-
-    /**
-     * @covers          ::getName
-     * @dataProvider    getNameProvider
-     */
-    public function testGetName($actual, $expected)
-    {
-        $concreteField = new ConcreteField();
-        $rc = new ReflectionClass($concreteField);
-
-        $rp = $rc->getProperty('name');
-        $rp->setAccessible(true);
-        $rp->setValue($concreteField, $actual);
-
-        $rm = $rc->getMethod('getName');
-
-        $this->assertEquals($expected, $rm->invoke($concreteField));
-    }
-
-    /**
-     * @covers          ::getRequestName
-     * @dataProvider    getNameProvider
-     */
-    public function testGetRequestName($actual, $expected)
-    {
-        $concreteField = new ConcreteField();
-        $rc = new ReflectionClass($concreteField);
-
-        $rp = $rc->getProperty('requestName');
-        $rp->setAccessible(true);
-        $rp->setValue($concreteField, $actual);
-
-        $rm = $rc->getMethod('getRequestName');
-
-        $this->assertEquals($expected, $rm->invoke($concreteField));
-    }
-
-    /**
-     * @covers          ::getResponseName
-     * @dataProvider    getNameProvider
-     */
-    public function testGetResponseName($actual, $expected)
-    {
-        $concreteField = new ConcreteField();
-        $rc = new ReflectionClass($concreteField);
-
-        $rp = $rc->getProperty('responseName');
-        $rp->setAccessible(true);
-        $rp->setValue($concreteField, $actual);
-
-        $rm = $rc->getMethod('getResponseName');
-
-        $this->assertEquals($expected, $rm->invoke($concreteField));
+        $this->assertSame('Ds_ConcreteResponseField', $concreteField->getResponseName());
     }
 
     /**
@@ -265,19 +227,68 @@ class AbstractFieldTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected[$lastKey], $getAvailableValueRM->invokeArgs(null, [$lastKey]));
     }
 
-    /**
-     * @covers ::setValue
-     */
-    public function testSetValue()
+    public function setValueProvider()
     {
-        $this->markTestIncomplete('Not yet implemented');
+        return [
+            ['', ''],
+            ['whatevs', 'whatevs'],
+            [0, '0'],
+            [0.0, '0.0'],
+            [null, ''],
+            [false, ''],
+            [[], ''],
+            [[1,2,3], ''],
+            [new stdClass, ''],
+            [new SimpleXMLElement('<yo>dude!</yo>'), 'dude!'],
+        ];
     }
 
     /**
-     * @covers ::getValue
+     * @covers          ::setValue
+     * @dataProvider    setValueProvider
      */
-    public function testGetValue()
+    public function testSetValue($actual, $expected)
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $concreteField   = new ConcreteField();
+        $concreteField->setValue($actual);
+
+        $concreteFieldRC = new ReflectionClass($concreteField);
+
+        $valueRP = $concreteFieldRC->getProperty('value');
+        $valueRP->setAccessible(true);
+
+        $this->assertEquals($expected, $valueRP->getValue($concreteField));
+    }
+
+    public function getValueProvider()
+    {
+        return [
+            [''],
+            [0],
+            [0.0],
+            ['0'],
+            [null],
+            [[]],
+            [new stdClass],
+        ];
+    }
+
+    /**
+     * @covers          ::getValue
+     * @dataProvider    getValueProvider
+     */
+    public function testGetValue($actual)
+    {
+        $concreteField   = new ConcreteField();
+        $concreteFieldRC = new ReflectionClass($concreteField);
+
+        $valueRP = $concreteFieldRC->getProperty('value');
+        $valueRP->setAccessible(true);
+        $valueRP->setValue($concreteField, $actual);
+
+        $getValueRM = $concreteFieldRC->getMethod('getValue');
+        $getValueRM->setAccessible(true);
+
+        $this->assertEquals($actual, $getValueRM->invokeArgs($concreteField, []));
     }
 }

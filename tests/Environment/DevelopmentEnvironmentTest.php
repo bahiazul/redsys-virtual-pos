@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\TestEnvironment
+ * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment
  */
-class TestEnvironmentTest extends PHPUnit_Framework_TestCase
+class DevelopmentEnvironmentTest extends PHPUnit_Framework_TestCase
 {
-    private $className          = '\nkm\RedsysVirtualPos\Environment\TestEnvironment';
+    private $className          = '\nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment';
     private $exceptionClassName = '\nkm\RedsysVirtualPos\Environment\EnvironmentException';
 
     private $environment;
@@ -33,12 +33,7 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSecretDefault()
     {
-        $this->setExpectedException(
-            $this->exceptionClassName,
-            'Merchant secret is not set.'
-        );
-
-        $this->environment->getSecret();
+        $this->assertEquals('Mk9m98IfEblmPfrpsawt7BmxObt98Jev', $this->environment->getSecret());
     }
 
     /**
@@ -68,7 +63,7 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers          ::setSecret
+     * @covers          \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment::setSecret
      * @dataProvider    setSecretProvider
      */
     public function testSetSecret($newSecret)
@@ -81,16 +76,16 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
     public function getEndpointProvider()
     {
         return [
-            [true,  '/whatevs',                'https://sis-t.redsys.es:25443/whatevs'],
-            [true,  '/Oh-My-Glob',             'https://sis-t.redsys.es:25443/Oh-My-Glob'],
-            [true,  'this-is-wrong-but-valid', 'https://sis-t.redsys.es:25443this-is-wrong-but-valid'],
-            [false, 'this-is-not-valid',       'https://sis-t.redsys.es:25443/this-is-not-valid'],
+            [true,  '/whatevs',                'http://sis-d.redsys.es/whatevs'],
+            [true,  '/Oh-My-Glob',             'http://sis-d.redsys.es/Oh-My-Glob'],
+            [true,  'this-is-wrong-but-valid', 'http://sis-d.redsys.esthis-is-wrong-but-valid'],
+            [false, 'this-is-not-valid',       'http://sis-d.redsys.es/this-is-not-valid'],
             [false, 'this-is-not-valid',       ''],
         ];
     }
 
     /**
-     * @covers          ::getEndpoint
+     * @covers          \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment::getEndpoint
      * @dataProvider    getEndpointProvider
      */
     public function testGetEndpoint($expected, $partialEndpoint, $fullEndpoint)
@@ -102,7 +97,7 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers          ::getEndpoint
+     * @covers          \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment::getEndpoint
      * @dataProvider    getEmptyProvider
      */
     public function testGetEndpointEmpty($endpoint)
