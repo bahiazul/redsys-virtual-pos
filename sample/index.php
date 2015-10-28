@@ -4,103 +4,64 @@ date_default_timezone_set('Europe/Madrid');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use nkm\RedsysVirtualPos\Environment\TestEnvironment;
 use nkm\RedsysVirtualPos\Message\WebRequest;
 use nkm\RedsysVirtualPos\Message\WebResponse;
 use nkm\RedsysVirtualPos\Field\Currency;
+use nkm\RedsysVirtualPos\Field\TransactionType;
+use Rocket\UI\Table\Table;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-$secret = 'qwertyasdf0123456789';
+// Logging
+$log = new Logger('requests');
+$log->pushHandler(new StreamHandler(__DIR__.'/requests.log'));
+
+
+// You should request this to your bank
+$secret       = '01234567890012345678901234567890';
+$merchantCode = '012345678';
 
 $env = new nkm\RedsysVirtualPos\Environment\TestEnvironment();
 $env->setSecret($secret);
 
-$setRequestParams = [];
-$setRequestParams['amount']             = '24995';
-$setRequestParams['currency']           = Currency::EUR;
-$setRequestParams['merchantcode']       = '327234688';
-$setRequestParams['merchantname']       = 'Comercio en pruebas';
-$setRequestParams['order']              = '141020090000';
-$setRequestParams['productdescription'] = 'Descripción del producto';
-$setRequestParams['terminal']           = '1';
-$setRequestParams['merchanturl']        = 'https://example.com/redsys/receiver';
-$setRequestParams['urlok']              = 'https://example.com/order/checkout/confirmation.html';
-$setRequestParams['urlko']              = 'https://example.com/order/checkout/failure.html';
+$requestParams = [];
+$requestParams['Amount']             = '100';
+$requestParams['Order']              = strval(time());
+$requestParams['MerchantCode']       = $merchantCode;
+$requestParams['Currency']           = Currency::EUR;
+$requestParams['TransactionType']    = TransactionType::STANDARD;
+$requestParams['Terminal']           = '1';
+$requestParams['MerchantName']       = 'Test Store';
+$requestParams['ProductDescription'] = 'Product Description';
+$requestParams['MerchantURL']        = 'http://local.yourdomain.com:8000/response.php';
+$requestParams['UrlOK']              = 'http://localhost:8000/success.html';
+$requestParams['UrlKO']              = 'http://localhost:8000/failure.html';
 
-$webRequest = new WebRequest($env);
-$webRequest->setParams($setRequestParams);
 
-$submitBtn = "<input type='submit' name='submit' value='Submit'>";
+$webRequest = new WebRequest($env, $log);
+$webRequest->setParams($requestParams);
+$webRequest->log('debug', 'Request params', $requestParams);
 
-var_dump($webRequest->getIsValid());
-var_dump($webRequest->getValidationErrors());
+$submitBtn = "<input type='submit' name='submit' value='Submit' style='width:300px;font-size:'>";
 
-$setResponseParams = [];
-$setResponseParams['ds_transactiontype']   = '0';
-$setResponseParams['ds_card_country']      = '280';
-$setResponseParams['ds_date']              = '20/10/2014';
-$setResponseParams['ds_securepayment']     = '1';
-$setResponseParams['ds_order']             = '141020090000';
-$setResponseParams['ds_hour']              = '09:00';
-$setResponseParams['ds_response']          = '0000';
-$setResponseParams['ds_authorisationcode'] = '123456';
-$setResponseParams['ds_currency']          = '978';
-$setResponseParams['ds_consumerlanguage']  = '5';
-$setResponseParams['ds_merchantcode']      = '327234688';
-$setResponseParams['ds_amount']            = '24995';
-$setResponseParams['ds_terminal']          = '001';
-$setResponseParams['ds_signature']         = strtoupper(sha1(
-    $setResponseParams['ds_amount'].
-    $setResponseParams['ds_order'].
-    $setResponseParams['ds_merchantcode'].
-    $setResponseParams['ds_currency'].
-    $setResponseParams['ds_response'].
-    $secret
-));
-$responseParams['ds_errorcode'] = 'SIS9951';
-
-$webResponse = new WebResponse($env);
-$webResponse->setParams($setResponseParams);
-
-var_dump($webResponse->getIsValid());
-var_dump($webResponse->getValidationErrors());
-
-$responseParams = $webResponse->getParams();
-
-if (isset($setResponseParams['ds_response'])) {
-    $responseCode = [];
-    $responseCode['type']             = $responseParams['ds_response']->getType();
-    $responseCode['title']            = $responseParams['ds_response']->getTitle();
-    $responseCode['description']      = $responseParams['ds_response']->getDescription();
-    $responseCode['typeDescription']  = $responseParams['ds_response']->getTypeDescription($responseCode['type']);
-    $responseCode['isApproved']       = $responseParams['ds_response']->getIsApproved();
-    $responseCode['isRejected']       = $responseParams['ds_response']->getIsRejected();
-    $responseCode['isCancelOrRefund'] = $responseParams['ds_response']->getIsCancelOrRefund();
-    $responseCode['isReconOrPreauth'] = $responseParams['ds_response']->getIsReconOrPreauth();
-    $responseCode['isError']          = $responseParams['ds_response']->getIsError();
-
-    echo '<pre>';
-    var_dump($responseCode);
-    echo '</pre>';
+$tableRows = [];
+foreach($requestParams as $k => $v) {
+    $tableRows[] = [$k, $v];
 }
-
-if (isset($setResponseParams['ds_errorcode'])) {
-    $errorCode = [];
-    $errorCode['field']              = $responseParams['ds_errorcode']->getField();
-    $errorCode['reason']             = $responseParams['ds_errorcode']->getReason();
-    $errorCode['message']            = $responseParams['ds_errorcode']->getMessage();
-    $errorCode['messageDescription'] = $responseParams['ds_errorcode']->getMessageDescription($errorCode['message']);
-
-    echo '<pre>';
-    var_dump($errorCode);
-    echo '</pre>';
-}
+$tableAttrs  = [
+    'border'      => 1,
+    'cellpadding' => 5,
+    'cellspacing' => 0,
+    'style'       => 'margin:0 auto;',
+];
 
 ?>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta charset='utf-8'>
     </head>
-    <body>
-        <?php echo $webRequest->getForm([], $submitBtn); ?>
+    <body style='text-align:center'>
+        <?= Table::quick(['Name','Value'], $tableRows, $tableAttrs, 'Request Parameters'); ?>
+        <p><?= $webRequest->getForm([], $submitBtn); ?></p>
     </body>
 </html>
