@@ -11,10 +11,12 @@
 
 namespace nkm\RedsysVirtualPos\Message;
 
-use \nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+use nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+use nkm\RedsysVirtualPos\Util\Helper;
+use Psr\Log\LoggerInterface;
 
 /**
- * Request for a monetary operation through a HTML form
+ * Response of a monetary operation requested through a HTML form
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
@@ -25,14 +27,175 @@ use \nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
 class WebResponse extends Response implements MessageInterface
 {
     /**
-     * @param EnvironmentInterface  $environment    The environment to set
+     * The prefix for the names of the received params
+     *
+     * @var string
      */
-    public function __construct(EnvironmentInterface $environment)
-    {
-        parent::__construct($environment);
+    protected $fieldPrefix = 'Ds_';
 
-        $this->fields = array_merge($this->fields, [
-            'ds_transactiontype' => 'WebTransactionType',
-        ]);
+    /**
+     * Holds all the POST field names
+     *
+     * @var array
+     */
+    private $postFields = [
+        'SignatureVersion',
+        'MerchantParameters',
+        'Signature',
+    ];
+
+    /**
+     * Holds all the POST field objects
+     *
+     * @var array
+     */
+    private $postParams = [];
+
+    /**
+     * @return array All the fields that can go in an action
+     */
+    protected function getPostFields()
+    {
+        return (array) $this->postFields;
+    }
+
+    /**
+     * @param array $params     Params and values
+     * @return MessageInterface
+     */
+    public function setPostParams(Array $params)
+    {
+        foreach ($params as $paramName => $paramValue) {
+            $this->setPostParam($paramName, $paramValue);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array The actions's parameter objects
+     */
+    public function getPostParams()
+    {
+        $params = [];
+        $fields = $this->getPostFields();
+        foreach ($fields as $fieldName) {
+            $params[$fieldName] = $this->getPostParam($fieldName);
+        }
+
+        return $params;
+    }
+
+    /**
+     * @param  string   $fieldName  The field's name
+     * @param  mixed    $value      The field's value
+     * @return MessageInterface
+     */
+    protected function setPostParam($fieldName, $value)
+    {
+        $fieldClass = $this->resolveFieldClassName($fieldName);
+
+        try {
+            $rc = new \ReflectionClass($fieldClass);
+            $this->postParams[$fieldClass] = $rc->newInstanceArgs([$value]);
+
+            if ($this->postParams[$fieldClass]->getName() === 'MerchantParameters') {
+                $params = $this->decodeMerchantParameters($value);
+                $this->setParams($params);
+            }
+
+        } catch (Exception $e) {
+            throw new \RuntimeException("Class `{$fieldClass}` not found.");
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $fieldName The field's name
+     * @return FieldInterface
+     */
+    protected function getPostParam($fieldName)
+    {
+        $fieldClass = $this->resolveFieldClassName($fieldName);
+
+        if (!isset($this->postParams[$fieldClass]) || !is_object($this->postParams[$fieldClass])) {
+            $rc = new \ReflectionClass($fieldClass);
+            $this->postParams[$fieldClass] = $rc->newInstance();
+        }
+
+        return $this->postParams[$fieldClass];
+    }
+
+    /**
+     * Decode the contents of the MerchantParameters field
+     *
+     * @param  string   $value  The field's value
+     * @return array            The parameters that comprise the field's contents
+     */
+    private function decodeMerchantParameters($value)
+    {
+        $errorMsg = "MerchantParameters field could not be decoded";
+        $value = Helper::base64url_decode($value);
+
+        if ($value === false) {
+            throw new \RuntimeException($errorMsg.' (base64url).');
+        }
+
+        $value = json_decode($value, true);
+
+        if (is_null($value)) {
+            throw new \RuntimeException($errorMsg.' (JSON).');
+        }
+
+        is_array($value) || $value = [];
+
+        return $value;
+    }
+
+    /**
+     * @return string The encrypted signature
+     */
+    protected function generateSignature($secret, $order, $merchantParameters)
+    {
+        $key = Helper::base64url_decode($secret);
+        $key = Helper::mcrypt_encrypt_3DES($order, $key);
+
+        $sig = Helper::hash_hmac_sha256($merchantParameters, $key);
+        $sig = Helper::base64url_encode($sig);
+
+        return $sig;
+    }
+
+    /**
+     * Validates all the params of the request
+     *
+     * @return MessageInterface
+     */
+    protected function validate()
+    {
+        $isValid = true;
+        $validationErrors = [];
+
+        try {
+            $secret = $this->environment->getSecret();
+            $order  = $this->getParam('Order')->getValue();
+            $mp     = $this->getPostParam('MerchantParameters')->getValue();
+
+            $chkSignature = $this->generateSignature($secret, $order, $mp);
+            $resSignature = $this->getPostParam('Signature')->getValue();
+        } catch (Exception $e) {
+            throw new \RuntimeException($e->getMessage());
+        }
+
+        if ($resSignature !== $chkSignature) {
+            $isValid = false;
+            $validationErrors[] = 'La firma recibida no es correcta.';
+        }
+
+        $this->isValid          = $isValid;
+        $this->validationErrors = $validationErrors;
+
+        return $this;
     }
 }

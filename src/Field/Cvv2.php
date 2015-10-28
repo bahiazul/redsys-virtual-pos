@@ -20,8 +20,13 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class Cvv2 extends AbstractField implements FieldInterface
+class CVV2 extends AbstractField implements FieldInterface
 {
-    protected $name        = 'CVV2';
-    protected $requestName = 'Ds_Merchant_CVV2';
+
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
 }

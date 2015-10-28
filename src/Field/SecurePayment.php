@@ -24,12 +24,21 @@ class SecurePayment extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'SecurePayment';
-    protected $responseName = 'Ds_SecurePayment';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     const NOT_SECURE = '0';
     const SECURE     = '1';
 
+    /**
+     * Set of predefined values
+     *
+     * @var array
+     */
     protected static $availableValues = [
         self::NOT_SECURE => 'Pago NO seguro',
         self::SECURE     => 'Pago seguro',

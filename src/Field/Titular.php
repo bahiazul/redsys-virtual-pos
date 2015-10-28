@@ -24,9 +24,19 @@ class Titular extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'Titular';
-    protected $requestName  = 'Ds_Merchant_Titular';
-    protected $responseName = 'Ds_Titular';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     /**
      * @param mixed $value

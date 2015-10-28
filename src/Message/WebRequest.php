@@ -11,7 +11,9 @@
 
 namespace nkm\RedsysVirtualPos\Message;
 
-use \nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+use nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+use nkm\RedsysVirtualPos\Util\Helper;
+use Psr\Log\LoggerInterface;
 
 /**
  * Request for a monetary operation through a HTML form
@@ -30,62 +32,194 @@ class WebRequest extends Request implements MessageInterface
     protected $endpoint = '/sis/realizarPago';
 
     /**
+     * Holds all the form field names
+     *
+     * @var array
+     */
+    private $formFields = [
+        'SignatureVersion',
+        'MerchantParameters',
+        'Signature',
+    ];
+
+    /**
+     * Holds all the form field objects
+     *
+     * @var array
+     */
+    private $formParams = [];
+
+    /**
      * @param EnvironmentInterface  $environment    The environment to set
      */
-    public function __construct(EnvironmentInterface $environment)
+    public function __construct(EnvironmentInterface $environment, LoggerInterface $logger = null)
     {
-        parent::__construct($environment);
+        parent::__construct($environment, $logger);
 
         $this->fields = array_merge($this->fields, [
-            'authorisationcode'  => 'AuthorisationCode',
-            'consumerlanguage'   => 'ConsumerLanguage',
-            'merchantdata'       => 'MerchantData',
-            'merchantname'       => 'MerchantName',
-            'titular'            => 'Titular',
-            'merchanturl'        => 'MerchantUrl',
-            'productdescription' => 'ProductDescription',
-            'urlko'              => 'UrlKo',
-            'urlok'              => 'UrlOk',
-            'transactiontype'    => 'WebTransactionType',
+            'MerchantURL',
+            'UrlOK',
+            'UrlKO',
+            'ProductDescription',
+            'Titular',
+            'MerchantName',
+            'ConsumerLanguage',
+            'MerchantData',
+            'AuthorisationCode',
         ]);
     }
 
     /**
+     * @return array All the fields that can go in an action
+     */
+    protected function getFormFields()
+    {
+        return (array) $this->formFields;
+    }
+
+    /**
+     * @param array $params     Params and values
+     * @return MessageInterface
+     */
+    public function setFormParams(Array $params)
+    {
+        foreach ($params as $paramName => $paramValue) {
+            $this->setFormParam($paramName, $paramValue);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array The actions's parameter objects
+     */
+    public function getFormParams()
+    {
+        $params = [];
+        $fields = $this->getFormFields();
+        foreach ($fields as $fieldName) {
+            $params[$fieldName] = $this->getFormParam($fieldName);
+        }
+
+        return $params;
+    }
+
+    /**
+     * @param  string   $fieldName  The field's name
+     * @param  mixed    $value      The field's value
+     * @return MessageInterface
+     */
+    protected function setFormParam($fieldName, $value)
+    {
+        $fieldClass = $this->resolveFieldClassName($fieldName);
+
+        try {
+            $rc = new \ReflectionClass($fieldClass);
+            $this->formParams[$fieldClass] = $rc->newInstanceArgs([$value]);
+        } catch (Exception $e) {
+            throw new \RuntimeException("Class `{$fieldClass}` not found.");
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $fieldName The field's name
+     * @return FieldInterface
+     */
+    protected function getFormParam($fieldName)
+    {
+        $fieldClass = $this->resolveFieldClassName($fieldName);
+
+        if (!isset($this->formParams[$fieldClass]) || !is_object($this->formParams[$fieldClass])) {
+            $rc = new \ReflectionClass($fieldClass);
+            $this->formParams[$fieldClass] = $rc->newInstance();
+        }
+
+        return $this->formParams[$fieldClass];
+    }
+
+    /**
+     * @return string The value of the MerchantParameters field
+     */
+    protected function generateMerchantParameters()
+    {
+        $paramsObj = $this->getParams();
+
+        $params = [];
+        foreach($paramsObj as $p) {
+            $value = $p->getValue();
+            if (is_null($value)) continue;
+
+            $name  = $p->getRequestName();
+            $params[$name] = $p->getValue();
+        }
+
+        $params = json_encode($params);
+        $params = base64_encode($params);
+
+        return $params;
+    }
+
+    /**
+     * @return string The encrypted signature
+     */
+    protected function generateSignature($secret, $order, $merchantParameters)
+    {
+        $key = base64_decode($secret);
+        $key = Helper::mcrypt_encrypt_3DES($order, $key);
+
+        $sig = Helper::hash_hmac_sha256($merchantParameters, $key);
+        $sig = base64_encode($sig);
+
+        return $sig;
+    }
+
+    /**
      * Builds the HTML form for the request
+     *
      * @param  array    $attributes     Assoc. array of attrs for the <form> tag
      * @param  string   $appendHtml     HTML code to append (eg. a submit button)
      * @return string
      */
     public function getForm($attributes = [], $appendHtml = '')
     {
-        $attributes['method'] = 'post';
-        isset($attributes['name']) || $attributes['name'] = 'redsysOperation';
-
         try {
-            $attributes['action'] = $this->environment->getEndpoint($this->endpoint);
+            $endpoint = $this->environment->getEndpoint($this->endpoint);
+
+            $secret = $this->environment->getSecret();
+            $order  = $this->getParam('Order')->getValue();
+            $mp     = $this->generateMerchantParameters();
+
+            $signature = $this->generateSignature($secret, $order, $mp);
+
+            $this->setFormParam('MerchantParameters', $mp);
+            $this->setFormParam('Signature', $signature);
         } catch (Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
+
+        $fields = '';
+        $params = $this->getFormParams();
+        foreach ($params as $name => $param) {
+            $value = $param->getValue();
+
+            if (is_null($value)) continue;
+
+            $requestName = $param->getRequestName();
+            $fields .= "<input type='hidden' name='{$requestName}' value='{$value}'>\n";
+        }
+
+        $attributes['method'] = 'post';
+        $attributes['action'] = $endpoint;
+        isset($attributes['name']) || $attributes['name'] = 'redsysOperation';
 
         $attributeString = '';
         foreach ($attributes as $name => $value) {
             $attributeString .= " {$name}='{$value}'";
         }
 
-        $fields = '';
-        $params = $this->getParams();
-        foreach ($params as $name => $param) {
-            $value       = $param->getValue();
-
-            if ($value === '') {
-                continue;
-            }
-
-            $requestName = $param->getRequestName();
-            $fields .= "<input type='hidden' name='{$requestName}' value='{$value}'>\n";
-        }
-
-        $form  = "<form {$attributeString}>\n";
+        $form  = "<form{$attributeString}>\n";
         $form .= $fields;
         $form .= $appendHtml ? $appendHtml . "\n" : '';
         $form .= "</form>\n";

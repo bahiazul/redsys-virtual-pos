@@ -11,7 +11,7 @@
 
 namespace nkm\RedsysVirtualPos\Field;
 
-use \nkm\RedsysVirtualPos\Util\Helper;
+use nkm\RedsysVirtualPos\Util\Helper;
 
 /**
  * Holds the value of a request/response parameter
@@ -25,31 +25,43 @@ use \nkm\RedsysVirtualPos\Util\Helper;
 abstract class AbstractField implements FieldInterface
 {
     /**
-     * The internal name of the field
+     * The prefix of the field when going on a request
+     *
      * @var string
      */
-    protected $name;
+    protected $requestPrefix = 'Ds_Merchant_';
 
     /**
-     * The name of the field as a request parameter
+     * The prefix of the field when going on a response
+     *
      * @var string
      */
-    protected $requestName;
+    protected $responsePrefix = 'Ds_';
 
     /**
-     * The name of the field as a response parameter
-     * @var string
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
      */
-    protected $responseName;
+    protected $inRequest;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse;
 
     /**
      * Set of predefined values
+     *
      * @var array
      */
     protected static $availableValues;
 
     /**
      * The value of the field
+     *
      * @var string
      */
     protected $value;
@@ -57,6 +69,7 @@ abstract class AbstractField implements FieldInterface
     /**
      * The value that will be returned in case
      * that no value is specified (optional)
+     *
      * @var string
      */
     protected $defaultValue;
@@ -76,11 +89,7 @@ abstract class AbstractField implements FieldInterface
      */
     public function getName()
     {
-        if (!is_string($this->name)) {
-            return Helper::stringify($this->name);
-        }
-
-        return $this->name;
+        return (new \ReflectionClass($this))->getShortName();
     }
 
     /**
@@ -88,11 +97,13 @@ abstract class AbstractField implements FieldInterface
      */
     public function getRequestName()
     {
-        if (!is_string($this->requestName)) {
-            return Helper::stringify($this->requestName);
+        $fieldName = $this->getName();
+
+        if ($this->inRequest !== true) {
+            throw new FieldException("Field `{$fieldName}` has no Request Name.");
         }
 
-        return $this->requestName;
+        return $this->requestPrefix.$fieldName;
     }
 
     /**
@@ -100,11 +111,13 @@ abstract class AbstractField implements FieldInterface
      */
     public function getResponseName()
     {
-        if (!is_string($this->responseName)) {
-            return Helper::stringify($this->responseName);
+        $fieldName = $this->getName();
+
+        if ($this->inResponse !== true) {
+            throw new FieldException("Field `{$fieldName}` has no Response Name.");
         }
 
-        return $this->responseName;
+        return $this->responsePrefix.$fieldName;
     }
 
     /**
@@ -165,7 +178,7 @@ abstract class AbstractField implements FieldInterface
     }
 
     /**
-     * @return string
+     * @return string   The value of the field or null if not defined
      */
     public function getValue()
     {
@@ -173,6 +186,6 @@ abstract class AbstractField implements FieldInterface
                ? $this->defaultValue
                : $this->value;
 
-        return (string) $value;
+        return $value;
     }
 }

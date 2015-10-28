@@ -24,8 +24,12 @@ class ProductDescription extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'ProductDescription';
-    protected $requestName  = 'Ds_Merchant_ProductDescription';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
 
     /**
      * @param mixed $value

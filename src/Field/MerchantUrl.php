@@ -20,13 +20,16 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class MerchantUrl extends AbstractField implements FieldInterface
+class MerchantURL extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'MerchantUrl';
-    protected $requestName  = 'Ds_Merchant_MerchantUrl';
-    protected $responseName = 'Ds_MerchantUrl';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
 
     /**
      * @param mixed $value

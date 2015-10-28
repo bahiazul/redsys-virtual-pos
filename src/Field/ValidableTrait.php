@@ -12,7 +12,7 @@
 namespace nkm\RedsysVirtualPos\Field;
 
 use nkm\RedsysVirtualPos\Validation\Validator;
-use \nkm\RedsysVirtualPos\Util\Helper;
+use nkm\RedsysVirtualPos\Util\Helper;
 
 /**
  * Provides validation methods to a field

@@ -20,12 +20,40 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class XmlTransactionType extends AbstractTransactionType implements FieldInterface
+class SignatureVersion extends AbstractField implements FieldInterface
 {
-    const INSECURE_NOAUTH = 'A';
+    use ValidableTrait;
 
+    /**
+     * The prefix of the field when going on a request
+     *
+     * @var string
+     */
+    protected $requestPrefix = 'Ds_';
+
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
+
+    const HMAC_SHA256_V1 = 'HMAC_SHA256_V1';
+
+    /**
+     * Set of predefined values
+     *
+     * @var array
+     */
     protected static $availableValues = [
-        self::INSECURE_NOAUTH => 'Pago no seguro sin autenticación',
+        self::HMAC_SHA256_V1 => 'HMAC_SHA256_V1',
     ];
 
     /**
@@ -35,21 +63,13 @@ class XmlTransactionType extends AbstractTransactionType implements FieldInterfa
     {
         parent::__construct($value);
 
+        $this->defaultValue = self::HMAC_SHA256_V1;
+
         $keys = serialize(array_keys(self::getAvailableValues()));
 
         $this->validationRules = [
+            'required',
             "in_array({$keys})",
         ];
-    }
-
-    /**
-     * @return array
-     */
-    protected static function getAvailableValues()
-    {
-        $availableValues = array_merge(parent::$availableValues, self::$availableValues);
-        ksort($availableValues);
-
-        return $availableValues;
     }
 }

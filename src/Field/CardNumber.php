@@ -22,6 +22,10 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class CardNumber extends AbstractField implements FieldInterface
 {
-    protected $name         = 'CardNumber';
-    protected $responseName = 'Ds_CardNumber';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 }

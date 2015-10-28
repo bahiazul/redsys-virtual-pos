@@ -22,7 +22,17 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class ExpiryDate extends AbstractField implements FieldInterface
 {
-    protected $name         = 'ExpiryDate';
-    protected $requestName  = 'Ds_Merchant_ExpiryDate';
-    protected $responseName = 'Ds_ExpiryDate';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 }

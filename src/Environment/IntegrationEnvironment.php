@@ -9,10 +9,10 @@
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
 
-namespace nkm\RedsysVirtualPos\Field;
+namespace nkm\RedsysVirtualPos\Environment;
 
 /**
- * Holds the value of a request/response parameter
+ * Handles environment-specific information
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
@@ -20,27 +20,10 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class UrlKO extends AbstractField implements FieldInterface
+class IntegrationEnvironment extends AbstractEnvironment implements EnvironmentInterface
 {
-    use ValidableTrait;
-
-    /**
-     * Indicates if this field can appear in a request
-     *
-     * @var boolean
-     */
-    protected $inRequest = true;
-
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value = null)
+    public function __construct()
     {
-        parent::__construct($value);
-
-        $this->validationRules = [
-            'url',
-            'max_length(250)',
-        ];
+        $this->baseEndpoint = 'https://sis-i.redsys.es:25443';
     }
 }

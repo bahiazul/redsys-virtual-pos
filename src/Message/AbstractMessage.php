@@ -11,7 +11,9 @@
 
 namespace nkm\RedsysVirtualPos\Message;
 
-use \nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+use nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
+use nkm\RedsysVirtualPos\Util\Helper;
+use Psr\Log\LoggerInterface;
 
 /**
  * Part of a communication for a monetary operation (a request or a reponse)
@@ -28,9 +30,24 @@ abstract class AbstractMessage implements MessageInterface
 
     /**
      * Environment object
+     *
      * @var object
      */
     protected $environment;
+
+    /**
+     * Logger object
+     *
+     * @var object
+     */
+    private $logger;
+
+    /**
+     * The prefix for the names of the sent/received params
+     *
+     * @var string
+     */
+    protected $fieldPrefix;
 
     /**
      * All the fields that can go in a request/response
@@ -42,12 +59,6 @@ abstract class AbstractMessage implements MessageInterface
      * @var array
      */
     protected $fields;
-
-    /**
-     * Fields that comprise the signature
-     * @var array
-     */
-    protected $signatureFields;
 
     /**
      * Holds all the field objects
@@ -68,9 +79,38 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @param EnvironmentInterface  $environment    The environment to set
      */
-    public function __construct(EnvironmentInterface $environment)
+    public function __construct(EnvironmentInterface $environment, LoggerInterface $logger = null)
     {
         $this->environment = $environment;
+
+        $logger && $this->setLogger($logger);
+    }
+
+    /**
+     * [setLogger description]
+     *
+     * @param Psr\Log\LoggerInterface $logger [description]
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * Adds a log record at an arbitrary level.
+     *
+     * @param  mixed   $level   The log level
+     * @param  string  $message The log message
+     * @param  array   $context The log context
+     * @return Boolean Whether the record has been processed
+     */
+    public function log($level, $message, array $context = [])
+    {
+        if ($this->logger) {
+            return $this->logger->log($level, $message, $context);
+        }
+
+        return false;
     }
 
     /**
@@ -79,14 +119,6 @@ abstract class AbstractMessage implements MessageInterface
     protected function getFields()
     {
         return (array) $this->fields;
-    }
-
-    /**
-     * @return array All the fields that comprise the signature
-     */
-    protected function getSignatureFields()
-    {
-        return (array) $this->signatureFields;
     }
 
     /**
@@ -109,7 +141,7 @@ abstract class AbstractMessage implements MessageInterface
     {
         $params = [];
         $fields = $this->getFields();
-        foreach ($fields as $fieldName => $fieldClass) {
+        foreach ($fields as $fieldName) {
             $params[$fieldName] = $this->getParam($fieldName);
         }
 
@@ -126,12 +158,11 @@ abstract class AbstractMessage implements MessageInterface
         $this->isValid = null;
         $this->validationErrors = null;
 
-        $fieldName  = strtolower($fieldName);
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
         try {
             $rc = new \ReflectionClass($fieldClass);
-            $this->params[$fieldName] = $rc->newInstanceArgs([$value]);
+            $this->params[$fieldClass] = $rc->newInstanceArgs([$value]);
         } catch (Exception $e) {
             throw new \RuntimeException("Class `{$fieldClass}` not found.");
         }
@@ -147,12 +178,12 @@ abstract class AbstractMessage implements MessageInterface
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
-        if (!isset($this->params[$fieldName]) || !is_object($this->params[$fieldName])) {
+        if (!isset($this->params[$fieldClass]) || !is_object($this->params[$fieldClass])) {
             $rc = new \ReflectionClass($fieldClass);
-            $this->params[$fieldName] = $rc->newInstance();
+            $this->params[$fieldClass] = $rc->newInstance();
         }
 
-        return $this->params[$fieldName];
+        return $this->params[$fieldClass];
     }
 
     /**
@@ -190,49 +221,20 @@ abstract class AbstractMessage implements MessageInterface
     abstract protected function validate();
 
     /**
-     * @return string The encrypted signature
-     */
-    protected function generateSignature()
-    {
-        try {
-            $secret = $this->environment->getSecret();
-        } catch (Exception $e) {
-            throw new MessageException("Cannot generate the signature. Merchant secret is not set.");
-        }
-
-        $fields = $this->getSignatureFields();
-        ksort($fields, SORT_NUMERIC);
-
-        $signaturePlain = '';
-        foreach($fields as $fieldName) {
-            $fieldObj        = $this->getParam($fieldName);
-            $signaturePlain .= $fieldObj->getValue();
-        }
-        $signaturePlain .= $secret;
-
-        $signatureCrypt = strtoupper(sha1($signaturePlain));
-
-        return $signatureCrypt;
-    }
-
-    /**
      * Get the fully qualified name of a field's class
      * @param  string $fieldName The field name
      * @return string            The field class name
      */
     protected function resolveFieldClassName($fieldName)
     {
-        $fields = array_merge($this->getFields(), ['signature' => 'Signature']);
-
-        if (!isset($fields[$fieldName])) {
-            throw new MessageException("Field ´{$fieldName}´ is not within the list of valid fields.");
-        }
-        $className = $fields[$fieldName];
+        // The field name should match its class name
+        $fieldPrefix = Helper::stringify($this->fieldPrefix);
+        $className = str_replace($fieldPrefix, '', $fieldName);
 
         // If is not a fully qualified class name
         // append our own base namespace
         if ($className[0] !== '\\') {
-            $className = self::FIELD_BASE_NAMESPACE.$className;
+            return self::FIELD_BASE_NAMESPACE.$className;
         }
 
         return $className;

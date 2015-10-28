@@ -24,9 +24,19 @@ class Order extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'Order';
-    protected $requestName  = 'Ds_Merchant_Order';
-    protected $responseName = 'Ds_Order';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     /**
      * @param mixed $value

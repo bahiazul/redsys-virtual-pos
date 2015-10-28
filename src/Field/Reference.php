@@ -22,6 +22,10 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class Reference extends AbstractField implements FieldInterface
 {
-    protected $name         = 'Reference';
-    protected $responseName = 'Ds_Reference';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 }

@@ -24,9 +24,19 @@ class AuthorisationCode extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'AuthorisationCode';
-    protected $requestName  = 'Ds_Merchant_AuthorisationCode';
-    protected $responseName = 'Ds_AuthorisationCode';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     /**
      * @param mixed $value

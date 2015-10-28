@@ -24,9 +24,19 @@ class MerchantData extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'MerchantData';
-    protected $requestName  = 'Ds_Merchant_MerchantData';
-    protected $responseName = 'Ds_MerchantData';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     /**
      * @param mixed $value

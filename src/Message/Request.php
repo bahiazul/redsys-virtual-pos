@@ -37,55 +37,13 @@ class Request extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $fields = [
-        'amount'       => 'Amount',
-        'currency'     => 'Currency',
-        'merchantcode' => 'MerchantCode',
-        'order'        => 'Order',
-        'terminal'     => 'Terminal',
+        'Amount',
+        'Order',
+        'MerchantCode',
+        'Currency',
+        'TransactionType',
+        'Terminal',
     ];
-
-    /**
-     * Fields that comprise the signature
-     * @var array
-     */
-    protected $signatureFields = [
-        'amount',
-        'order',
-        'merchantcode',
-        'currency',
-        'transactiontype',
-        'merchanturl',
-    ];
-
-    /**
-     * @return array The actions's parameter objects
-     */
-    public function getParams()
-    {
-        return array_merge(parent::getParams(), [
-            'signature' => $this->getParam('signature')
-        ]);
-    }
-
-    /**
-     * @param  string   $fieldName  The field's name
-     * @param  mixed    $value      The field's value
-     * @return MessageInterface
-     */
-    protected function setParam($fieldName, $value)
-    {
-        parent::setParam($fieldName, $value);
-
-        // If the field is also part of the signature
-        // we also generate it
-        if (in_array($fieldName, $this->getSignatureFields())) {
-            $fieldClass = $this->resolveFieldClassName('signature');
-            $rc = new \ReflectionClass($fieldClass);
-            $this->params['signature'] = $rc->newInstanceArgs([$this->generateSignature()]);
-        }
-
-        return $this;
-    }
 
     /**
      * Validates all the params of the request

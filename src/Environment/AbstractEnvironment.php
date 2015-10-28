@@ -11,7 +11,7 @@
 
 namespace nkm\RedsysVirtualPos\Environment;
 
-use \nkm\RedsysVirtualPos\Util\Helper;
+use nkm\RedsysVirtualPos\Util\Helper;
 
 /**
  * Handles environment-specific information
@@ -26,12 +26,14 @@ abstract class AbstractEnvironment implements EnvironmentInterface
 {
     /**
      * Merchant's private key
+     *
      * @var string
      */
     protected $secret;
 
     /**
      * Common base URL for all the operations
+     *
      * @var string
      */
     protected $baseEndpoint;

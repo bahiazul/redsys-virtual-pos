@@ -24,7 +24,17 @@ class ConsumerLanguage extends Language implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'ConsumerLanguage';
-    protected $requestName  = 'Ds_Merchant_ConsumerLanguage';
-    protected $responseName = 'Ds_ConsumerLanguage';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 }

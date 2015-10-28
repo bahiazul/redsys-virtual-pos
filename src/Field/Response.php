@@ -25,8 +25,12 @@ class Response extends AbstractField implements FieldInterface
     const ERROR_UNKNOWN_CODE = 'Código de respuesta desconocido';
     const ERROR_UNKNOWN_TYPE = 'Tipo de respuesta desconocido';
 
-    protected $name         = 'Response';
-    protected $responseName = 'Ds_Response';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     const TYPE_APPROVED         = 'APPROVED';
     const TYPE_REJECTED         = 'REJECTED';

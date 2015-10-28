@@ -37,6 +37,11 @@ class Language extends AbstractField implements FieldInterface
     const GLG = '12';
     const EUS = '13';
 
+    /**
+     * Set of predefined values
+     *
+     * @var array
+     */
     protected static $availableValues = [
         self::CLI => 'Cliente',
         self::SPA => 'Castellano',

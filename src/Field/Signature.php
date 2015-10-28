@@ -24,9 +24,26 @@ class Signature extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'Signature';
-    protected $requestName  = 'Ds_Merchant_MerchantSignature';
-    protected $responseName = 'Ds_Signature';
+    /**
+     * The prefix of the field when going on a request
+     *
+     * @var string
+     */
+    protected $requestPrefix = 'Ds_';
+
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     /**
      * @param mixed $value
@@ -37,8 +54,6 @@ class Signature extends AbstractField implements FieldInterface
 
         $this->validationRules = [
             'required',
-            'exact_length(40)',
-            'alpha_numeric',
         ];
     }
 }

@@ -24,7 +24,6 @@ class TestEnvironment extends AbstractEnvironment implements EnvironmentInterfac
 {
     public function __construct()
     {
-        $this->secret       = 'qwertyasdf0123456789';
         $this->baseEndpoint = 'https://sis-t.redsys.es:25443';
     }
 }

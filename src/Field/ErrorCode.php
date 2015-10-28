@@ -25,8 +25,12 @@ class ErrorCode extends AbstractField implements FieldInterface
     const ERROR_UNKNOWN_CODE    = 'Código de error desconocido';
     const ERROR_UNKNOWN_MESSAGE = 'Mensaje mostrado al cliente desconocido';
 
-    protected $name         = 'ErrorCode';
-    protected $responseName = 'Ds_ErrorCode';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     const MSG_SYSTEM_BUSY                      = 'MSG0000';
     const MSG_ORDER_NUMBER_REPEATED            = 'MSG0001';
@@ -41,6 +45,7 @@ class ErrorCode extends AbstractField implements FieldInterface
 
     /**
      * Holds every kind of error
+     *
      * @var array
      */
     private static $messageDescriptions = [
@@ -61,7 +66,6 @@ class ErrorCode extends AbstractField implements FieldInterface
      */
     private static $errors = [
         'UNKNOWN' => [
-            'field'   => self::ERROR_UNKNOWN_CODE,
             'reason'  => self::ERROR_UNKNOWN_CODE,
             'message' => self::MSG_UNKNOWN,
         ],
@@ -72,154 +76,147 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0008' => [
-            'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Falta el campo',
+            'reason'  => 'Error. Falta `Ds_Merchant_MerchantCode`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0009' => [
-            'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_Merchant_MerchantCode`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0010' => [
-            'field'   => 'Ds_Merchant_Terminal',
-            'reason'  => 'Falta el campo',
+            'reason'  => 'Error. Falta `Ds_Merchant_Terminal`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0011' => [
-            'field'   => 'Ds_Merchant_Terminal',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_Merchant_Terminal`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0014' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_Merchant_Order`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0015' => [
-            'field'   => 'Ds_Merchant_Currency',
-            'reason'  => 'Falta el campo',
+            'reason'  => 'Error. Falta `Ds_Merchant_Currency`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0016' => [
-            'field'   => 'Ds_Merchant_Currency',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_Merchant_Currency`',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0017' => [
+            'reason'  => 'Error. No se admiten operaciones en pesetas',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0018' => [
-            'field'   => 'Ds_Merchant_Amount',
-            'reason'  => 'Falta el campo',
+            'reason'  => 'Error. Falta `Ds_Merchant_Amount`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0019' => [
-            'field'   => 'Ds_Merchant_Amount',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_Merchant_Amount`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0020' => [
-            'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Falta el campo',
+            'reason'  => 'Error. Falta `Ds_Merchant_Signature`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0021' => [
-            'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Campo sin datos',
+            'reason'  => 'Error. La `Ds_Merchant_MerchantSignature` viene vacía',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0022' => [
-            'field'   => 'Ds_TransactionType',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_Merchant_TransactionType`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0023' => [
-            'field'   => 'Ds_TransactionType',
-            'reason'  => 'Valor desconocido',
+            'reason'  => 'Error. `Ds_Merchant_TransactionType` desconocido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0024' => [
-            'field'   => 'Ds_ConsumerLanguage',
-            'reason'  => 'Valor excede de 3 posiciones',
+            'reason'  => 'Error. `Ds_Merchant_ConsumerLanguage` tiene mas de 3 posiciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0025' => [
-            'field'   => 'Ds_ConsumerLanguage',
-            'reason'  => 'Error de formato',
+            'reason'  => 'Error de formato en `Ds_ConsumerLanguage`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0026' => [
-            'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Error No existe el comercio / Terminal enviado',
+            'reason'  => 'Error. No existe el comercio / Terminal enviado',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0027' => [
-            'field'   => 'Ds_Merchant_Currency',
-            'reason'  => 'Error moneda no coincide con asignada para ese Terminal.',
+            'reason'  => 'Error. Moneda enviada por el comercio es diferente a la que tiene asignada para ese terminal',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0028' => [
-            'field'   => 'Ds_Merchant_MerchantCode',
-            'reason'  => 'Error Comercio/Terminal está dado de baja',
+            'reason'  => 'Error. Comercio / terminal está dado de baja',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0030' => [
-            'field'   => 'Ds_TransactionType',
-            'reason'  => 'En un pago con tarjeta ha llegado un tipo de operación que no es ni pago ni preautoritzación',
+            'reason'  => 'Error en un pago con tarjeta ha llegado un tipo de operación que no es ni pago ni preautorización',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0031' => [
-            'field'   => 'Ds_Merchant_TransactionType',
             'reason'  => 'Método de pago no definido',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
+        'SIS0033' => [
+            'reason'  => 'Error en un pago con móvil ha llegado un tipo de operación que no es ni pago ni preautorización',
+            'message' => self::MSG_SYSTEM_BUSY,
+        ],
+
         'SIS0034' => [
-            'reason'  => 'Error en acceso a la Base de datos',
+            'reason'  => 'Error en acceso a la Base de Datos',
+            'message' => self::MSG_SYSTEM_BUSY,
+        ],
+
+        'SIS0037' => [
+            'reason'  => 'El número de teléfono no es válido',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0038' => [
-            'reason'  => 'Error en JAVA',
+            'reason'  => 'Error en Java',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0040' => [
-            'reason'  => 'El comercio / Terminal no tiene ningún método de pago asignado',
+            'reason'  => 'Error. El comercio / Terminal no tiene ningún método de pago asignado',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0041' => [
-            'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Error en el cálculo del algoritmo HASH',
+            'reason'  => 'Error. En el cálculo de la HASH de datos del comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0042' => [
-            'field'   => 'Ds_Merchant_Signature',
-            'reason'  => 'Error en el cálculo del algoritmo HASH',
+            'reason'  => 'La firma enviada no es correcta',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0043' => [
-            'reason'  => 'Error al realizar la notificación online',
+            'reason'  => 'Error al realizar la notificación on-line',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -229,31 +226,26 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0051' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Número de pedido repetido',
+            'reason'  => 'Error. Número de pedido repetido',
             'message' => self::MSG_ORDER_NUMBER_REPEATED,
         ],
 
         'SIS0054' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'No existe operación sobre la que realizar la devolución',
+            'reason'  => 'Error. No existe operación sobre la que realizar la devolución',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0055' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'La operación sobre la que se desea realizar la devolución no es una operación válida',
+            'reason'  => 'Error. Existe más de un pago con el mismo número de pedido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0056' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'La operación sobre la que se desea realizar la devolución no está autorizada',
+            'reason'  => 'La operación sobre la que se desea devolver no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0057' => [
-            'field'   => 'Ds_Merchant_Amount',
             'reason'  => 'El importe a devolver supera el permitido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
@@ -264,66 +256,62 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0059' => [
-            'field'   => 'Ds_Merchant_Order',
             'reason'  => 'Error, no existe la operación sobre la que realizar la confirmación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0060' => [
-            'field'   => 'Ds_Merchant_Order',
             'reason'  => 'Ya existe confirmación asociada a la preautorización',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0061' => [
-            'field'   => 'Ds_Merchant_Order',
             'reason'  => 'La preautorización sobre la que se desea confirmar no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0062' => [
-            'field'   => 'Ds_Merchant_Amount',
             'reason'  => 'El importe a confirmar supera el permitido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0063' => [
-            'reason'  => 'Error en número de tarjeta',
+            'reason'  => 'Error. Número de tarjeta no disponible',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0064' => [
-            'reason'  => 'Error en número de tarjeta',
+            'reason'  => 'Error. El número de tarjeta no puede tener más de 19 posiciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0065' => [
-            'reason'  => 'Error en número de tarjeta',
+            'reason'  => 'Error. El número de tarjeta no es numérico',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0066' => [
-            'reason'  => 'Error en caducidad tarjeta',
+            'reason'  => 'Error. Mes de caducidad no disponible',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0067' => [
-            'reason'  => 'Error en caducidad tarjeta',
+            'reason'  => 'Error. El mes de la caducidad no es numérico',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0068' => [
-            'reason'  => 'Error en caducidad tarjeta',
+            'reason'  => 'Error. El mes de la caducidad no es válido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0069' => [
-            'reason'  => 'Error en caducidad tarjeta',
+            'reason'  => 'Error. Año de caducidad no disponible',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0070' => [
-            'reason'  => 'Error en caducidad tarjeta',
+            'reason'  => 'Error. El Año de la caducidad no es numérico',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -333,33 +321,68 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0072' => [
-            'field'   => 'Ds_Merchant_Order',
             'reason'  => 'Operación no anulable',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0074' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'Falta el campo',
+            'reason'  => 'Error. Falta `Ds_Merchant_Order`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0075' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'El valor tiene menos de 4 posiciones o más de 12',
+            'reason'  => 'Error. El `Ds_Merchant_Order` tiene menos de 4 posiciones o más de 12',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0076' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'El valor no es numérico',
+            'reason'  => 'Error. El `Ds_Merchant_Order` no tiene las cuatro primeras posiciones numéricas',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
+        'SIS0077' => [
+            'reason'  => 'Error. El `Ds_Merchant_Order` no tiene las cuatro primeras posiciones numéricas. No se utiliza',
+            'message' => self::MSG_SYSTEM_BUSY,
+        ],
+
         'SIS0078' => [
-            'field'   => 'Ds_TransactionType',
-            'reason'  => 'Valor desconocido',
+            'reason'  => 'Método de pago no disponible',
             'message' => self::MSG_CARD_NO_PAYMENT_METHOD_AVAILABLE,
+        ],
+
+        'SIS0079' => [
+            'reason'  => 'Error al realizar el pago con tarjeta',
+            'message' => self::MSG_DATA_MISSING,
+        ],
+
+        'SIS0081' => [
+            'reason'  => 'La sesión es nueva, se han perdido los datos almacenados',
+            'message' => self::MSG_DATA_MISSING,
+        ],
+
+        'SIS0084' => [
+            'reason'  => 'El valor de `Ds_Merchant_Conciliation` es nulo',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0085' => [
+            'reason'  => 'El valor de `Ds_Merchant_Conciliation` no es numérico',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0086' => [
+            'reason'  => 'El valor de `Ds_Merchant_Conciliation` no ocupa 6 posiciones',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0089' => [
+            'reason'  => 'El valor de `Ds_Merchant_ExpiryDate` no ocupa 4 posiciones',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0092' => [
+            'reason'  => 'El valor de `Ds_Merchant_ExpiryDate` es nulo',
+            'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0093' => [
@@ -372,42 +395,88 @@ class ErrorCode extends AbstractField implements FieldInterface
             'message' => self::MSG_AUTH_ERROR,
         ],
 
+        'SIS0097' => [
+            'reason'  => 'Valor del campo `Ds_Merchant_CComercio` no válido',
+            'message' => self::MSG_AUTH_ERROR,
+        ],
+
+        'SIS0098' => [
+            'reason'  => 'Valor del campo `Ds_Merchant_CVentana` no válido',
+            'message' => self::MSG_AUTH_ERROR,
+        ],
+
         'SIS0112' => [
-            'field'   => 'Ds_TransactionType',
-            'reason'  => 'Valor no permitido',
+            'reason'  => 'Error. El tipo de transacción especificado en `Ds_Merchant_Transaction_Type` no está permitido',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0113' => [
+            'reason'  => 'Excepción producida en el servlet de operaciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0114' => [
-            'reason'  => 'Se ha llamado con un GET en lugar de un POST',
+            'reason'  => 'Error. Se ha llamado con un GET en lugar de un POST',
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0115' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'No existe operación sobre la que realizar el pago de la cuota',
+            'reason'  => 'Error. No existe operación sobre la que realizar el pago de la cuota',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0116' => [
-            'field'   => 'Ds_Merchant_Order',
-            'reason'  => 'La operación sobre la que se desea pagar una cuota no es válida.',
+            'reason'  => 'La operación sobre la que se desea pagar una cuota no es válida',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0117' => [
-            'field'   => 'Ds_Merchant_Order',
             'reason'  => 'La operación sobre la que se desea pagar una cuota no está autorizada',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
+        'SIS0118' => [
+            'reason'  => 'Se ha excedido el importe total de las cuotas',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0119' => [
+            'reason'  => 'Valor del campo `Ds_Merchant_DateFrecuency no válido',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0120' => [
+            'reason'  => 'Valor del campo `Ds_Merchant_ChargeExpiryDate` no válido',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0121' => [
+            'reason'  => 'Valor del campo `Ds_Merchant_SumTotal` no válido',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0122' => [
+            'reason'  => 'Valor del campo `Ds_Merchant_DateFrecuency` o no `Ds_Merchant_SumTotal` tiene formato incorrecto',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0123' => [
+            'reason'  => 'Se ha excedido la fecha tope para realizar transacciones',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0124' => [
+            'reason'  => 'No ha transcurrido la frecuencia mínima en un pago recurrente sucesivo',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
         'SIS0132' => [
-            'reason'  => 'La fecha de Confirmación de Autorización no puede superar en más de 7 días a la preautorización',
+            'reason'  => 'La fecha de Confirmación de Autorización no puede superar en más de 7 días a la de Preautorización',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0133' => [
-            'reason'  => 'La fecha de confirmación de Autenticación no puede superar en más de 45 días la autenticación previa',
+            'reason'  => 'La fecha de Confirmación de Autenticación no puede superar en más de 45 días a la de Autenticación Previa',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -421,18 +490,23 @@ class ErrorCode extends AbstractField implements FieldInterface
             'message' => self::MSG_SYSTEM_BUSY,
         ],
 
+        'SIS0197' => [
+            'reason'  => 'Error al obtener los datos de cesta de la compra en operación tipo pasarela',
+            'message' => self::MSG_SYSTEM_BUSY,
+        ],
+
         'SIS0198' => [
-            'reason'  => 'Importe supera límite permitido para el comercio',
-            'message' => self::MSG_DATA_SENT_ERROR,
+            'reason'  => 'Error. El importe supera el límite permitido para el comercio',
+            'message' => self::MSG_SYSTEM_BUSY,
         ],
 
         'SIS0199' => [
-            'reason'  => 'El número de operaciones supera el límite permitido para el comercio',
+            'reason'  => 'Error. El número de operaciones supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0200' => [
-            'reason'  => 'El importe acumulado supera el límite permitido para el comercio',
+            'reason'  => 'Error. El importe acumulado supera el límite permitido para el comercio',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -442,17 +516,17 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0216' => [
-            'reason'  => 'El CVV2 tiene más de tres posiciones',
+            'reason'  => 'Error. `Ds_Merchant_CVV2` tiene más de 3 posiciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0217' => [
-            'reason'  => 'Error de formato en CVV2',
+            'reason'  => 'Error de formato en `Ds_Merchant_CVV2`',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0218' => [
-            'reason'  => 'La entrada “Operaciones” no permite pagos seguros',
+            'reason'  => 'El comercio no permite operaciones seguras por la entrada /operaciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -497,8 +571,7 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0227' => [
-            'field'   => 'Ds_Merchant_TransactionDate',
-            'reason'  => 'Valor no válido',
+            'reason'  => 'Valor del campo `Ds_Merchant_TransactionDate` no válido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -533,29 +606,27 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0257' => [
-            'reason'  => 'La tarjeta no permite preautorizaciones',
+            'reason'  => 'Esta tarjeta no permite operativa de preautorizaciones',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0258' => [
-            'reason'  => 'Inconsistencia en datos de confirmación',
+            'reason'  => 'Inconsistencia de datos en la validación de una confirmación',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0261' => [
-            'reason'  => 'Operación supera alguna limitación de operatoria definida por Banco Sabadell',
+            'reason'  => 'Operación detenida por superar el control de restricciones en la entrada al SIS',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0270' => [
-            'field'   => 'Ds_Merchant_TransactionType',
-            'reason'  => 'Tipo de operación no activado para este comercio',
+            'reason'  => 'El comercio no puede realizar autorizaciones en diferido',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
         'SIS0274' => [
-            'field'   => 'Ds_Merchant_TransactionType',
-            'reason'  => 'Tipo de operación desconocida o no permitida para esta entrada al TPV Virtual.',
+            'reason'  => 'Tipo de operación desconocida o no permitida por esta entrada al SIS',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 
@@ -576,6 +647,61 @@ class ErrorCode extends AbstractField implements FieldInterface
 
         'SIS0298' => [
             'reason'  => 'El comercio no está configurado para realizar “Tarjeta en Archivo (P.Suscripciones/P.Exprés)”',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0429' => [
+            'reason'  => 'Error en la versión enviada por el comercio en el parámetro `Ds_SignatureVersion`',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0430' => [
+            'reason'  => 'Error al decodificar el parámetro `Ds_MerchantParameters`',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0431' => [
+            'reason'  => 'Error del objeto JSON que se envía codificado en el parámetro `Ds_MerchantParameters`',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0432' => [
+            'reason'  => 'Error. FUC del comercio erróneo',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0433' => [
+            'reason'  => 'Error. Terminal del comercio erróneo',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0434' => [
+            'reason'  => 'Error. Ausencia de número de pedido en la operación enviada por el comercio',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0435' => [
+            'reason'  => 'Error en el cáculo de la firma',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0436' => [
+            'reason'  => 'Error en la construcción del elemento padre <REQUEST>',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0437' => [
+            'reason'  => 'Error en la construcción del elemento <DS_SIGNATUREVERSION>',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0438' => [
+            'reason'  => 'Error en la construcción del elemento <DATOSENTRADA>',
+            'message' => self::MSG_DATA_SENT_ERROR,
+        ],
+
+        'SIS0439' => [
+            'reason'  => 'Error en la construcción del elemento <DS_SIGNATURE>',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
     ];
@@ -644,20 +770,6 @@ class ErrorCode extends AbstractField implements FieldInterface
         }
 
         return $messageDescriptions[$message];
-    }
-
-    /**
-     * @return string The name of the affected field (optional)
-     */
-    public function getField()
-    {
-        $error = self::getError($this->value);
-
-        if (!isset($error['field'])) {
-            return null;
-        }
-
-        return $error['field'];
     }
 
     /**

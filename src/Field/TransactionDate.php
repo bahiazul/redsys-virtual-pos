@@ -22,6 +22,10 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class TransactionDate extends AbstractField implements FieldInterface
 {
-    protected $name        = 'TransactionDate';
-    protected $requestName = 'Ds_Merchant_TransactionDate';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
 }

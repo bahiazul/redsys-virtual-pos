@@ -360,6 +360,14 @@ class Validator implements ValidatorInterface
         return (preg_match("#^[a-zA-Z]+$#", $input) === 1);
     }
 
+    protected static function base64($input)
+    {
+        $regex = "#^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$#";
+        $input = preg_replace('/\s/', '', $input);
+
+        return (preg_match($regex, $input) === 1);
+    }
+
     protected static function blank($input = null)
     {
         is_string($input) && $input = trim($input);

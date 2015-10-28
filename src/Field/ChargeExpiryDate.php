@@ -20,27 +20,12 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class UrlKO extends AbstractField implements FieldInterface
+class ChargeExpiryDate extends AbstractField implements FieldInterface
 {
-    use ValidableTrait;
-
     /**
      * Indicates if this field can appear in a request
      *
      * @var boolean
      */
     protected $inRequest = true;
-
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value = null)
-    {
-        parent::__construct($value);
-
-        $this->validationRules = [
-            'url',
-            'max_length(250)',
-        ];
-    }
 }

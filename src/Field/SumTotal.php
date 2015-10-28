@@ -20,15 +20,16 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class WebTransactionType extends AbstractTransactionType implements FieldInterface
+class SumTotal extends AbstractField implements FieldInterface
 {
-    const STANDARD = '0';
-    const AUTH     = '7';
+    use ValidableTrait;
 
-    protected static $availableValues = [
-        self::STANDARD => 'Pago estándar',
-        self::AUTH     => 'Autenticación',
-    ];
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
 
     /**
      * @param mixed $value
@@ -37,23 +38,9 @@ class WebTransactionType extends AbstractTransactionType implements FieldInterfa
     {
         parent::__construct($value);
 
-        $this->defaultValue = self::STANDARD;
-
-        $keys = serialize(array_keys(self::getAvailableValues()));
-
         $this->validationRules = [
-            "in_array({$keys})",
+            'required',
+            'max_length(10)',
         ];
-    }
-
-    /**
-     * @return array
-     */
-    protected static function getAvailableValues()
-    {
-        $availableValues = array_merge(parent::$availableValues, self::$availableValues);
-        ksort($availableValues);
-
-        return $availableValues;
     }
 }

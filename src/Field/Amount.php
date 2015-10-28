@@ -24,9 +24,19 @@ class Amount extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'Amount';
-    protected $requestName  = 'Ds_Merchant_Amount';
-    protected $responseName = 'Ds_Amount';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     /**
      * @param mixed $value

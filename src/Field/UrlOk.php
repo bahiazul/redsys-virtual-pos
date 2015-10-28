@@ -20,12 +20,16 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://github.com/nkm/redsys-virtual-pos
  */
-class UrlOk extends AbstractField implements FieldInterface
+class UrlOK extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'UrlOK';
-    protected $requestName  = 'Ds_Merchant_UrlOK';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
 
     /**
      * @param mixed $value

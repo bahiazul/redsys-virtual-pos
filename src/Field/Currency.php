@@ -24,9 +24,19 @@ class Currency extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
-    protected $name         = 'Currency';
-    protected $requestName  = 'Ds_Merchant_Currency';
-    protected $responseName = 'Ds_Currency';
+    /**
+     * Indicates if this field can appear in a request
+     *
+     * @var boolean
+     */
+    protected $inRequest = true;
+
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 
     const EUR = '978';
     const USD = '840';
@@ -44,6 +54,11 @@ class Currency extends AbstractField implements FieldInterface
     const VEF = '937';
     const TRL = '949';
 
+    /**
+     * Set of predefined values
+     *
+     * @var array
+     */
     protected static $availableValues = [
         self::EUR => 'Euro',
         self::USD => 'Dólar',

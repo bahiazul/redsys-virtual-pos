@@ -22,8 +22,11 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class Country extends AbstractField implements FieldInterface
 {
-    protected $name = 'Country';
-
+    /**
+     * Set of predefined values
+     *
+     * @var array
+     */
     protected static $availableValues = [
         '004' => 'Afganistán',
         '008' => 'Albania',

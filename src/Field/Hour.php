@@ -22,6 +22,10 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class Hour extends AbstractField implements FieldInterface
 {
-    protected $name         = 'Hour';
-    protected $responseName = 'Ds_Hour';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 }

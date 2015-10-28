@@ -22,6 +22,10 @@ namespace nkm\RedsysVirtualPos\Field;
  */
 class Date extends AbstractField implements FieldInterface
 {
-    protected $name         = 'Date';
-    protected $responseName = 'Ds_Date';
+    /**
+     * Indicates if this field can appear in a response
+     *
+     * @var boolean
+     */
+    protected $inResponse = true;
 }

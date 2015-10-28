@@ -32,35 +32,21 @@ class Response extends AbstractMessage implements MessageInterface
      * @var array
      */
     protected $fields = [
-        'ds_date'              => 'Date',
-        'ds_hour'              => 'Hour',
-        'ds_amount'            => 'Amount',
-        'ds_currency'          => 'Currency',
-        'ds_order'             => 'Order',
-        'ds_merchantcode'      => 'MerchantCode',
-        'ds_terminal'          => 'Terminal',
-        'ds_signature'         => 'Signature',
-        'ds_response'          => 'Response',
-        'ds_transactiontype'   => 'TransactionType',
-        'ds_securepayment'     => 'SecurePayment',
-        'ds_merchantdata'      => 'MerchantData',
-        'ds_card_country'      => 'CardCountry',
-        'ds_authorisationcode' => 'AuthorisationCode',
-        'ds_consumerlanguage'  => 'ConsumerLanguage',
-        'ds_card_type'         => 'CardType',
-        'ds_errorcode'         => 'ErrorCode',
-    ];
-
-    /**
-     * Fields that comprise the signature
-     * @var array
-     */
-    protected $signatureFields = [
-        'ds_amount',
-        'ds_order',
-        'ds_merchantcode',
-        'ds_currency',
-        'ds_response',
+        'Date',
+        'Hour',
+        'Amount',
+        'Currency',
+        'Order',
+        'MerchantCode',
+        'Terminal',
+        'Response',
+        'MerchantData',
+        'SecurePayment',
+        'TransactionType',
+        'Card_Country',
+        'AuthorisationCode',
+        'ConsumerLanguage',
+        'Card_Type',
     ];
 
     /**
@@ -69,20 +55,5 @@ class Response extends AbstractMessage implements MessageInterface
      */
     protected function validate()
     {
-        $isValid = true;
-        $validationErrors = [];
-
-        $responseSignature = $this->getParam('ds_signature');
-        $checkSignature    = $this->generateSignature();
-
-        if ($responseSignature->getValue() !== $checkSignature) {
-            $isValid = false;
-            $validationErrors[] = 'La firma recibida no es correcta.';
-        }
-
-        $this->isValid          = $isValid;
-        $this->validationErrors = $validationErrors;
-
-        return $this;
     }
 }
