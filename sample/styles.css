@@ -1,0 +1,4 @@
+table th.value,
+table td.value {
+    word-break:break-all
+}

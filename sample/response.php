@@ -1,65 +1,173 @@
 <?php
 
-date_default_timezone_set('Europe/Madrid');
+date_default_timezone_set('Europe/Madrid'); // Avoid possible PHP warnings
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/environment-and-credentials.php';
 
 use nkm\RedsysVirtualPos\Message\WebResponse;
-use nkm\RedsysVirtualPos\Field\Currency;
-use nkm\RedsysVirtualPos\Field\TransactionType;
+use Rocket\UI\Table\Table;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-// Logging
+
+// Set up Logging
 $log = new Logger('responses');
 $log->pushHandler(new StreamHandler(__DIR__.'/responses.log'));
 
 
-$secret = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
-
-$env = new nkm\RedsysVirtualPos\Environment\TestEnvironment();
-$env->setSecret($secret);
-
-
+// Generate the Response object
 $webResponse = new WebResponse($env, $log);
-$webResponse->setPostParams($_POST); // #YOLO
-$webResponse->log('debug', 'POST received', $_POST);
+$webResponse->setEnvelopeParams($_REQUEST); // #YOLO
 
+
+// Validate the Response Signature
+$rsIsValid = !$_REQUEST || ($_REQUEST && $webResponse->getIsValid());
+if ($_REQUEST && !$rsIsValid) {
+    $errors = $webResponse->getValidationErrors();
+    is_array($errors) || $errors = [];
+    $rsCaption = 'INVALID RESPONSE. '.implode(', ', $errors);
+} else {
+    $rsCaption = 'VALID RESPONSE';
+}
+
+
+// Environment Information
+$envInfo = [];
+$eiCaption = 'Environment Information';
+$envInfo['Name']   = $env->getName();
+$envInfo['Secret'] = $env->getSecret();
+
+// Envelop Parameters
+$epCaption = "Envelop Parameters ({$_SERVER['REQUEST_METHOD']})";
+
+// Response Parameters
+$rpValues = [];
+$rpCaption = 'Response Parameters';
 $responseParams = $webResponse->getParams();
 foreach ($responseParams as $k => $v) {
-    $params[$k] = $v->getValue();
-}
-$isValid          = $webResponse->getIsValid();
-$validationErrors = $webResponse->getValidationErrors();
-
-
-if ($isValid) {
-    $webResponse->log('debug', 'Response is VALID', $params);
-} else {
-    $webResponse->log('debug', 'Response is NOT VALID', $params);
-    $webResponse->log('debug', 'Validation Errors', $validationErrors);
+    $rpValues[ $v->getResponseName() ] = $v->getValue();
 }
 
-if (isset($responseParams['Response'])) {
-    $responseCode = [];
-    $responseCode['type']             = $responseParams['Response']->getType();
-    $responseCode['title']            = $responseParams['Response']->getTitle();
-    $responseCode['description']      = $responseParams['Response']->getDescription();
-    $responseCode['typeDescription']  = $responseParams['Response']->getTypeDescription($responseCode['type']);
-    $responseCode['isApproved']       = $responseParams['Response']->getIsApproved();
-    $responseCode['isRejected']       = $responseParams['Response']->getIsRejected();
-    $responseCode['isCancelOrRefund'] = $responseParams['Response']->getIsCancelOrRefund();
-    $responseCode['isReconOrPreauth'] = $responseParams['Response']->getIsReconOrPreauth();
-    $responseCode['isError']          = $responseParams['Response']->getIsError();
+// Response Information
+$responseInfo = [];
+$responseInfo['type']            = $responseParams['Response']->getType();
+$responseInfo['typeDescription'] = $responseParams['Response']->getTypeDescription($responseInfo['type']);
+$responseInfo['title']           = $responseParams['Response']->getTitle();
+$responseInfo['description']     = $responseParams['Response']->getDescription();
+$riCaption = 'Response Information';
 
-    $webResponse->log('debug', 'Response Info', $responseCode);
-}
-
+// Error Information
+$errorCode = [];
+$erCaption = 'Error Information';
 if (isset($responseParams['ErrorCode'])) {
-    $errorCode = [];
     $errorCode['reason']             = $responseParams['ErrorCode']->getReason();
     $errorCode['message']            = $responseParams['ErrorCode']->getMessage();
     $errorCode['messageDescription'] = $responseParams['ErrorCode']->getMessageDescription($errorCode['message']);
-
-    $webResponse->log('debug', 'Error Info', $errorCode);
 }
+
+
+/**
+ * LOGGING
+ */
+$webResponse->log('debug', $rsCaption);                // Response Signature
+$webResponse->log('debug', $eiCaption, $envInfo);      // Environment Info
+$webResponse->log('debug', $epCaption, $_REQUEST);     // Envelop Params
+$webResponse->log('debug', $rpCaption, $rpValues);     // Request Params
+$webResponse->log('debug', $riCaption, $responseInfo); // Request Info
+$webResponse->log('debug', $erCaption, $errorCode);    // Error Info
+$webResponse->log('debug', str_repeat('-', 42));       // Separator :3
+
+
+/**
+ * REPORT TABLES
+ */
+
+// Environment Information
+$eiTableRows = [];
+foreach ($envInfo as $k => $v) {
+    $eiTableRows[] = [
+        [
+            'class' => 'name',
+            'data'  => $k,
+        ],
+        [
+            'class' => 'value',
+            'data'  => $v,
+        ],
+    ];
+}
+
+// Envelop Parameters
+$epTableRows = [];
+foreach ($_REQUEST as $k => $v) {
+    $epTableRows[] = [
+        [
+          'class' => 'name',
+          'data'  => $k,
+        ],
+        [
+          'class' => 'value',
+          'data'  => $v,
+        ],
+    ];
+}
+
+// Response Parameters
+$rpTableRows = [];
+foreach ($responseParams as $k => $v) {
+    $rpTableRows[] = [
+        [
+            'class' => 'name',
+            'data'  => $v->getResponseName(),
+        ],
+        [
+            'class' => 'value',
+            'data'  => $v->getValue(),
+        ],
+    ];
+}
+
+// Response Information
+$riTableRows = [];
+foreach ($responseInfo as $k => $v) {
+    $riTableRows[] = [
+        [
+            'class' => 'name',
+            'data'  => $k,
+        ],
+        [
+            'class' => 'value',
+            'data'  => $v,
+        ],
+    ];
+}
+
+// Error Information
+$erTableRows = [];
+if (isset($errorCode)) {
+    foreach ($errorCode as $k => $v) {
+        $erTableRows[] = [
+            [
+                'class' => 'name',
+                'data'  => $k,
+            ],
+            [
+                'class' => 'value',
+                'data'  => $v,
+            ],
+        ];
+    }
+}
+
+$eiTableRows || $eiTableRows = [[['colspan' => 2, 'data' => 'No data']]];
+$epTableRows || $epTableRows = [[['colspan' => 2, 'data' => 'No data']]];
+$_REQUEST    || $rpTableRows = [[['colspan' => 2, 'data' => 'No data']]];
+$riTableRows || $riTableRows = [[['colspan' => 2, 'data' => 'No data']]];
+$erTableRows || $erTableRows = [[['colspan' => 2, 'data' => 'No data']]];
+
+$eiTable = Table::quick(['Name', 'Value'], $eiTableRows, [], $eiCaption); // Environment Info
+$epTable = Table::quick(['Name', 'Value'], $epTableRows, [], $epCaption); // Envelop Params
+$rpTable = Table::quick(['Name', 'Value'], $rpTableRows, [], $rpCaption); // Request Params
+$riTable = Table::quick(['Name', 'Value'], $riTableRows, [], $riCaption); // Request Info
+$erTable = Table::quick(['Name', 'Value'], $erTableRows, [], $erCaption); // Error Info
