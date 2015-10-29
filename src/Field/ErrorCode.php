@@ -641,7 +641,7 @@ class ErrorCode extends AbstractField implements FieldInterface
         ],
 
         'SIS0297' => [
-            'reason'  => 'Superado el número máximo de operaciones (99 oper. o 1 año) para realizar transacciones sucesivas de “Tarjeta en Archivo (P.Suscripciones/P.Exprés)”. Se requiere realizar una nueva operación de “Tarjeta en Archivo Inicial” para iniciar el ciclo..',
+            'reason'  => 'Superado el número máximo de operaciones (99 oper. o 1 año) para realizar transacciones sucesivas de “Tarjeta en Archivo (P.Suscripciones/P.Exprés)”. Se requiere realizar una nueva operación de “Tarjeta en Archivo Inicial” para iniciar el ciclo.',
             'message' => self::MSG_DATA_SENT_ERROR,
         ],
 

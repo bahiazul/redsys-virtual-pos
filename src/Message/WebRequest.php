@@ -32,22 +32,22 @@ class WebRequest extends Request implements MessageInterface
     protected $endpoint = '/sis/realizarPago';
 
     /**
-     * Holds all the form field names
+     * Holds all the envelop field names
      *
      * @var array
      */
-    private $formFields = [
+    private $envelopFields = [
         'SignatureVersion',
         'MerchantParameters',
         'Signature',
     ];
 
     /**
-     * Holds all the form field objects
+     * Holds all the envelop field objects
      *
      * @var array
      */
-    private $formParams = [];
+    private $envelopParams = [];
 
     /**
      * @param EnvironmentInterface  $environment    The environment to set
@@ -70,21 +70,37 @@ class WebRequest extends Request implements MessageInterface
     }
 
     /**
+     * @return string   Endpoint's full URI
+     */
+    public function getEndpoint()
+    {
+        return $this->environment->getEndpoint($this->endpoint);
+    }
+
+    /**
      * @return array All the fields that can go in an action
      */
-    protected function getFormFields()
+    protected function getEnvelopFields()
     {
-        return (array) $this->formFields;
+        return (array) $this->envelopFields;
+    }
+
+    public function setParam($fieldName, $value)
+    {
+        parent::setParam($fieldName, $value);
+
+        $mp = $this->generateMerchantParameters();
+        $this->setEnvelopParam('MerchantParameters', $mp);
     }
 
     /**
      * @param array $params     Params and values
      * @return MessageInterface
      */
-    public function setFormParams(Array $params)
+    public function setEnvelopParams(Array $params)
     {
         foreach ($params as $paramName => $paramValue) {
-            $this->setFormParam($paramName, $paramValue);
+            $this->setEnvelopParam($paramName, $paramValue);
         }
 
         return $this;
@@ -93,12 +109,12 @@ class WebRequest extends Request implements MessageInterface
     /**
      * @return array The actions's parameter objects
      */
-    public function getFormParams()
+    public function getEnvelopParams()
     {
         $params = [];
-        $fields = $this->getFormFields();
+        $fields = $this->getEnvelopFields();
         foreach ($fields as $fieldName) {
-            $params[$fieldName] = $this->getFormParam($fieldName);
+            $params[$fieldName] = $this->getEnvelopParam($fieldName);
         }
 
         return $params;
@@ -109,13 +125,13 @@ class WebRequest extends Request implements MessageInterface
      * @param  mixed    $value      The field's value
      * @return MessageInterface
      */
-    protected function setFormParam($fieldName, $value)
+    protected function setEnvelopParam($fieldName, $value)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
         try {
             $rc = new \ReflectionClass($fieldClass);
-            $this->formParams[$fieldClass] = $rc->newInstanceArgs([$value]);
+            $this->envelopParams[$fieldClass] = $rc->newInstanceArgs([$value]);
         } catch (Exception $e) {
             throw new \RuntimeException("Class `{$fieldClass}` not found.");
         }
@@ -127,16 +143,16 @@ class WebRequest extends Request implements MessageInterface
      * @param string $fieldName The field's name
      * @return FieldInterface
      */
-    protected function getFormParam($fieldName)
+    protected function getEnvelopParam($fieldName)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
-        if (!isset($this->formParams[$fieldClass]) || !is_object($this->formParams[$fieldClass])) {
+        if (!isset($this->envelopParams[$fieldClass]) || !is_object($this->envelopParams[$fieldClass])) {
             $rc = new \ReflectionClass($fieldClass);
-            $this->formParams[$fieldClass] = $rc->newInstance();
+            $this->envelopParams[$fieldClass] = $rc->newInstance();
         }
 
-        return $this->formParams[$fieldClass];
+        return $this->envelopParams[$fieldClass];
     }
 
     /**
@@ -155,10 +171,20 @@ class WebRequest extends Request implements MessageInterface
             $params[$name] = $p->getValue();
         }
 
-        $params = json_encode($params);
-        $params = base64_encode($params);
+        $pm = json_encode($params);
+        $pm = base64_encode($pm);
 
-        return $params;
+        try {
+            $secret = $this->environment->getSecret();
+            $order  = $this->getParam('Order')->getValue();
+
+            $signature = $this->generateSignature($secret, $order, $pm);
+            $this->setEnvelopParam('Signature', $signature);
+        } catch (Exception $e) {
+            throw new \RuntimeException($e->getMessage());
+        }
+
+        return $pm;
     }
 
     /**
@@ -184,23 +210,10 @@ class WebRequest extends Request implements MessageInterface
      */
     public function getForm($attributes = [], $appendHtml = '')
     {
-        try {
-            $endpoint = $this->environment->getEndpoint($this->endpoint);
-
-            $secret = $this->environment->getSecret();
-            $order  = $this->getParam('Order')->getValue();
-            $mp     = $this->generateMerchantParameters();
-
-            $signature = $this->generateSignature($secret, $order, $mp);
-
-            $this->setFormParam('MerchantParameters', $mp);
-            $this->setFormParam('Signature', $signature);
-        } catch (Exception $e) {
-            throw new \RuntimeException($e->getMessage());
-        }
+        $endpoint = $this->getEndpoint();
 
         $fields = '';
-        $params = $this->getFormParams();
+        $params = $this->getEnvelopParams();
         foreach ($params as $name => $param) {
             $value = $param->getValue();
 

@@ -49,6 +49,15 @@ abstract class AbstractEnvironment implements EnvironmentInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        $className = (new \ReflectionClass($this))->getShortName();
+        return strtolower(preg_replace('/Environment$/', '', $className));
+    }
+
+    /**
      * @return string       The secret key
      * @throws Exception    If secret is not set
      */

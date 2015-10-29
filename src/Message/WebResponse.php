@@ -34,39 +34,39 @@ class WebResponse extends Response implements MessageInterface
     protected $fieldPrefix = 'Ds_';
 
     /**
-     * Holds all the POST field names
+     * Holds all the envelop field names
      *
      * @var array
      */
-    private $postFields = [
+    private $envelopFields = [
         'SignatureVersion',
         'MerchantParameters',
         'Signature',
     ];
 
     /**
-     * Holds all the POST field objects
+     * Holds all the field objects
      *
      * @var array
      */
-    private $postParams = [];
+    private $envelopParams = [];
 
     /**
      * @return array All the fields that can go in an action
      */
-    protected function getPostFields()
+    protected function getEnvelopFields()
     {
-        return (array) $this->postFields;
+        return (array) $this->envelopFields;
     }
 
     /**
      * @param array $params     Params and values
      * @return MessageInterface
      */
-    public function setPostParams(Array $params)
+    public function setEnvelopeParams(Array $params)
     {
         foreach ($params as $paramName => $paramValue) {
-            $this->setPostParam($paramName, $paramValue);
+            $this->setEnvelopParam($paramName, $paramValue);
         }
 
         return $this;
@@ -75,12 +75,12 @@ class WebResponse extends Response implements MessageInterface
     /**
      * @return array The actions's parameter objects
      */
-    public function getPostParams()
+    public function getEnvelopParams()
     {
         $params = [];
-        $fields = $this->getPostFields();
+        $fields = $this->getEnvelopFields();
         foreach ($fields as $fieldName) {
-            $params[$fieldName] = $this->getPostParam($fieldName);
+            $params[$fieldName] = $this->getEnvelopParam($fieldName);
         }
 
         return $params;
@@ -91,15 +91,15 @@ class WebResponse extends Response implements MessageInterface
      * @param  mixed    $value      The field's value
      * @return MessageInterface
      */
-    protected function setPostParam($fieldName, $value)
+    protected function setEnvelopParam($fieldName, $value)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
         try {
             $rc = new \ReflectionClass($fieldClass);
-            $this->postParams[$fieldClass] = $rc->newInstanceArgs([$value]);
+            $this->envelopParams[$fieldClass] = $rc->newInstanceArgs([$value]);
 
-            if ($this->postParams[$fieldClass]->getName() === 'MerchantParameters') {
+            if ($this->envelopParams[$fieldClass]->getName() === 'MerchantParameters') {
                 $params = $this->decodeMerchantParameters($value);
                 $this->setParams($params);
             }
@@ -115,16 +115,16 @@ class WebResponse extends Response implements MessageInterface
      * @param string $fieldName The field's name
      * @return FieldInterface
      */
-    protected function getPostParam($fieldName)
+    protected function getEnvelopParam($fieldName)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
 
-        if (!isset($this->postParams[$fieldClass]) || !is_object($this->postParams[$fieldClass])) {
+        if (!isset($this->envelopParams[$fieldClass]) || !is_object($this->envelopParams[$fieldClass])) {
             $rc = new \ReflectionClass($fieldClass);
-            $this->postParams[$fieldClass] = $rc->newInstance();
+            $this->envelopParams[$fieldClass] = $rc->newInstance();
         }
 
-        return $this->postParams[$fieldClass];
+        return $this->envelopParams[$fieldClass];
     }
 
     /**
@@ -180,10 +180,10 @@ class WebResponse extends Response implements MessageInterface
         try {
             $secret = $this->environment->getSecret();
             $order  = $this->getParam('Order')->getValue();
-            $mp     = $this->getPostParam('MerchantParameters')->getValue();
+            $mp     = $this->getEnvelopParam('MerchantParameters')->getValue();
 
             $chkSignature = $this->generateSignature($secret, $order, $mp);
-            $resSignature = $this->getPostParam('Signature')->getValue();
+            $resSignature = $this->getEnvelopParam('Signature')->getValue();
         } catch (Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
