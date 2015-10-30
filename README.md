@@ -5,7 +5,7 @@ Redsys Virtual POS
 
 **Redsys Virtual POS** is an *unofficial* standalone PHP library to handle payments through the spanish payment service Redsys.
 
-> **NOTE:** This library is still under development and not suited to be used in production yet. Consider yourself warned!
+> **NOTE:** This library its been used in production for over a year now (as Oct. 2015) but its still under development and its functionality is subject to change.
 
 Prerequisites
 -------------
@@ -15,25 +15,89 @@ Prerequisites
 Installation
 ------------
 
-TBF
+Installation is recommended through [Composer](https://getcomposer.org/).
+
+```
+$ composer require nkm/redsys-virtual-pos
+```
 
 Sample
 ------
 
-TBF
+Go to the `sample` folder an run the following command in a terminal to start PHP's built-in web server:
+
+```
+$ php -S 0.0.0.0:8000
+```
+
+Then open your browser and go to [here](http://localhost:8000/).
+
+If you want to test the online (async) response, replace `localhost` with your public IP or hostname, making sure that your machine is accesible through the port 8000 (you can use another port if you want).
 
 Usage
 -----
 
-TBF
+Basic usage:
+
+```php
+use nkm\RedsysVirtualPos\Message\WebRequest;
+use nkm\RedsysVirtualPos\Field\Currency;
+use nkm\RedsysVirtualPos\Field\TransactionType;
+
+$secret       = 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev';
+$merchantCode = '999008881';
+$terminal     = '871';
+
+// The Environment object holds connection details
+$env = new nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment();
+$env->setSecret($secret);
+
+// Setup the Parameters for the Request
+$params['Amount']             = '145'; // €1,45
+$params['Order']              = strval(time());
+$params['MerchantCode']       = $merchantCode;
+$params['Currency']           = Currency::EUR;
+$params['TransactionType']    = TransactionType::STANDARD;
+$params['Terminal']           = $terminal;
+$params['MerchantName']       = 'Test Store';                        // optional
+$params['ProductDescription'] = 'Product Description';               // optional
+$params['UrlOK']              = 'http://localhost:8000/success.php'; // optional
+$params['UrlKO']              = 'http://localhost:8000/failure.php'; // optional
+
+// Generate the Request
+$webRequest = new WebRequest($env);
+$webRequest->setParams($params);
+
+// Generate the form
+$submitBtn = "<p><input type='submit' value='Submit'></p>";
+$wrForm = $webRequest->getForm([], $submitBtn);
+
+// Render the HTML form w/ Submit button
+echo $wrForm;
+```
+
+See `sample/index.php` and `sample/response.php` for more detailed examples.
+
 
 Test
------
+----
 
-TBF
+Run the following command in a terminal:
 
-Authors
--------
+```
+$ phpunit
+```
+
+Changelog
+---------
+
+### Version 0.3.0 (30 October 2015)
+
+- Add support new cryptographic algorithm (SHA-2, HMAC_SHA256_V1) for message signing
+- Update for the new Redsys API
+- General overhaul and simplification
+- Improve sample with request/response support, logging and detailed reporting
+- Update documentation (Redsys and Banco Sabadell)
 
 ### Version 0.2.0 (29 October 2014)
 
@@ -70,7 +134,7 @@ License
 
 The BSD 3-Clause License
 
-Copyright (c) 2014, Javier Zapata
+Copyright (c) 2015, Javier Zapata
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -82,4 +146,3 @@ Redistribution and use in source and binary forms, with or without modification,
 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
