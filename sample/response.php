@@ -163,7 +163,7 @@ if (isset($errorCode)) {
 $eiTableRows || $eiTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 $epTableRows || $epTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 $_REQUEST    || $rpTableRows = [[['colspan' => 2, 'data' => 'No data']]];
-$riTableRows || $riTableRows = [[['colspan' => 2, 'data' => 'No data']]];
+$_REQUEST    || $riTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 $erTableRows || $erTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 
 $eiTable = Table::quick(['Name', 'Value'], $eiTableRows, [], $eiCaption); // Environment Info

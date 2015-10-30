@@ -35,6 +35,9 @@
 
       <div class="row">
         <div class="col-md-8">
+<?php if (!empty($riTable)): ?>
+            <?= $riTable ?>
+<?php endif ?>
 <?php if (!empty($rpTable)): ?>
             <?= $rpTable ?>
 <?php endif ?>

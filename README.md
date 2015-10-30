@@ -91,6 +91,10 @@ $ phpunit
 Changelog
 ---------
 
+### Version 0.3.1 (30 October 2015)
+
+- Minor fixes in sample
+
 ### Version 0.3.0 (30 October 2015)
 
 - Add support new cryptographic algorithm (SHA-2, HMAC_SHA256_V1) for message signing
