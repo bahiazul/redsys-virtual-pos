@@ -42,8 +42,8 @@ $webRequest->setParams($params);
 $submitBtn = "<p><input type='submit' name='submit' value='Submit' class='btn btn-primary btn-lg btn-block'></p>";
 
 // Environment Information
-$envInfo = [];
 $eiCaption = 'Environment Information';
+$envInfo = [];
 $envInfo['Name']     = $env->getName();
 $envInfo['Endpoint'] = $webRequest->getEndpoint();
 $envInfo['Secret']   = $env->getSecret();
@@ -51,19 +51,27 @@ $envInfo['Secret']   = $env->getSecret();
 // Request Parameters
 $rpCaption = 'Request Parameters';
 $requestParams = $webRequest->getParams();
+$rpValues = [];
+foreach ($requestParams as $k => $v) {
+    $rpValues[ $v->getRequestName() ] = $v->getValue();
+}
 
 // Envelop Parameters Table
 $epCaption = 'Envelop Parameters';
 $envelopParams = $webRequest->getEnvelopParams();
+$epValues = [];
+foreach ($envelopParams as $k => $v) {
+    $epValues[ $v->getRequestName() ] = $v->getValue();
+}
 
 
 /**
  * LOGGING
  */
-$webRequest->log('debug', $eiCaption, $envInfo);       // Environment Info
-$webRequest->log('debug', $epCaption, $envelopParams); // Envelop Params
-$webRequest->log('debug', $rpCaption, $params);        // Request Params
-$webRequest->log('debug', str_repeat('-', 42));        // Separator :3
+$webRequest->log('debug', $eiCaption, $envInfo);  // Environment Info
+$webRequest->log('debug', $epCaption, $epValues); // Envelop Params
+$webRequest->log('debug', $rpCaption, $params);   // Request Params
+$webRequest->log('debug', str_repeat('-', 42));   // Separator :3
 
 
 /**
@@ -71,15 +79,16 @@ $webRequest->log('debug', str_repeat('-', 42));        // Separator :3
  */
 
 // Request Parameters
-foreach ($requestParams as $k => $v) {
+$rpTableRows = [];
+foreach ($rpValues as $k => $v) {
     $rpTableRows[] = [
         [
             'class' => 'name',
-            'data'  => $v->getRequestName(),
+            'data'  => $k,
         ],
         [
             'class' => 'value',
-            'data'  => $v->getValue(),
+            'data'  => $v,
         ],
     ];
 }
@@ -100,15 +109,16 @@ foreach ($envInfo as $k => $v) {
 }
 
 // Envelop Parameters
-foreach ($envelopParams as $k => $v) {
+$epTableRows = [];
+foreach ($epValues as $k => $v) {
     $epTableRows[] = [
         [
-          'class' => 'name',
-          'data'  => $v->getRequestName(),
+            'class' => 'name',
+            'data'  => $k,
         ],
         [
-          'class' => 'value',
-          'data'  => $v->getValue(),
+            'class' => 'value',
+            'data'  => $v,
         ],
     ];
 }

@@ -33,8 +33,8 @@ if ($_REQUEST && !$rsIsValid) {
 
 
 // Environment Information
-$envInfo = [];
 $eiCaption = 'Environment Information';
+$envInfo = [];
 $envInfo['Name']   = $env->getName();
 $envInfo['Secret'] = $env->getSecret();
 
@@ -42,24 +42,24 @@ $envInfo['Secret'] = $env->getSecret();
 $epCaption = "Envelop Parameters ({$_SERVER['REQUEST_METHOD']})";
 
 // Response Parameters
-$rpValues = [];
 $rpCaption = 'Response Parameters';
 $responseParams = $webResponse->getParams();
+$rpValues = [];
 foreach ($responseParams as $k => $v) {
     $rpValues[ $v->getResponseName() ] = $v->getValue();
 }
 
 // Response Information
+$riCaption = 'Response Information';
 $responseInfo = [];
 $responseInfo['type']            = $responseParams['Response']->getType();
 $responseInfo['typeDescription'] = $responseParams['Response']->getTypeDescription($responseInfo['type']);
 $responseInfo['title']           = $responseParams['Response']->getTitle();
 $responseInfo['description']     = $responseParams['Response']->getDescription();
-$riCaption = 'Response Information';
 
 // Error Information
-$errorCode = [];
 $erCaption = 'Error Information';
+$errorCode = [];
 if (isset($responseParams['ErrorCode'])) {
     $errorCode['reason']             = $responseParams['ErrorCode']->getReason();
     $errorCode['message']            = $responseParams['ErrorCode']->getMessage();
@@ -70,13 +70,15 @@ if (isset($responseParams['ErrorCode'])) {
 /**
  * LOGGING
  */
-$webResponse->log('debug', $rsCaption);                // Response Signature
-$webResponse->log('debug', $eiCaption, $envInfo);      // Environment Info
-$webResponse->log('debug', $epCaption, $_REQUEST);     // Envelop Params
-$webResponse->log('debug', $rpCaption, $rpValues);     // Request Params
-$webResponse->log('debug', $riCaption, $responseInfo); // Request Info
-$webResponse->log('debug', $erCaption, $errorCode);    // Error Info
-$webResponse->log('debug', str_repeat('-', 42));       // Separator :3
+if (!empty($_REQUEST)) {
+    $webResponse->log('debug', $rsCaption);                // Response Signature
+    $webResponse->log('debug', $eiCaption, $envInfo);      // Environment Info
+    $webResponse->log('debug', $epCaption, $_REQUEST);     // Envelop Params
+    $webResponse->log('debug', $rpCaption, $rpValues);     // Request Params
+    $webResponse->log('debug', $riCaption, $responseInfo); // Request Info
+    $webResponse->log('debug', $erCaption, $errorCode);    // Error Info
+    $webResponse->log('debug', str_repeat('-', 42));       // Separator :3
+}
 
 
 /**
@@ -103,27 +105,27 @@ $epTableRows = [];
 foreach ($_REQUEST as $k => $v) {
     $epTableRows[] = [
         [
-          'class' => 'name',
-          'data'  => $k,
+            'class' => 'name',
+            'data'  => $k,
         ],
         [
-          'class' => 'value',
-          'data'  => $v,
+            'class' => 'value',
+            'data'  => $v,
         ],
     ];
 }
 
 // Response Parameters
 $rpTableRows = [];
-foreach ($responseParams as $k => $v) {
+foreach ($rpValues as $k => $v) {
     $rpTableRows[] = [
         [
             'class' => 'name',
-            'data'  => $v->getResponseName(),
+            'data'  => $k,
         ],
         [
             'class' => 'value',
-            'data'  => $v->getValue(),
+            'data'  => $v,
         ],
     ];
 }
