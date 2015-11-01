@@ -128,10 +128,11 @@ class WebRequest extends Request implements MessageInterface
     protected function setEnvelopParam($fieldName, $value)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
+        $rc = new \ReflectionClass($fieldClass);
+        $shortName = $rc->getShortName();
 
         try {
-            $rc = new \ReflectionClass($fieldClass);
-            $this->envelopParams[$fieldClass] = $rc->newInstanceArgs([$value]);
+            $this->envelopParams[$shortName] = $rc->newInstanceArgs([$value]);
         } catch (Exception $e) {
             throw new \RuntimeException("Class `{$fieldClass}` not found.");
         }
@@ -146,13 +147,14 @@ class WebRequest extends Request implements MessageInterface
     protected function getEnvelopParam($fieldName)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
+        $rc = new \ReflectionClass($fieldClass);
+        $shortName = $rc->getShortName();
 
-        if (!isset($this->envelopParams[$fieldClass]) || !is_object($this->envelopParams[$fieldClass])) {
-            $rc = new \ReflectionClass($fieldClass);
-            $this->envelopParams[$fieldClass] = $rc->newInstance();
+        if (!isset($this->envelopParams[$shortName]) || !is_object($this->envelopParams[$shortName])) {
+            $this->envelopParams[$shortName] = $rc->newInstance();
         }
 
-        return $this->envelopParams[$fieldClass];
+        return $this->envelopParams[$shortName];
     }
 
     /**

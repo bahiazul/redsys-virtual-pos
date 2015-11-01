@@ -93,13 +93,14 @@ class WebResponse extends Response implements MessageInterface
      */
     protected function setEnvelopParam($fieldName, $value)
     {
-        $fieldClass = $this->resolveFieldClassName($fieldName);
-
         try {
+            $fieldClass = $this->resolveFieldClassName($fieldName);
             $rc = new \ReflectionClass($fieldClass);
-            $this->envelopParams[$fieldClass] = $rc->newInstanceArgs([$value]);
+            $shortName = $rc->getShortName();
 
-            if ($this->envelopParams[$fieldClass]->getName() === 'MerchantParameters') {
+            $this->envelopParams[$shortName] = $rc->newInstanceArgs([$value]);
+
+            if ($this->envelopParams[$shortName]->getName() === 'MerchantParameters') {
                 $params = $this->decodeMerchantParameters($value);
                 $this->setParams($params);
             }
@@ -118,13 +119,14 @@ class WebResponse extends Response implements MessageInterface
     protected function getEnvelopParam($fieldName)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
+        $rc = new \ReflectionClass($fieldClass);
+        $shortName = $rc->getShortName();
 
-        if (!isset($this->envelopParams[$fieldClass]) || !is_object($this->envelopParams[$fieldClass])) {
-            $rc = new \ReflectionClass($fieldClass);
-            $this->envelopParams[$fieldClass] = $rc->newInstance();
+        if (!isset($this->envelopParams[$shortName]) || !is_object($this->envelopParams[$shortName])) {
+            $this->envelopParams[$shortName] = $rc->newInstance();
         }
 
-        return $this->envelopParams[$fieldClass];
+        return $this->envelopParams[$shortName];
     }
 
     /**

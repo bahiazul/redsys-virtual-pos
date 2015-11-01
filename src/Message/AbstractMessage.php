@@ -158,11 +158,13 @@ abstract class AbstractMessage implements MessageInterface
         $this->isValid = null;
         $this->validationErrors = null;
 
-        $fieldClass = $this->resolveFieldClassName($fieldName);
 
         try {
+            $fieldClass = $this->resolveFieldClassName($fieldName);
             $rc = new \ReflectionClass($fieldClass);
-            $this->params[$fieldClass] = $rc->newInstanceArgs([$value]);
+            $shortName = $rc->getShortName();
+
+            $this->params[$shortName] = $rc->newInstanceArgs([$value]);
         } catch (Exception $e) {
             throw new \RuntimeException("Class `{$fieldClass}` not found.");
         }
@@ -177,13 +179,14 @@ abstract class AbstractMessage implements MessageInterface
     protected function getParam($fieldName)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
+        $rc = new \ReflectionClass($fieldClass);
+        $shortName = $rc->getShortName();
 
-        if (!isset($this->params[$fieldClass]) || !is_object($this->params[$fieldClass])) {
-            $rc = new \ReflectionClass($fieldClass);
-            $this->params[$fieldClass] = $rc->newInstance();
+        if (!isset($this->params[$shortName]) || !is_object($this->params[$shortName])) {
+            $this->params[$shortName] = $rc->newInstance();
         }
 
-        return $this->params[$fieldClass];
+        return $this->params[$shortName];
     }
 
     /**
