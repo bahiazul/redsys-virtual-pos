@@ -91,6 +91,12 @@ $ phpunit
 Changelog
 ---------
 
+### Version 0.3.2 (1 November 2015)
+
+- Fix field names on params array indices
+- Fix missing case-sensitive renames (OSX, Y U NO CS?)
+- Sample refactoring
+
 ### Version 0.3.1 (30 October 2015)
 
 - Minor fixes in sample
