@@ -2,6 +2,10 @@ Redsys Virtual POS
 ==================
 
 [![Build Status](https://travis-ci.org/nkm/redsys-virtual-pos.png?branch=master)](https://travis-ci.org/nkm/redsys-virtual-pos)
+[![Latest Stable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/stable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
+[![Total Downloads](https://poser.pugx.org/nkm/redsys-virtual-pos/downloads)](https://packagist.org/packages/nkm/redsys-virtual-pos)
+[![Latest Unstable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/unstable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
+[![License](https://poser.pugx.org/nkm/redsys-virtual-pos/license)](https://packagist.org/packages/nkm/redsys-virtual-pos)
 
 **Redsys Virtual POS** is an *unofficial* standalone PHP library to handle payments through the spanish payment service Redsys.
 
