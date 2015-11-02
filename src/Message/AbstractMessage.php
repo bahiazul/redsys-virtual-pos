@@ -16,7 +16,8 @@ use nkm\RedsysVirtualPos\Util\Helper;
 use Psr\Log\LoggerInterface;
 
 /**
- * Part of a communication for a monetary operation (a request or a reponse)
+ * A message is a part of a communication for a monetary operation
+ * (i.e. a request or a reponse).
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
@@ -29,55 +30,60 @@ abstract class AbstractMessage implements MessageInterface
     const FIELD_BASE_NAMESPACE = '\nkm\RedsysVirtualPos\Field\\';
 
     /**
-     * Environment object
+     * The environment object.
      *
-     * @var object
+     * @var \nkm\RedsysVirtualPos\Environment\EnvironmentInterface
      */
     protected $environment;
 
     /**
-     * Logger object
+     * The logger implementation.
      *
-     * @var object
+     * @var \Psr\Log\LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
-     * The prefix for the names of the sent/received params
+     * The prefix for the names of the sent/received params.
      *
      * @var string
      */
     protected $fieldPrefix;
 
     /**
-     * All the fields that can go in a request/response
-     *
-     * The array's keys should be underscore strings
-     * and its values be names of classes extending
-     * from AbstractField
+     * The name of all the fields that can go in a message.
+     * Its values should be names of classes extending from AbstractField.
      *
      * @var array
      */
-    protected $fields;
+    protected $fields = [];
 
     /**
-     * Holds all the field objects
+     * All the Field objects indexed by its class shortname.
+     *
      * @var array
      */
     protected $params = [];
 
     /**
+     * Indicates if this message is valid after its been validated.
+     *
      * @var boolean
      */
     protected $isValid;
 
     /**
+     * All the validation error messages after a failed validation.
+     *
      * @var array
      */
-    protected $ValidationErrors;
+    protected $validationErrors;
 
     /**
-     * @param EnvironmentInterface  $environment    The environment to set
+     * Create a new message instance.
+     *
+     * @param EnvironmentInterface $environment The environment to set
+     * @param LoggerInterface|null $logger      An optional logger
      */
     public function __construct(EnvironmentInterface $environment, LoggerInterface $logger = null)
     {
@@ -87,9 +93,9 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * [setLogger description]
+     * Sets a logger implementation.
      *
-     * @param Psr\Log\LoggerInterface $logger [description]
+     * @param Psr\Log\LoggerInterface $logger The logger implementation
      */
     public function setLogger(LoggerInterface $logger)
     {
@@ -114,7 +120,9 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * @return array All the fields that can go in an action
+     * Get the name of all the fields that can go in a message.
+     *
+     * @return array The field names
      */
     protected function getFields()
     {
@@ -122,10 +130,12 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * @param array $params     Params and values
+     * Set multiple message parameters (fields and its values)
+     *
+     * @param array $params     Field values indexed by its class shortname
      * @return MessageInterface
      */
-    public function setParams(Array $params)
+    public function setParams(array $params)
     {
         foreach ($params as $paramName => $paramValue) {
             $this->setParam($paramName, $paramValue);
@@ -135,7 +145,9 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * @return array The actions's parameter objects
+     * Get the values of all of this message parameters
+     *
+     * @return array    Field objects indexed by its class shortname
      */
     public function getParams()
     {
@@ -149,6 +161,8 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
+     * Set the value of a specific parameter.
+     *
      * @param  string   $fieldName  The field's name
      * @param  mixed    $value      The field's value
      * @return MessageInterface
@@ -157,7 +171,6 @@ abstract class AbstractMessage implements MessageInterface
     {
         $this->isValid = null;
         $this->validationErrors = null;
-
 
         try {
             $fieldClass = $this->resolveFieldClassName($fieldName);
@@ -173,6 +186,8 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
+     * Get the value of a specific parameter.
+     *
      * @param string $fieldName The field's name
      * @return FieldInterface
      */
@@ -190,8 +205,9 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * Returns the result of the field's validation
-     * performing it if necessary
+     * Returns the result of this message validation,
+     * performing it if necessary.
+     *
      * @return boolean
      */
     public function getIsValid()
@@ -204,8 +220,9 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * Returns all the errors found on the field's validation
-     * performing it if necessary
+     * Returns all the error messages generated after a failed validation,
+     * performing it if necessary.
+     *
      * @return array List of validation error messages
      */
     public function getValidationErrors()
@@ -218,13 +235,15 @@ abstract class AbstractMessage implements MessageInterface
     }
 
     /**
-     * Validates all the params of the action
+     * Validates all the params of the action.
+     *
      * @return MessageInterface
      */
     abstract protected function validate();
 
     /**
-     * Get the fully qualified name of a field's class
+     * Get the fully qualified name of a field's class.
+     *
      * @param  string $fieldName The field name
      * @return string            The field class name
      */
