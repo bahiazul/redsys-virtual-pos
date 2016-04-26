@@ -47,6 +47,7 @@ class Response extends AbstractMessage implements MessageInterface
         'AuthorisationCode',
         'ConsumerLanguage',
         'Card_Type',
+        'MerchantPartialPayment',
     ];
 
     /**
