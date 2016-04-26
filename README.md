@@ -31,6 +31,10 @@ Sample
 Go to the `sample` folder an run the following command in a terminal to start PHP's built-in web server:
 
 ```
+# install dependencies
+$ composer install
+
+# start the server
 $ php -S 0.0.0.0:8000
 ```
 
@@ -89,17 +93,27 @@ Test
 Run the following command in a terminal:
 
 ```
+# install dependencies
+$ composer install
+
+# run the tests
 $ phpunit
 ```
 
 Changelog
 ---------
 
+### Version 0.3.3 (26 April 2016)
+
+- Added undocumented field `DS_MerchantPartialPayment` (only used by CaixaBank’s Cyberpac)
+- Added documentation for CaixaBank’s Cyberpac
+- Update Redsys’ official documentation
+
 ### Version 0.3.2 (1 November 2015)
 
 - Fix field names on params array indices
 - Fix missing case-sensitive renames (OSX, Y U NO CS?)
-- Sample refactoring
+- Refactoring of the Sample
 
 ### Version 0.3.1 (30 October 2015)
 
