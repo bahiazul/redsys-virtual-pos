@@ -103,10 +103,14 @@ $ phpunit
 Changelog
 ---------
 
+### Version 0.3.4 (19 April 2017)
+
+- Add undocumented field `DS_Card_Brand`
+
 ### Version 0.3.3 (26 April 2016)
 
-- Added undocumented field `DS_MerchantPartialPayment` (only used by CaixaBank’s Cyberpac)
-- Added documentation for CaixaBank’s Cyberpac
+- Add undocumented field `DS_MerchantPartialPayment` (only used by CaixaBank’s Cyberpac)
+- Add documentation for CaixaBank’s Cyberpac
 - Update Redsys’ official documentation
 
 ### Version 0.3.2 (1 November 2015)
