@@ -4,9 +4,9 @@
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 
 namespace nkm\RedsysVirtualPos\Field;
@@ -16,11 +16,11 @@ namespace nkm\RedsysVirtualPos\Field;
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
-class UrlKO extends AbstractField implements FieldInterface
+class Customer_Mail extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
@@ -39,8 +39,8 @@ class UrlKO extends AbstractField implements FieldInterface
         parent::__construct($value);
 
         $this->validationRules = [
-            'url',
-            'max_length(250)',
+            'email',
+            'max_length(100)',
         ];
     }
 }

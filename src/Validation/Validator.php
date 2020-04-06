@@ -4,9 +4,9 @@
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 
 namespace nkm\RedsysVirtualPos\Validation;
@@ -15,8 +15,8 @@ namespace nkm\RedsysVirtualPos\Validation;
  * Simple Validator Class for php
  * @author Can Geliş <geliscan@gmail.com>
  * @copyright (c) 2013, Can Geliş
- * @license https://github.com/nkm/simple-validator/blob/master/licence.txt MIT Licence
- * @link https://github.com/nkm/simple-validator
+ * @license https://github.com/jzfgo/simple-validator/blob/master/licence.txt MIT Licence
+ * @link https://github.com/jzfgo/simple-validator
  */
 
 /**
@@ -391,7 +391,7 @@ class Validator implements ValidatorInterface
     }
 
     /*
-     * @link http://php.net/manual/function.is-float.php#109015
+     * @link https://php.net/manual/function.is-float.php#109015
      * with a slight change in the 15th character to allow '-3.' to match
      */
     protected static function float($input)
@@ -450,7 +450,7 @@ class Validator implements ValidatorInterface
     /*
      * TODO: need improvements for tel and urn urls.
      * check out url.test.php for the test result
-     * urn syntax: http://www.faqs.org/rfcs/rfc2141.html
+     * urn syntax: https://www.faqs.org/rfcs/rfc2141.html
      *
      */
 

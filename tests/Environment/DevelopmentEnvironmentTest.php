@@ -76,10 +76,10 @@ class DevelopmentEnvironmentTest extends PHPUnit_Framework_TestCase
     public function getEndpointProvider()
     {
         return [
-            [true,  '/whatevs',                'http://sis-d.redsys.es/whatevs'],
-            [true,  '/Oh-My-Glob',             'http://sis-d.redsys.es/Oh-My-Glob'],
-            [true,  'this-is-wrong-but-valid', 'http://sis-d.redsys.esthis-is-wrong-but-valid'],
-            [false, 'this-is-not-valid',       'http://sis-d.redsys.es/this-is-not-valid'],
+            [true,  '/whatevs',                'https://sis-d.redsys.es/whatevs'],
+            [true,  '/Oh-My-Glob',             'https://sis-d.redsys.es/Oh-My-Glob'],
+            [true,  'this-is-wrong-but-valid', 'https://sis-d.redsys.esthis-is-wrong-but-valid'],
+            [false, 'this-is-not-valid',       'https://sis-d.redsys.es/this-is-not-valid'],
             [false, 'this-is-not-valid',       ''],
         ];
     }

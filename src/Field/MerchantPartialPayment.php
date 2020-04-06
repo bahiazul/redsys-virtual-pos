@@ -4,9 +4,9 @@
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 
 namespace nkm\RedsysVirtualPos\Field;
@@ -16,9 +16,9 @@ namespace nkm\RedsysVirtualPos\Field;
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 class MerchantPartialPayment extends AbstractField implements FieldInterface
 {
@@ -40,8 +40,8 @@ class MerchantPartialPayment extends AbstractField implements FieldInterface
      * @var array
      */
     protected static $availableValues = [
-        self::NOT_PARTIAL => 'Pago No parcial',
-        self::PARTIAL     => 'Pago Parcial',
+        self::NOT_PARTIAL => 'Pago NO parcial',
+        self::PARTIAL     => 'Pago parcial',
     ];
 
     /**

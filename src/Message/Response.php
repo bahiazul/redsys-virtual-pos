@@ -4,9 +4,9 @@
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 
 namespace nkm\RedsysVirtualPos\Message;
@@ -16,9 +16,9 @@ namespace nkm\RedsysVirtualPos\Message;
  *
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
- * @copyright  2014 Javier Zapata <javierzapata82@gmail.com>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/nkm/redsys-virtual-pos
+ * @copyright  2020 Javier Zapata <javierzapata82@gmail.com>
+ * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 class Response extends AbstractMessage implements MessageInterface
 {
@@ -47,8 +47,9 @@ class Response extends AbstractMessage implements MessageInterface
         'AuthorisationCode',
         'ConsumerLanguage',
         'Card_Type',
-        'MerchantPartialPayment',
         'Card_Brand',
+        'MerchantPartialPayment',
+        'Merchant_Cof_Txnid',
     ];
 
     /**

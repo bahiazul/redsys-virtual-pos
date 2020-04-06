@@ -5,7 +5,7 @@ class ValidatorUrlTest extends PHPUnit_Framework_TestCase
     public function urlInputProvider()
     {
         return array(
-            array(array('test' => "http://www.google.com"),                          true),
+            array(array('test' => "https://www.google.com"),                          true),
             array(array('test' => "https://www.google.com"),                         true),
             array(array('test' => "mailto:geliscan@gmail.com"),                      true),
             array(array('test' => "www.google.com"),                                 false),

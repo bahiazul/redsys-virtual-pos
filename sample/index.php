@@ -32,9 +32,9 @@ $params['TransactionType']    = TransactionType::STANDARD;
 $params['Terminal']           = $credentials['terminal'];
 $params['MerchantName']       = 'Test Store';
 $params['ProductDescription'] = 'Product Description';
-$params['UrlOK']              = $proto.$host.'/success.php';
-$params['UrlKO']              = $proto.$host.'/failure.php';
-$params['MerchantURL']        = $proto.$host.'/response.php'; // Only for Test, Integration and Live Environments
+$params['UrlOk']              = $proto.$host.'/success.php';
+$params['UrlKo']              = $proto.$host.'/failure.php';
+$params['MerchantUrl']        = $proto.$host.'/response.php'; // Only for Test, Integration and Live Environments
 
 // Generate the Request
 $webRequest = new WebRequest($env, $log);

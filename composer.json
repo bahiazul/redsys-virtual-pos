@@ -2,43 +2,56 @@
     "name": "nkm/redsys-virtual-pos",
     "type": "library",
     "description": "Redsys Virtual POS is an unofficial standalone PHP library to handle payments through the spanish payment service Redsys.",
-    "keywords": ["pos", "tpv", "pasarela", "virtual", "payment", "refund", "pago", "devolucion", "redsys", "sermepa", "lacaixa", "sabadell", "web", "html", "xml"],
+    "keywords": [
+        "pos",
+        "tpv",
+        "pasarela",
+        "virtual",
+        "payment",
+        "refund",
+        "pago",
+        "devolucion",
+        "redsys",
+        "sermepa",
+        "lacaixa",
+        "sabadell",
+        "bbva",
+        "web",
+        "html",
+        "xml"
+    ],
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
-
     "require": {
         "php": ">= 5.4.0"
     },
-
     "require-dev": {
         "phpunit/phpunit": "4.2.*",
         "phpunit/php-invoker": "~1.1",
         "rocket/table": "dev-master",
         "monolog/monolog": "^1.16@dev"
     },
-
     "repositories": [
-      {
-        "type": "git",
-        "url": "https://github.com/nkm/Table"
-      }
+        {
+            "type": "git",
+            "url": "https://github.com/jzfgo/Table"
+        }
     ],
-
     "authors": [
         {
             "name": "Javier Zapata",
             "email": "javierzapata82@gmail.com",
-            "homepage": "http://javi.io/"
+            "homepage": "https://javi.io/"
         }
     ],
-
     "autoload": {
-        "psr-4": { "nkm\\RedsysVirtualPos\\": "src/" }
+        "psr-4": {
+            "nkm\\RedsysVirtualPos\\": "src/"
+        }
     },
-
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3.x-dev"
+            "dev-master": "0.4.x-dev"
         }
     }
 }
