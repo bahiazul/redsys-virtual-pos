@@ -1,5 +1,4 @@
-Redsys Virtual POS
-==================
+# Redsys Virtual POS
 
 [![Build Status](https://travis-ci.org/nkm/redsys-virtual-pos.png?branch=master)](https://travis-ci.org/nkm/redsys-virtual-pos)
 [![Latest Stable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/stable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
@@ -7,17 +6,15 @@ Redsys Virtual POS
 [![Latest Unstable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/unstable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
 [![License](https://poser.pugx.org/nkm/redsys-virtual-pos/license)](https://packagist.org/packages/nkm/redsys-virtual-pos)
 
-**Redsys Virtual POS** is an *unofficial* standalone PHP library to handle payments through the spanish payment service Redsys.
+**Redsys Virtual POS** is an _unofficial_ standalone PHP library to handle payments through the spanish payment service Redsys.
 
 > **NOTE:** This library its been used in production for over a year now (as Oct. 2015) but its still under development and its functionality is subject to change.
 
-Prerequisites
--------------
+## Prerequisites
 
-- PHP 5.4 or above
+-   PHP 5.4 or above
 
-Installation
-------------
+## Installation
 
 Installation is recommended through [Composer](https://getcomposer.org/).
 
@@ -25,8 +22,7 @@ Installation is recommended through [Composer](https://getcomposer.org/).
 $ composer require nkm/redsys-virtual-pos
 ```
 
-Sample
-------
+## Sample
 
 Go to the `sample` folder an run the following command in a terminal to start PHP's built-in web server:
 
@@ -42,8 +38,7 @@ Then open your browser and go to [here](http://localhost:8000/).
 
 If you want to test the online (async) response, replace `localhost` with your public IP or hostname, making sure that your machine is accesible through the port 8000 (you can use another port if you want).
 
-Usage
------
+## Usage
 
 Basic usage:
 
@@ -69,8 +64,8 @@ $params['TransactionType']    = TransactionType::STANDARD;
 $params['Terminal']           = $terminal;
 $params['MerchantName']       = 'Test Store';                        // optional
 $params['ProductDescription'] = 'Product Description';               // optional
-$params['UrlOK']              = 'http://localhost:8000/success.php'; // optional
-$params['UrlKO']              = 'http://localhost:8000/failure.php'; // optional
+$params['UrlOk']              = 'http://localhost:8000/success.php'; // optional
+$params['UrlKo']              = 'http://localhost:8000/failure.php'; // optional
 
 // Generate the Request
 $webRequest = new WebRequest($env);
@@ -86,9 +81,7 @@ echo $wrForm;
 
 See `sample/index.php` and `sample/response.php` for more detailed examples.
 
-
-Test
-----
+## Test
 
 Run the following command in a terminal:
 
@@ -100,69 +93,72 @@ $ composer install
 $ phpunit
 ```
 
-Changelog
----------
+## Changelog
+
+### Version 0.4.0 (6 April 2020)
+
+-   Add request fields: `Ds_Merchant_Acquirer_Identifier`, `Ds_Merchant_Cof_Ini`, `Ds_Merchant_Cof_Txnid`, `Ds_Merchant_Cof_Type`, `Ds_Merchant_Customer_Mail`, `Ds_Merchant_Customer_Mobile`, `Ds_Merchant_Customer_Sms_Text`, `Ds_Merchant_Dcc`, `Ds_Merchant_DirectPayment`, `Ds_Merchant_Emv3ds`, `Ds_Merchant_Excep_Sca`, `Ds_Merchant_Group`, `Ds_Merchant_Identifier`, `Ds_Merchant_IdOper`, `Ds_Merchant_MatchingData`, `Ds_Merchant_MerchantDescriptor`, `Ds_Merchant_MpiExternal`, `Ds_Merchant_P2f_ExpiryDate`, `Ds_Merchant_P2f_XmlData`, `Ds_Merchant_PayMethods`, `Ds_Merchant_PersoCode`, `Ds_Merchant_ShippingAddressPyp`, `Ds_Merchant_Tax_Reference`, `Ds_Merchant_Terminal`, `Ds_Merchant_Titular`, `Ds_Merchant_TransactionDate`, `Ds_Merchant_TransactionType`, `Ds_Merchant_UrlKo`, `Ds_Merchant_UrlOk`, `Ds_Merchant_XPayData`, `Ds_Merchant_XPayOrigen` and `Ds_Merchant_XPayType`
+-   Add response fields: `Codigo`, `Ds_Merchant_Cof_Txnid`, `Ds_DCC`, `Ds_Merchant_Identifier` and `Ds_UrlPago2Fases`
+-   Update field name cases
+-   Add documentation
 
 ### Version 0.3.4 (19 April 2017)
 
-- Add undocumented field `DS_Card_Brand`
+-   Add undocumented field `DS_Card_Brand`
 
 ### Version 0.3.3 (26 April 2016)
 
-- Add undocumented field `DS_MerchantPartialPayment` (only used by CaixaBank’s Cyberpac)
-- Add documentation for CaixaBank’s Cyberpac
-- Update Redsys’ official documentation
+-   Add undocumented field `DS_MerchantPartialPayment` (only used by CaixaBank’s Cyberpac)
+-   Add documentation for CaixaBank’s Cyberpac
+-   Update Redsys’ official documentation
 
 ### Version 0.3.2 (1 November 2015)
 
-- Fix field names on params array indices
-- Fix missing case-sensitive renames (OSX, Y U NO CS?)
-- Refactoring of the Sample
+-   Fix field names on params array indices
+-   Fix missing case-sensitive renames (OSX, Y U NO CS?)
+-   Refactoring of the Sample
 
 ### Version 0.3.1 (30 October 2015)
 
-- Minor fixes in sample
+-   Minor fixes in sample
 
 ### Version 0.3.0 (30 October 2015)
 
-- Add support new cryptographic algorithm (SHA-2, HMAC_SHA256_V1) for message signing
-- Update for the new Redsys API
-- General overhaul and simplification
-- Improve sample with request/response support, logging and detailed reporting
-- Update documentation (Redsys and Banco Sabadell)
+-   Add support new cryptographic algorithm (SHA-2, HMAC_SHA256_V1) for message signing
+-   Update for the new Redsys API
+-   General overhaul and simplification
+-   Improve sample with request/response support, logging and detailed reporting
+-   Update documentation (Redsys and Banco Sabadell)
 
 ### Version 0.2.0 (29 October 2014)
 
-- Handle unknown or empty Error and Response codes gracefully
+-   Handle unknown or empty Error and Response codes gracefully
 
 ### Version 0.1.3 (27 October 2014)
 
-- Translate response type descriptions and error messages to Spanish for consistency
-- Improve naming of response types
-- `Response::getType()` now returns the type name instead of its description
-- Rename `AbstractMessage::getFieldClassName()` to `AbstractMessage::resolveFieldClassName()`
-- Lowercase field key names in order to ease integration with databases
-- Add method `Field\Response::getTypeDescription()`
-- Other minor fixes and improvements
+-   Translate response type descriptions and error messages to Spanish for consistency
+-   Improve naming of response types
+-   `Response::getType()` now returns the type name instead of its description
+-   Rename `AbstractMessage::getFieldClassName()` to `AbstractMessage::resolveFieldClassName()`
+-   Lowercase field key names in order to ease integration with databases
+-   Add method `Field\Response::getTypeDescription()`
+-   Other minor fixes and improvements
 
 ### Version 0.1.2 (21 October 2014)
 
-- Rename the response fields to match Redsys's Online Response ones
-- Add Error Code field to the Response
-- Add source implementation docs
+-   Rename the response fields to match Redsys's Online Response ones
+-   Add Error Code field to the Response
+-   Add source implementation docs
 
 ### Version 0.1.0 (20 October 2014)
 
 Initial (stealth) release
 
+## Authors
 
-Authors
--------
+-   [Javier Zapata](https://javi.io) ([Twitter](https://twitter.com/jzf82))
 
-- [Javier Zapata](http://javi.io) ([Twitter](https://twitter.com/jzf82))
-
-License
--------
+## License
 
 The BSD 3-Clause License
 
