@@ -95,6 +95,10 @@ $ phpunit
 
 ## Changelog
 
+### Version 0.4.1 (7 April 2020)
+
+-   Hotfix
+
 ### Version 0.4.0 (6 April 2020)
 
 -   Add request fields: `Ds_Merchant_Acquirer_Identifier`, `Ds_Merchant_Cof_Ini`, `Ds_Merchant_Cof_Txnid`, `Ds_Merchant_Cof_Type`, `Ds_Merchant_Customer_Mail`, `Ds_Merchant_Customer_Mobile`, `Ds_Merchant_Customer_Sms_Text`, `Ds_Merchant_Dcc`, `Ds_Merchant_DirectPayment`, `Ds_Merchant_Emv3ds`, `Ds_Merchant_Excep_Sca`, `Ds_Merchant_Group`, `Ds_Merchant_Identifier`, `Ds_Merchant_IdOper`, `Ds_Merchant_MatchingData`, `Ds_Merchant_MerchantDescriptor`, `Ds_Merchant_MpiExternal`, `Ds_Merchant_P2f_ExpiryDate`, `Ds_Merchant_P2f_XmlData`, `Ds_Merchant_PayMethods`, `Ds_Merchant_PersoCode`, `Ds_Merchant_ShippingAddressPyp`, `Ds_Merchant_Tax_Reference`, `Ds_Merchant_Terminal`, `Ds_Merchant_Titular`, `Ds_Merchant_TransactionDate`, `Ds_Merchant_TransactionType`, `Ds_Merchant_UrlKo`, `Ds_Merchant_UrlOk`, `Ds_Merchant_XPayData`, `Ds_Merchant_XPayOrigen` and `Ds_Merchant_XPayType`

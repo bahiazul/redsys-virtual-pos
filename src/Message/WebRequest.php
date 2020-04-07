@@ -57,7 +57,7 @@ class WebRequest extends Request implements MessageInterface
         parent::__construct($environment, $logger);
 
         $this->fields = array_merge($this->fields, [
-            'MerchantURL',
+            'MerchantUrl',
             'UrlOk',
             'UrlKo',
             'ProductDescription',
