@@ -95,6 +95,10 @@ $ phpunit
 
 ## Changelog
 
+### Version 0.4.2 (7 April 2020)
+
+-   Normalize documentation filenames
+
 ### Version 0.4.1 (7 April 2020)
 
 -   Hotfix
