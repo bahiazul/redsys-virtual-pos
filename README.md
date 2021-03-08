@@ -164,13 +164,13 @@ Initial (stealth) release
 
 ## Authors
 
--   [Javier Zapata](https://javi.io) ([Twitter](https://twitter.com/jzf82))
+-   [Javier Zapata](https://javi.io) ([Twitter](https://twitter.com/jzfgo))
 
 ## License
 
 The BSD 3-Clause License
 
-Copyright (c) 2015, Javier Zapata
+Copyright (c) 2015-2021, Javier Zapata
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
