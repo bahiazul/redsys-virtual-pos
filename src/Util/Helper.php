@@ -67,11 +67,16 @@ class Helper
      * @return string       Returns the encrypted data as a string or FALSE on
      *                      failure.
      */
-    public static function mcrypt_encrypt_3DES($data, $key)
+    public static function encrypt_3DES($data, $key)
     {
-        $iv = implode(array_map('chr', [0,0,0,0,0,0,0,0])); // fixed init vector
+        $iv = "\0\0\0\0\0\0\0\0";
+        $padded_data = $data;
 
-        return mcrypt_encrypt(MCRYPT_3DES, $key, $data, MCRYPT_MODE_CBC, $iv);
+        if (strlen($padded_data) % 8) {
+            $padded_data = str_pad($padded_data, strlen($padded_data) + 8 - strlen($padded_data) % 8, "\0");
+        }
+
+        return openssl_encrypt($padded_data, "DES-EDE3-CBC", $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
     }
 
     /**

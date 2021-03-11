@@ -195,7 +195,7 @@ class WebRequest extends Request implements MessageInterface
     protected function generateSignature($secret, $order, $merchantParameters)
     {
         $key = base64_decode($secret);
-        $key = Helper::mcrypt_encrypt_3DES($order, $key);
+        $key = Helper::encrypt_3DES($order, $key);
 
         $sig = Helper::hash_hmac_sha256($merchantParameters, $key);
         $sig = base64_encode($sig);

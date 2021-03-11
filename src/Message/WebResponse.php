@@ -161,7 +161,7 @@ class WebResponse extends Response implements MessageInterface
     protected function generateSignature($secret, $order, $merchantParameters)
     {
         $key = Helper::base64url_decode($secret);
-        $key = Helper::mcrypt_encrypt_3DES($order, $key);
+        $key = Helper::encrypt_3DES($order, $key);
 
         $sig = Helper::hash_hmac_sha256($merchantParameters, $key);
         $sig = Helper::base64url_encode($sig);
