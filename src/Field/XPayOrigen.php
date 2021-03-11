@@ -20,7 +20,7 @@ namespace nkm\RedsysVirtualPos\Field;
  * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
-class XPAYOrigen extends AbstractField implements FieldInterface
+class XPayOrigen extends AbstractField implements FieldInterface
 {
     use ValidableTrait;
 
