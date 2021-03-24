@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorIntegerTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorIntegerTest extends TestCase
 {
     public function integerInputProvider()
     {
@@ -32,7 +35,7 @@ class ValidatorIntegerTest extends PHPUnit_Framework_TestCase
             'test' => array('integer')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

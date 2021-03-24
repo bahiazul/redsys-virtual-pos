@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorBlankTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorBlankTest extends TestCase
 {
     public function blankInputProvider()
     {
@@ -47,7 +50,7 @@ class ValidatorBlankTest extends PHPUnit_Framework_TestCase
             'test' => array('blank')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

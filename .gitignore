@@ -5,6 +5,5 @@
 /tmp/
 vendor/
 report
-composer.lock
 composer.phar
 phpunit.xml

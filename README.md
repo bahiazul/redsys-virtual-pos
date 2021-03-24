@@ -95,6 +95,10 @@ $ phpunit
 
 ## Changelog
 
+### Version 0.4.6 (24 March 2021)
+
+-   Update test suite.
+
 ### Version 0.4.5 (24 March 2021)
 
 -   Add response field: `Ds_ProcessedPayMethod`.

@@ -1,16 +1,21 @@
 <?php
 
+use \PHPUnit\Framework\TestCase;
+
+use \nkm\RedsysVirtualPos\Environment\TestEnvironment;
+use \nkm\RedsysVirtualPos\Environment\EnvironmentException;
+
 /**
  * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\TestEnvironment
  */
-class TestEnvironmentTest extends PHPUnit_Framework_TestCase
+class TestEnvironmentTest extends TestCase
 {
-    private $className          = '\nkm\RedsysVirtualPos\Environment\TestEnvironment';
-    private $exceptionClassName = '\nkm\RedsysVirtualPos\Environment\EnvironmentException';
+    private $className          = TestEnvironment::class;
+    private $exceptionClassName = EnvironmentException::class;
 
     private $environment;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->environment = new $this->className();
     }
@@ -33,10 +38,8 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSecretDefault()
     {
-        $this->setExpectedException(
-            $this->exceptionClassName,
-            'Merchant secret is not set.'
-        );
+        $this->expectException($this->exceptionClassName);
+        $this->expectExceptionMessage('Merchant secret is not set.');
 
         $this->environment->getSecret();
     }
@@ -47,10 +50,8 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSecretEmpty($newSecret)
     {
-        $this->setExpectedException(
-            $this->exceptionClassName,
-            'Merchant secret is not set.'
-        );
+        $this->expectException($this->exceptionClassName);
+        $this->expectExceptionMessage('Merchant secret is not set.');
 
         $this->environment->setSecret($newSecret);
 
@@ -107,7 +108,7 @@ class TestEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetEndpointEmpty($endpoint)
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->environment->getEndpoint($endpoint);
     }

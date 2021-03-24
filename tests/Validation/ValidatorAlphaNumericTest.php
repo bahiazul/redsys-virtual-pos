@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorAlphaNumericTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorAlphaNumericTest extends TestCase
 {
     public function alphaNumericInputProvider()
     {
@@ -25,7 +28,7 @@ class ValidatorAlphaNumericTest extends PHPUnit_Framework_TestCase
             'test' => array('alpha_numeric')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

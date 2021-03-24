@@ -1,11 +1,13 @@
 <?php
 
+use \PHPUnit\Framework\TestCase;
+
 /**
  * @coversDefaultClass \nkm\RedsysVirtualPos\Util\Helper
  */
-class HelperTest extends PHPUnit_Framework_TestCase
+class HelperTest extends TestCase
 {
-    private $className = '\nkm\RedsysVirtualPos\Util\Helper';
+    private $className = \nkm\RedsysVirtualPos\Util\Helper::class;
     private $key = 'lo4lcsVm14uTTpVyer5Y8rjg';
 
     public function base64url_encodeProvider()
@@ -47,7 +49,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
         ];
     }
 
-    public function mcrypt_encrypt_3DESProvider()
+    public function encrypt_3DESProvider()
     {
         return [
             ["Where are my testicles, Summer?", "c6c972dba6e9fdbe31108187a80429d8ac99686ac41d47244b375aac12fe5d57"],
@@ -66,7 +68,7 @@ class HelperTest extends PHPUnit_Framework_TestCase
             ['', ''],
             ['whatevs', 'whatevs'],
             [0, '0'],
-            [0.0, '0.0'],
+            [0.0, '0'],
             [null, ''],
             [false, ''],
             [[], ''],
@@ -113,12 +115,12 @@ class HelperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers          ::mcrypt_encrypt_3DES
-     * @dataProvider    mcrypt_encrypt_3DESProvider
+     * @covers          ::encrypt_3DES
+     * @dataProvider    encrypt_3DESProvider
      */
-    public function testMcrypt_encrypt_3DES($actual, $expected)
+    public function testEncrypt_3DES($actual, $expected)
     {
-        $rm = new ReflectionMethod($this->className, 'mcrypt_encrypt_3DES');
+        $rm = new ReflectionMethod($this->className, 'encrypt_3DES');
         $rm->setAccessible(true);
 
         $this->assertEquals($expected, bin2hex($rm->invokeArgs(null, [$actual, $this->key])));

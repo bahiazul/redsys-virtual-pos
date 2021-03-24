@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorIPTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorIPTest extends TestCase
 {
     public function ipInputProvider()
     {
@@ -24,7 +27,7 @@ class ValidatorIPTest extends PHPUnit_Framework_TestCase
             'test' => array('ip')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

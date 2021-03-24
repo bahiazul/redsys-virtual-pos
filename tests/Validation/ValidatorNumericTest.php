@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorNumericTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorNumericTest extends TestCase
 {
     public function NumericInputProvider()
     {
@@ -26,7 +29,6 @@ class ValidatorNumericTest extends PHPUnit_Framework_TestCase
             array(array('test' => "15"),                  true),
             array(array('test' => "-15"),                 true),
             array(array('test' => "0123"),                true),
-            array(array('test' => "0x1A"),                true),
             array(array('test' => ' -0.0 '),              true),
             array(array('test' => ' 0.1 '),               true),
             array(array('test' => '+1353.0316547'),       true),
@@ -55,7 +57,7 @@ class ValidatorNumericTest extends PHPUnit_Framework_TestCase
             'test' => array('Numeric')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

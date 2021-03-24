@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorMaxLengthTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorMaxLengthTest extends TestCase
 {
     public function maxLengthInputProvider()
     {
@@ -32,7 +35,7 @@ class ValidatorMaxLengthTest extends PHPUnit_Framework_TestCase
      */
     public function testMaxLength($inputs, $rules, $expected)
     {
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

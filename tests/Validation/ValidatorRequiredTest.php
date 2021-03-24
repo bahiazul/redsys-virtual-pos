@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorRequiredTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorRequiredTest extends TestCase
 {
     public function requiredInputProvider()
     {
@@ -47,7 +50,7 @@ class ValidatorRequiredTest extends PHPUnit_Framework_TestCase
             'test' => array('required')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

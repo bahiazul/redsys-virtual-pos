@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorExactLengthTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorExactLengthTest extends TestCase
 {
     public function exactLengthInputProvider()
     {
@@ -28,7 +31,7 @@ class ValidatorExactLengthTest extends PHPUnit_Framework_TestCase
      */
     public function testExactLength($inputs, $rules, $expected)
     {
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

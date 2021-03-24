@@ -26,8 +26,8 @@
         "php": ">= 5.4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.2.*",
-        "phpunit/php-invoker": "~1.1",
+        "phpunit/phpunit": "9.5.x-dev",
+        "phpunit/php-invoker": "3.1.x-dev",
         "rocket/table": "dev-master",
         "monolog/monolog": "^1.16@dev"
     },

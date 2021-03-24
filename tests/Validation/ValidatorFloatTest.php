@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorFloatTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorFloatTest extends TestCase
 {
     public function floatInputProvider()
     {
@@ -53,7 +56,7 @@ class ValidatorFloatTest extends PHPUnit_Framework_TestCase
             'test' => array('float')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

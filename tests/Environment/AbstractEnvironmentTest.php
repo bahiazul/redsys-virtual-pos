@@ -1,16 +1,21 @@
 <?php
 
+use \PHPUnit\Framework\TestCase;
+
+use \nkm\RedsysVirtualPos\Environment\AbstractEnvironment;
+use \nkm\RedsysVirtualPos\Environment\EnvironmentException;
+
 /**
  * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\AbstractEnvironment
  */
-class AbstractEnvironmentTest extends PHPUnit_Framework_TestCase
+class AbstractEnvironmentTest extends TestCase
 {
     private $environment;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->environment = $this->getMockForAbstractClass(
-            '\nkm\RedsysVirtualPos\Environment\AbstractEnvironment',
+            AbstractEnvironment::class,
             [],
             '',
             false,
@@ -37,10 +42,8 @@ class AbstractEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSecretDefault()
     {
-        $this->setExpectedException(
-            '\nkm\RedsysVirtualPos\Environment\EnvironmentException',
-            'Merchant secret is not set.'
-        );
+        $this->expectException(EnvironmentException::class);
+        $this->expectExceptionMessage('Merchant secret is not set.');
 
         $this->environment->getSecret();
     }
@@ -51,10 +54,8 @@ class AbstractEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetSecretEmpty($newSecret)
     {
-        $this->setExpectedException(
-            '\nkm\RedsysVirtualPos\Environment\EnvironmentException',
-            'Merchant secret is not set.'
-        );
+        $this->expectException(EnvironmentException::class);
+        $this->expectExceptionMessage('Merchant secret is not set.');
 
         $this->environment->setSecret($newSecret);
 
@@ -87,10 +88,8 @@ class AbstractEnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetEndpoint()
     {
-        $this->setExpectedException(
-            '\nkm\RedsysVirtualPos\Environment\EnvironmentException',
-            'Environment\'s Base Endpoint is not set.'
-        );
+        $this->expectException(EnvironmentException::class);
+        $this->expectExceptionMessage('Environment\'s Base Endpoint is not set.');
 
         $this->environment->getEndpoint('whatevs');
     }

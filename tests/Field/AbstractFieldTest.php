@@ -1,5 +1,7 @@
 <?php
 
+use \PHPUnit\Framework\TestCase;
+
 // public function __construct($value = null)
 // public function getName()
 // public function getRequestName()
@@ -34,13 +36,13 @@ class ConcreteResponseField extends \nkm\RedsysVirtualPos\Field\AbstractField
     protected $inResponse = true;
 }
 
-class AbstractFieldTest extends PHPUnit_Framework_TestCase
+class AbstractFieldTest extends TestCase
 {
-    private $className = '\nkm\RedsysVirtualPos\Field\AbstractField';
+    private $className = \nkm\RedsysVirtualPos\Field\AbstractField::class;
 
     private $field;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->field = $this->getMockForAbstractClass(
             $this->className,
@@ -233,7 +235,7 @@ class AbstractFieldTest extends PHPUnit_Framework_TestCase
             ['', ''],
             ['whatevs', 'whatevs'],
             [0, '0'],
-            [0.0, '0.0'],
+            [0.0, '0'],
             [null, ''],
             [false, ''],
             [[], ''],

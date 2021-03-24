@@ -1,6 +1,9 @@
 <?php
 
-class ValidatorEqualsTest extends PHPUnit_Framework_TestCase
+use \PHPUnit\Framework\TestCase;
+use \nkm\RedsysVirtualPos\Validation\Validator;
+
+class ValidatorEqualsTest extends TestCase
 {
     public function equalInputProvider()
     {
@@ -23,7 +26,7 @@ class ValidatorEqualsTest extends PHPUnit_Framework_TestCase
             'test1' => array('equals(:test2)')
         );
 
-        $validation_result = \nkm\RedsysVirtualPos\Validation\Validator::validate($inputs, $rules);
+        $validation_result = Validator::validate($inputs, $rules);
 
         $this->assertEquals($expected, $validation_result->isSuccess());
     }

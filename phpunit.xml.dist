@@ -3,7 +3,6 @@
          backupStaticAttributes="false"
          bootstrap="vendor/autoload.php"
          colors="true"
-         strict="true"
          verbose="false">
 
      <testsuites>
@@ -11,10 +10,4 @@
        <directory>tests</directory>
       </testsuite>
      </testsuites>
-
-     <filter>
-      <whitelist addUncoveredFilesFromWhitelist="true">
-       <directory>src</directory>
-      </whitelist>
-     </filter>
 </phpunit>
