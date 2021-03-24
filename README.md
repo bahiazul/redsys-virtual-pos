@@ -1,6 +1,6 @@
 # Redsys Virtual POS
 
-[![Build Status](https://travis-ci.org/nkm/redsys-virtual-pos.png?branch=master)](https://travis-ci.org/nkm/redsys-virtual-pos)
+[![Build Status](https://travis-ci.org/jzfgo/redsys-virtual-pos.png?branch=master)](https://travis-ci.org/jzfgo/redsys-virtual-pos)
 [![Latest Stable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/stable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
 [![Total Downloads](https://poser.pugx.org/nkm/redsys-virtual-pos/downloads)](https://packagist.org/packages/nkm/redsys-virtual-pos)
 [![Latest Unstable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/unstable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
@@ -8,7 +8,7 @@
 
 **Redsys Virtual POS** is an _unofficial_ standalone PHP library to handle payments through the spanish payment service Redsys.
 
-> **NOTE:** This library its been used in production for over a year now (as Oct. 2015) but its still under development and its functionality is subject to change.
+> **NOTE:** This library its still under development and its functionality is subject to change.
 
 ## Prerequisites
 
@@ -94,6 +94,18 @@ $ phpunit
 ```
 
 ## Changelog
+
+### Version 0.4.5 (24 March 2021)
+
+-   Add response field: `Ds_ProcessedPayMethod`.
+
+### Version 0.4.4 (11 March 2021)
+
+-   Replace deprecated `mcrypt_encrypt()` by `openssl_encrypt()`.
+
+### Version 0.4.3 (11 March 2021)
+
+-   Fix class name casing for [PSR-4](https://www.php-fig.org/psr/psr-4/) compliance.
 
 ### Version 0.4.2 (7 April 2020)
 
