@@ -58,5 +58,9 @@ class Response extends AbstractMessage implements MessageInterface
      */
     protected function validate()
     {
+        $this->isValid = true;
+        $this->validationErrors = [];
+
+        return $this;
     }
 }
