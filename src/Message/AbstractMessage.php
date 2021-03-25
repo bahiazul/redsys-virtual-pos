@@ -5,7 +5,7 @@
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
- * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @license    https://opensource.org/licenses/MIT The MIT License
  * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  * @package    Redsys Virtual POS
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
- * @license    https://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @license    https://opensource.org/licenses/MIT The MIT License
  * @link       https://github.com/jzfgo/redsys-virtual-pos
  */
 abstract class AbstractMessage implements MessageInterface
