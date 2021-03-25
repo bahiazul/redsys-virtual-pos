@@ -105,7 +105,7 @@ class WebResponse extends Response implements MessageInterface
                 $this->setParams($params);
             }
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \RuntimeException("Class `{$fieldClass}` not found.");
         }
 

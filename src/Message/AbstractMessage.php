@@ -178,7 +178,7 @@ abstract class AbstractMessage implements MessageInterface
             $shortName = $rc->getShortName();
 
             $this->params[$shortName] = $rc->newInstanceArgs([$value]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \RuntimeException("Class `{$fieldClass}` not found.");
         }
 
