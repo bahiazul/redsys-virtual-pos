@@ -56,11 +56,11 @@ foreach ($requestParams as $k => $v) {
     $rpValues[ $v->getRequestName() ] = $v->getValue();
 }
 
-// Envelop Parameters Table
-$epCaption = 'Envelop Parameters';
-$envelopParams = $webRequest->getEnvelopParams();
+// Envelope Parameters Table
+$epCaption = 'Envelope Parameters';
+$envelopeParams = $webRequest->getEnvelopeParams();
 $epValues = [];
-foreach ($envelopParams as $k => $v) {
+foreach ($envelopeParams as $k => $v) {
     $epValues[ $v->getRequestName() ] = $v->getValue();
 }
 
@@ -69,7 +69,7 @@ foreach ($envelopParams as $k => $v) {
  * LOGGING
  */
 $webRequest->log('debug', $eiCaption, $envInfo);  // Environment Info
-$webRequest->log('debug', $epCaption, $epValues); // Envelop Params
+$webRequest->log('debug', $epCaption, $epValues); // Envelope Params
 $webRequest->log('debug', $rpCaption, $params);   // Request Params
 $webRequest->log('debug', str_repeat('-', 42));   // Separator :3
 
@@ -108,7 +108,7 @@ foreach ($envInfo as $k => $v) {
     ];
 }
 
-// Envelop Parameters
+// Envelope Parameters
 $epTableRows = [];
 foreach ($epValues as $k => $v) {
     $epTableRows[] = [
@@ -128,7 +128,7 @@ $epTableRows || $epTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 $rpTableRows || $rpTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 
 $eiTable = Table::quick(['Name', 'Value'], $eiTableRows, [], $eiCaption); // Environment Info
-$epTable = Table::quick(['Name', 'Value'], $epTableRows, [], $epCaption); // Envelop Params
+$epTable = Table::quick(['Name', 'Value'], $epTableRows, [], $epCaption); // Envelope Params
 $rpTable = Table::quick(['Name', 'Value'], $rpTableRows, [], $rpCaption); // Request Params
 $wrForm = $webRequest->getForm([], $submitBtn);                           // HTML Form
 

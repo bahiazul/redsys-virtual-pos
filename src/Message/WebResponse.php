@@ -34,11 +34,11 @@ class WebResponse extends Response implements MessageInterface
     protected $fieldPrefix = 'Ds_';
 
     /**
-     * Holds all the envelop field names
+     * Holds all the envelope field names
      *
      * @var array
      */
-    private $envelopFields = [
+    private $envelopeFields = [
         'SignatureVersion',
         'MerchantParameters',
         'Signature',
@@ -49,14 +49,14 @@ class WebResponse extends Response implements MessageInterface
      *
      * @var array
      */
-    private $envelopParams = [];
+    private $envelopeParams = [];
 
     /**
      * @return array All the fields that can go in an action
      */
-    protected function getEnvelopFields()
+    protected function getEnvelopeFields()
     {
-        return (array) $this->envelopFields;
+        return (array) $this->envelopeFields;
     }
 
     /**
@@ -66,7 +66,7 @@ class WebResponse extends Response implements MessageInterface
     public function setEnvelopeParams(Array $params)
     {
         foreach ($params as $paramName => $paramValue) {
-            $this->setEnvelopParam($paramName, $paramValue);
+            $this->setEnvelopeParam($paramName, $paramValue);
         }
 
         return $this;
@@ -75,12 +75,12 @@ class WebResponse extends Response implements MessageInterface
     /**
      * @return array The actions's parameter objects
      */
-    public function getEnvelopParams()
+    public function getEnvelopeParams()
     {
         $params = [];
-        $fields = $this->getEnvelopFields();
+        $fields = $this->getEnvelopeFields();
         foreach ($fields as $fieldName) {
-            $params[$fieldName] = $this->getEnvelopParam($fieldName);
+            $params[$fieldName] = $this->getEnvelopeParam($fieldName);
         }
 
         return $params;
@@ -91,16 +91,16 @@ class WebResponse extends Response implements MessageInterface
      * @param  mixed    $value      The field's value
      * @return MessageInterface
      */
-    protected function setEnvelopParam($fieldName, $value)
+    protected function setEnvelopeParam($fieldName, $value)
     {
         try {
             $fieldClass = $this->resolveFieldClassName($fieldName);
             $rc = new \ReflectionClass($fieldClass);
             $shortName = $rc->getShortName();
 
-            $this->envelopParams[$shortName] = $rc->newInstanceArgs([$value]);
+            $this->envelopeParams[$shortName] = $rc->newInstanceArgs([$value]);
 
-            if ($this->envelopParams[$shortName]->getName() === 'MerchantParameters') {
+            if ($this->envelopeParams[$shortName]->getName() === 'MerchantParameters') {
                 $params = $this->decodeMerchantParameters($value);
                 $this->setParams($params);
             }
@@ -116,17 +116,17 @@ class WebResponse extends Response implements MessageInterface
      * @param string $fieldName The field's name
      * @return FieldInterface
      */
-    protected function getEnvelopParam($fieldName)
+    protected function getEnvelopeParam($fieldName)
     {
         $fieldClass = $this->resolveFieldClassName($fieldName);
         $rc = new \ReflectionClass($fieldClass);
         $shortName = $rc->getShortName();
 
-        if (!isset($this->envelopParams[$shortName]) || !is_object($this->envelopParams[$shortName])) {
-            $this->envelopParams[$shortName] = $rc->newInstance();
+        if (!isset($this->envelopeParams[$shortName]) || !is_object($this->envelopeParams[$shortName])) {
+            $this->envelopeParams[$shortName] = $rc->newInstance();
         }
 
-        return $this->envelopParams[$shortName];
+        return $this->envelopeParams[$shortName];
     }
 
     /**
@@ -182,11 +182,11 @@ class WebResponse extends Response implements MessageInterface
         try {
             $secret = $this->environment->getSecret();
             $order  = $this->getParam('Order')->getValue();
-            $mp     = $this->getEnvelopParam('MerchantParameters')->getValue();
+            $mp     = $this->getEnvelopeParam('MerchantParameters')->getValue();
 
             $chkSignature = $this->generateSignature($secret, $order, $mp);
-            $resSignature = $this->getEnvelopParam('Signature')->getValue();
-        } catch (Exception $e) {
+            $resSignature = $this->getEnvelopeParam('Signature')->getValue();
+        } catch (\Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
 

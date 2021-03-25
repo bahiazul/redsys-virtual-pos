@@ -38,8 +38,8 @@ $envInfo = [];
 $envInfo['Name']   = $env->getName();
 $envInfo['Secret'] = $env->getSecret();
 
-// Envelop Parameters
-$epCaption = "Envelop Parameters ({$_SERVER['REQUEST_METHOD']})";
+// Envelope Parameters
+$epCaption = "Envelope Parameters ({$_SERVER['REQUEST_METHOD']})";
 
 // Response Parameters
 $rpCaption = 'Response Parameters';
@@ -73,7 +73,7 @@ if (isset($responseParams['ErrorCode'])) {
 if (!empty($_REQUEST)) {
     $webResponse->log('debug', $rsCaption);                // Response Signature
     $webResponse->log('debug', $eiCaption, $envInfo);      // Environment Info
-    $webResponse->log('debug', $epCaption, $_REQUEST);     // Envelop Params
+    $webResponse->log('debug', $epCaption, $_REQUEST);     // Envelope Params
     $webResponse->log('debug', $rpCaption, $rpValues);     // Request Params
     $webResponse->log('debug', $riCaption, $responseInfo); // Request Info
     $webResponse->log('debug', $erCaption, $errorCode);    // Error Info
@@ -100,7 +100,7 @@ foreach ($envInfo as $k => $v) {
     ];
 }
 
-// Envelop Parameters
+// Envelope Parameters
 $epTableRows = [];
 foreach ($_REQUEST as $k => $v) {
     $epTableRows[] = [
@@ -169,7 +169,7 @@ $_REQUEST    || $riTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 $erTableRows || $erTableRows = [[['colspan' => 2, 'data' => 'No data']]];
 
 $eiTable = Table::quick(['Name', 'Value'], $eiTableRows, [], $eiCaption); // Environment Info
-$epTable = Table::quick(['Name', 'Value'], $epTableRows, [], $epCaption); // Envelop Params
+$epTable = Table::quick(['Name', 'Value'], $epTableRows, [], $epCaption); // Envelope Params
 $rpTable = Table::quick(['Name', 'Value'], $rpTableRows, [], $rpCaption); // Request Params
 $riTable = Table::quick(['Name', 'Value'], $riTableRows, [], $riCaption); // Request Info
 $erTable = Table::quick(['Name', 'Value'], $erTableRows, [], $erCaption); // Error Info
