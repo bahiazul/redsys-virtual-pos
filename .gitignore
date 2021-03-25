@@ -7,3 +7,4 @@ vendor/
 report
 composer.phar
 phpunit.xml
+.phpunit.result.cache
