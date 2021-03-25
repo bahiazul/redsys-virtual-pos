@@ -23,7 +23,7 @@
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
     "require": {
-        "php": ">= 5.4.0"
+        "php": ">=5.4.0 <8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "9.5.x-dev",
