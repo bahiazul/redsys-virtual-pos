@@ -97,8 +97,6 @@ $ phpunit
 
 See [CHANGELOG.md](CHANGELOG.md)
 
-Initial (stealth) release
-
 ## Authors
 
 -   [Javier Zapata](https://javi.io) ([Twitter](https://twitter.com/jzfgo))
@@ -106,5 +104,3 @@ Initial (stealth) release
 ## License
 
 MIT
-
-See [LICENSE](LICENSE)
