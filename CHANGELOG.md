@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.4.8 (30 March 2021)
+
+-   Hotfix. Remove envelope fields from Response
+
 ## Version 0.4.7 (25 March 2021)
 
 -   Update PHP requirements (>=5.4.0 <8.0)
