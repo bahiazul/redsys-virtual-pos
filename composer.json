@@ -20,7 +20,7 @@
         "html",
         "xml"
     ],
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0 <8.0"
