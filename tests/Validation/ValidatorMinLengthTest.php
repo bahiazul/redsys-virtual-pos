@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorMinLengthTest extends TestCase
 {
@@ -30,7 +30,7 @@ class ValidatorMinLengthTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::min_length
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::min_length
      * @dataProvider minLengthInputProvider
      */
     public function testMinLength($inputs, $rules, $expected)

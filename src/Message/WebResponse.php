@@ -6,13 +6,13 @@
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 
-namespace nkm\RedsysVirtualPos\Message;
+namespace Bahiazul\RedsysVirtualPos\Message;
 
-use nkm\RedsysVirtualPos\Environment\EnvironmentInterface;
-use nkm\RedsysVirtualPos\Util\Helper;
+use Bahiazul\RedsysVirtualPos\Environment\EnvironmentInterface;
+use Bahiazul\RedsysVirtualPos\Util\Helper;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 class WebResponse extends Response implements MessageInterface
 {

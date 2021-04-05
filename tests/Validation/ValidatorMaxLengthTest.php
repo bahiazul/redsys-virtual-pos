@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorMaxLengthTest extends TestCase
 {
@@ -30,7 +30,7 @@ class ValidatorMaxLengthTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::max_length
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::max_length
      * @dataProvider maxLengthInputProvider
      */
     public function testMaxLength($inputs, $rules, $expected)

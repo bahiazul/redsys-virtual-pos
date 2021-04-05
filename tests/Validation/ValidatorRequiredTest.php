@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorRequiredTest extends TestCase
 {
@@ -41,7 +41,7 @@ class ValidatorRequiredTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::required
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::required
      * @dataProvider requiredInputProvider
      */
     public function testRequired($inputs, $expected)

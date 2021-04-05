@@ -2,11 +2,11 @@
 
 use \PHPUnit\Framework\TestCase;
 
-use \nkm\RedsysVirtualPos\Environment\LiveEnvironment;
-use \nkm\RedsysVirtualPos\Environment\EnvironmentException;
+use \Bahiazul\RedsysVirtualPos\Environment\LiveEnvironment;
+use \Bahiazul\RedsysVirtualPos\Environment\EnvironmentException;
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\LiveEnvironment
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Environment\LiveEnvironment
  */
 class LiveEnvironmentTest extends TestCase
 {

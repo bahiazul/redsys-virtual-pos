@@ -5,9 +5,9 @@ date_default_timezone_set('Europe/Madrid'); // Avoid possible PHP warnings
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/environment-and-credentials.php';
 
-use nkm\RedsysVirtualPos\Message\WebRequest;
-use nkm\RedsysVirtualPos\Field\Currency;
-use nkm\RedsysVirtualPos\Field\TransactionType;
+use Bahiazul\RedsysVirtualPos\Message\WebRequest;
+use Bahiazul\RedsysVirtualPos\Field\Currency;
+use Bahiazul\RedsysVirtualPos\Field\TransactionType;
 use Rocket\UI\Table\Table;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

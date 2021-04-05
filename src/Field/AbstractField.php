@@ -6,12 +6,12 @@
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 
-namespace nkm\RedsysVirtualPos\Field;
+namespace Bahiazul\RedsysVirtualPos\Field;
 
-use nkm\RedsysVirtualPos\Util\Helper;
+use Bahiazul\RedsysVirtualPos\Util\Helper;
 
 /**
  * Holds the value of a request/response parameter
@@ -20,7 +20,7 @@ use nkm\RedsysVirtualPos\Util\Helper;
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 abstract class AbstractField implements FieldInterface
 {

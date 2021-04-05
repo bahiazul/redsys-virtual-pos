@@ -14,31 +14,31 @@ use \PHPUnit\Framework\TestCase;
 // public function getValue()
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Field\AbstractField
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Field\AbstractField
  */
-class ConcreteField extends \nkm\RedsysVirtualPos\Field\AbstractField
+class ConcreteField extends \Bahiazul\RedsysVirtualPos\Field\AbstractField
 {
 }
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Field\AbstractField
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Field\AbstractField
  */
-class ConcreteRequestField extends \nkm\RedsysVirtualPos\Field\AbstractField
+class ConcreteRequestField extends \Bahiazul\RedsysVirtualPos\Field\AbstractField
 {
     protected $inRequest = true;
 }
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Field\AbstractField
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Field\AbstractField
  */
-class ConcreteResponseField extends \nkm\RedsysVirtualPos\Field\AbstractField
+class ConcreteResponseField extends \Bahiazul\RedsysVirtualPos\Field\AbstractField
 {
     protected $inResponse = true;
 }
 
 class AbstractFieldTest extends TestCase
 {
-    private $className = \nkm\RedsysVirtualPos\Field\AbstractField::class;
+    private $className = \Bahiazul\RedsysVirtualPos\Field\AbstractField::class;
 
     private $field;
 

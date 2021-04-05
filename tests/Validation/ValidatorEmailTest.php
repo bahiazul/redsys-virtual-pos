@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorEmailTest extends TestCase
 {
@@ -16,7 +16,7 @@ class ValidatorEmailTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::email
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::email
      * @dataProvider emailInputProvider
      */
     public function testEmail($inputs, $expected)

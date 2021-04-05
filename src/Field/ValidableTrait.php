@@ -6,13 +6,13 @@
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 
-namespace nkm\RedsysVirtualPos\Field;
+namespace Bahiazul\RedsysVirtualPos\Field;
 
-use nkm\RedsysVirtualPos\Validation\Validator;
-use nkm\RedsysVirtualPos\Util\Helper;
+use Bahiazul\RedsysVirtualPos\Validation\Validator;
+use Bahiazul\RedsysVirtualPos\Util\Helper;
 
 /**
  * Provides validation methods to a field
@@ -21,7 +21,7 @@ use nkm\RedsysVirtualPos\Util\Helper;
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 trait ValidableTrait
 {

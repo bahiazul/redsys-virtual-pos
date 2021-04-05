@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.5.0 (5 April 2021)
+
+-   Transfer package to its new owner
+
 ## Version 0.4.8 (30 March 2021)
 
 -   Hotfix. Remove envelope fields from Response

@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorNumericTest extends TestCase
 {
@@ -48,7 +48,7 @@ class ValidatorNumericTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::Numeric
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::Numeric
      * @dataProvider NumericInputProvider
      */
     public function testNumeric($inputs, $expected)

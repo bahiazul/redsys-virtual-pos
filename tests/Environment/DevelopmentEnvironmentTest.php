@@ -2,11 +2,11 @@
 
 use \PHPUnit\Framework\TestCase;
 
-use \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment;
-use \nkm\RedsysVirtualPos\Environment\EnvironmentException;
+use \Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment;
+use \Bahiazul\RedsysVirtualPos\Environment\EnvironmentException;
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment
  */
 class DevelopmentEnvironmentTest extends TestCase
 {
@@ -66,7 +66,7 @@ class DevelopmentEnvironmentTest extends TestCase
     }
 
     /**
-     * @covers          \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment::setSecret
+     * @covers          \Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment::setSecret
      * @dataProvider    setSecretProvider
      */
     public function testSetSecret($newSecret)
@@ -88,7 +88,7 @@ class DevelopmentEnvironmentTest extends TestCase
     }
 
     /**
-     * @covers          \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment::getEndpoint
+     * @covers          \Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment::getEndpoint
      * @dataProvider    getEndpointProvider
      */
     public function testGetEndpoint($expected, $partialEndpoint, $fullEndpoint)
@@ -100,7 +100,7 @@ class DevelopmentEnvironmentTest extends TestCase
     }
 
     /**
-     * @covers          \nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment::getEndpoint
+     * @covers          \Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment::getEndpoint
      * @dataProvider    getEmptyProvider
      */
     public function testGetEndpointEmpty($endpoint)

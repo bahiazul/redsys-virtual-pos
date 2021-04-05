@@ -1,10 +1,10 @@
 # Redsys Virtual POS
 
-[![Build Status](https://travis-ci.com/jzfgo/redsys-virtual-pos.png?branch=master)](https://travis-ci.com/jzfgo/redsys-virtual-pos)
-[![Latest Stable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/stable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
-[![Total Downloads](https://poser.pugx.org/nkm/redsys-virtual-pos/downloads)](https://packagist.org/packages/nkm/redsys-virtual-pos)
-[![Latest Unstable Version](https://poser.pugx.org/nkm/redsys-virtual-pos/v/unstable)](https://packagist.org/packages/nkm/redsys-virtual-pos)
-[![License](https://poser.pugx.org/nkm/redsys-virtual-pos/license)](https://packagist.org/packages/nkm/redsys-virtual-pos)
+[![Build Status](https://travis-ci.com/bahiazul/redsys-virtual-pos.png?branch=master)](https://travis-ci.com/bahiazul/redsys-virtual-pos)
+[![Latest Stable Version](https://poser.pugx.org/bahiazul/redsys-virtual-pos/v/stable)](https://packagist.org/packages/bahiazul/redsys-virtual-pos)
+[![Total Downloads](https://poser.pugx.org/bahiazul/redsys-virtual-pos/downloads)](https://packagist.org/packages/bahiazul/redsys-virtual-pos)
+[![Latest Unstable Version](https://poser.pugx.org/bahiazul/redsys-virtual-pos/v/unstable)](https://packagist.org/packages/bahiazul/redsys-virtual-pos)
+[![License](https://poser.pugx.org/bahiazul/redsys-virtual-pos/license)](https://packagist.org/packages/bahiazul/redsys-virtual-pos)
 
 **Redsys Virtual POS** is an _unofficial_ standalone PHP library to handle payments through the spanish payment service Redsys.
 
@@ -19,7 +19,7 @@
 Installation is recommended through [Composer](https://getcomposer.org/).
 
 ```
-$ composer require nkm/redsys-virtual-pos
+$ composer require bahiazul/redsys-virtual-pos
 ```
 
 ## Sample
@@ -43,16 +43,16 @@ If you want to test the online (async) response, replace `localhost` with your p
 Basic usage:
 
 ```php
-use nkm\RedsysVirtualPos\Message\WebRequest;
-use nkm\RedsysVirtualPos\Field\Currency;
-use nkm\RedsysVirtualPos\Field\TransactionType;
+use Bahiazul\RedsysVirtualPos\Message\WebRequest;
+use Bahiazul\RedsysVirtualPos\Field\Currency;
+use Bahiazul\RedsysVirtualPos\Field\TransactionType;
 
 $secret       = 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev';
 $merchantCode = '999008881';
 $terminal     = '871';
 
 // The Environment object holds connection details
-$env = new nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment();
+$env = new Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment();
 $env->setSecret($secret);
 
 // Setup the Parameters for the Request

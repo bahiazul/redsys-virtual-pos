@@ -1,6 +1,6 @@
 <?php
 
-namespace nkm\RedsysVirtualPos\Field;
+namespace Bahiazul\RedsysVirtualPos\Field;
 
 class FieldException extends \Exception
 {

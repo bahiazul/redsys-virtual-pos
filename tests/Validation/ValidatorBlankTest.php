@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorBlankTest extends TestCase
 {
@@ -41,7 +41,7 @@ class ValidatorBlankTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::blank
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::blank
      * @dataProvider blankInputProvider
      */
     public function testBlank($inputs, $expected)

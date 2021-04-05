@@ -6,10 +6,10 @@
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 
-namespace nkm\RedsysVirtualPos\Environment;
+namespace Bahiazul\RedsysVirtualPos\Environment;
 
 /**
  * Handles environment-specific information
@@ -18,7 +18,7 @@ namespace nkm\RedsysVirtualPos\Environment;
  * @author     Javier Zapata <javierzapata82@gmail.com>
  * @copyright  2021 Javier Zapata <javierzapata82@gmail.com>
  * @license    https://opensource.org/licenses/MIT The MIT License
- * @link       https://github.com/jzfgo/redsys-virtual-pos
+ * @link       https://github.com/bahiazul/redsys-virtual-pos
  */
 interface EnvironmentInterface
 {

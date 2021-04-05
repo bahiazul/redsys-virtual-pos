@@ -2,11 +2,11 @@
 
 use \PHPUnit\Framework\TestCase;
 
-use \nkm\RedsysVirtualPos\Environment\IntegrationEnvironment;
-use \nkm\RedsysVirtualPos\Environment\EnvironmentException;
+use \Bahiazul\RedsysVirtualPos\Environment\IntegrationEnvironment;
+use \Bahiazul\RedsysVirtualPos\Environment\EnvironmentException;
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Environment\IntegrationEnvironment
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Environment\IntegrationEnvironment
  */
 class IntegrationEnvironmentTest extends TestCase
 {

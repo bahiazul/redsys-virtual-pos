@@ -1,6 +1,6 @@
 <?php
 
-namespace nkm\RedsysVirtualPos\Validation;
+namespace Bahiazul\RedsysVirtualPos\Validation;
 
 class ValidatorException extends \Exception
 {

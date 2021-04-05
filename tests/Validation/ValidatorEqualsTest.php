@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorEqualsTest extends TestCase
 {
@@ -17,7 +17,7 @@ class ValidatorEqualsTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::equals
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::equals
      * @dataProvider equalInputProvider
      */
     public function testEquals($inputs, $expected)

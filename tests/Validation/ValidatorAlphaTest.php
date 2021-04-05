@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorAlphaTest extends TestCase
 {
@@ -17,7 +17,7 @@ class ValidatorAlphaTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::alpha
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::alpha
      * @dataProvider alphaInputProvider
      */
     public function testAlpha($inputs, $expected)

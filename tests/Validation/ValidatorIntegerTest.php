@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorIntegerTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ValidatorIntegerTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::integer
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::integer
      * @dataProvider integerInputProvider
      */
     public function testInteger($inputs, $expected)

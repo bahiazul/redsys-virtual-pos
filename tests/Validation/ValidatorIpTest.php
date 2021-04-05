@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorIPTest extends TestCase
 {
@@ -18,7 +18,7 @@ class ValidatorIPTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::ip
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::ip
      * @dataProvider ipInputProvider
      */
     public function testIp($inputs, $expected)

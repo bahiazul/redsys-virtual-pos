@@ -11,5 +11,5 @@ $credentials['merchantCode'] = '999008881';
 $credentials['terminal']     = '871';
 
 // The Environment object holds connection details
-$env = new nkm\RedsysVirtualPos\Environment\DevelopmentEnvironment();
+$env = new Bahiazul\RedsysVirtualPos\Environment\DevelopmentEnvironment();
 $env->setSecret($credentials['secret']);

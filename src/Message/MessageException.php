@@ -1,6 +1,6 @@
 <?php
 
-namespace nkm\RedsysVirtualPos\Message;
+namespace Bahiazul\RedsysVirtualPos\Message;
 
 class MessageException extends \Exception
 {

@@ -1,5 +1,5 @@
 {
-    "name": "nkm/redsys-virtual-pos",
+    "name": "bahiazul/redsys-virtual-pos",
     "type": "library",
     "description": "Redsys Virtual POS is an unofficial standalone PHP library to handle payments through the spanish payment service Redsys.",
     "keywords": [
@@ -46,12 +46,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "nkm\\RedsysVirtualPos\\": "src/"
+            "Bahiazul\\RedsysVirtualPos\\": "src/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.4.x-dev"
+            "dev-master": "0.5.x-dev"
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorFloatTest extends TestCase
 {
@@ -47,7 +47,7 @@ class ValidatorFloatTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::float
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::float
      * @dataProvider floatInputProvider
      */
     public function testFloat($inputs, $expected)

@@ -1,7 +1,7 @@
 <?php
 
 use \PHPUnit\Framework\TestCase;
-use \nkm\RedsysVirtualPos\Validation\Validator;
+use \Bahiazul\RedsysVirtualPos\Validation\Validator;
 
 class ValidatorUrlTest extends TestCase
 {
@@ -21,7 +21,7 @@ class ValidatorUrlTest extends TestCase
     }
 
     /**
-     * @covers \nkm\RedsysVirtualPos\Validation\Validator::url
+     * @covers \Bahiazul\RedsysVirtualPos\Validation\Validator::url
      * @dataProvider urlInputProvider
      */
     public function testUrl($inputs, $expected)

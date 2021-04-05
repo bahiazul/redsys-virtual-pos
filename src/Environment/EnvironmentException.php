@@ -1,6 +1,6 @@
 <?php
 
-namespace nkm\RedsysVirtualPos\Environment;
+namespace Bahiazul\RedsysVirtualPos\Environment;
 
 class EnvironmentException extends \Exception
 {

@@ -3,11 +3,11 @@
 use \PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \nkm\RedsysVirtualPos\Util\Helper
+ * @coversDefaultClass \Bahiazul\RedsysVirtualPos\Util\Helper
  */
 class HelperTest extends TestCase
 {
-    private $className = \nkm\RedsysVirtualPos\Util\Helper::class;
+    private $className = \Bahiazul\RedsysVirtualPos\Util\Helper::class;
     private $key = 'lo4lcsVm14uTTpVyer5Y8rjg';
 
     public function base64url_encodeProvider()
